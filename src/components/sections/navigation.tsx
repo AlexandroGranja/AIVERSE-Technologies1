@@ -1,0 +1,115 @@
+import React, { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Menu, X, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
+import aiverseLogo from "@/assets/aiverse-logo.png";
+
+const Navigation: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navItems = [
+    { label: "Início", href: "#inicio" },
+    { label: "Serviços", href: "#servicos" },
+    { label: "Portfolio", href: "#portfolio" },
+    { label: "Contato", href: "#contato" }
+  ];
+
+  return (
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      isScrolled 
+        ? "bg-background/80 backdrop-blur-md border-b border-border/50" 
+        : "bg-transparent"
+    )}>
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <img 
+              src={aiverseLogo} 
+              alt="AIVERSE Technologies" 
+              className="h-8 w-auto"
+            />
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            {navItems.map((item, index) => (
+              <a
+                key={index}
+                href={item.href}
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-300"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+
+          {/* CTA Button */}
+          <div className="hidden md:block">
+            <Button 
+              variant="neural" 
+              size="sm"
+              className="shadow-[var(--shadow-neural)] hover:shadow-[var(--shadow-glow)]"
+            >
+              <Sparkles className="w-4 h-4 mr-2" />
+              Orçamento Grátis
+            </Button>
+          </div>
+
+          {/* Mobile menu button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
+          </Button>
+        </div>
+
+        {/* Mobile menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-md">
+            <div className="px-4 py-6 space-y-4">
+              {navItems.map((item, index) => (
+                <a
+                  key={index}
+                  href={item.href}
+                  className="block text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              ))}
+              <Button 
+                variant="neural" 
+                size="sm" 
+                className="w-full mt-4"
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                Orçamento Grátis
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+export { Navigation };
