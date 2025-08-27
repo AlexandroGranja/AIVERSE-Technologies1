@@ -24,7 +24,7 @@ Antes de começar, certifique-se de ter instalado em sua máquina:
 
 ```bash
 # Se você tem o Git instalado
-git clone <URL_DO_REPOSITORIO>
+git clone <[URL_DO_REPOSITORIO](https://github.com/AlexandroGranja/AIVERSE-Technologies1)>
 
 # Ou baixe o arquivo ZIP e extraia
 ```
