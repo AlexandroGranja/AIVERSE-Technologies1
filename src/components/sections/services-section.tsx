@@ -186,7 +186,7 @@ export const ServicesSection: React.FC = () => {
                 className="border-primary/50 text-primary hover:bg-primary/10"
               >
                 <Code className="mr-2 w-5 h-5" />
-                Ver Portfolio
+                Ver Feedbacks
               </Button>
             </div>
           </div>

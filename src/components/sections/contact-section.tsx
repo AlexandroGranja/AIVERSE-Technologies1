@@ -74,7 +74,7 @@ export const ContactSection: React.FC = () => {
     {
       icon: MessageCircle,
       title: "WhatsApp",
-      content: "(11) 99999-9999",
+      content: "(21) 969585179",
       description: "Atendimento imediato"
     },
     {
@@ -86,8 +86,8 @@ export const ContactSection: React.FC = () => {
     {
       icon: MapPin,
       title: "Localização",
-      content: "São Paulo, SP",
-      description: "Atendimento remoto e presencial"
+      content: "Rio De Janeiro, RJ",
+      description: "Atendimento remoto (Brasil) e presencial (RJ)"
     }
   ];
 
@@ -164,7 +164,7 @@ export const ContactSection: React.FC = () => {
                       <Input
                         id="phone"
                         type="tel"
-                        placeholder="(11) 99999-9999"
+                        placeholder="(21) 96958-5179"
                         value={formData.phone}
                         onChange={(e) => handleInputChange("phone", e.target.value)}
                         className="bg-background/50"

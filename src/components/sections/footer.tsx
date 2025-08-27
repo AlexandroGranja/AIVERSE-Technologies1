@@ -38,7 +38,8 @@ export const Footer: React.FC = () => {
   const socialLinks = [
     { icon: Github, href: "#", label: "GitHub" },
     { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: MessageCircle, href: "#", label: "WhatsApp" }
+    { icon: MessageCircle, href: "https://wa.me/5521969585179?text=Olá,%20vim%20pelo%20site!", label: "WhatsApp" },
+    { icon: Mail, href: "mailto:alex.granjaaa@hotmail.com", label: "Email" }
   ];
 
   return (
@@ -73,15 +74,15 @@ export const Footer: React.FC = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-sm">
                 <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">contato@aiverse.tech</span>
+                <span className="text-muted-foreground">alex.granjaaa@hotmail.com</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">(11) 99999-9999</span>
+                <span className="text-muted-foreground">(21) 96958-5179</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">São Paulo, SP</span>
+                <span className="text-muted-foreground">Rio de Janeiro, RJ</span>
               </div>
             </div>
           </div>
@@ -133,8 +134,11 @@ export const Footer: React.FC = () => {
                   variant="neural" 
                   size="sm" 
                   className="w-full"
+                  asChild
                 >
-                  Falar com Especialista
+                  <a href="https://wa.me/5521969585179?text=Olá,%20tenho%20interesse%20nos%20seus%20serviços!">
+                    Falar com Especialista
+                  </a>
                 </Button>
               </div>
             </Card>
@@ -146,11 +150,10 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Copyright */}
             <div className="text-sm text-muted-foreground text-center md:text-left">
-              <p className="flex items-center gap-1">
-                © {currentYear} AIVERSE Technologies. Feito com 
-                <Heart className="w-4 h-4 text-red-500 fill-current" />
-                no Brasil.
+              <p className="text-center text-xs text-gray-400 tracking-wide">
+                © {currentYear} AIVERSE Technologies — Desenvolvido por Alexandro Granja e Igor Amorim.
               </p>
+
             </div>
 
             {/* Social links */}
@@ -168,7 +171,7 @@ export const Footer: React.FC = () => {
                     )}
                     asChild
                   >
-                    <a href={social.href} aria-label={social.label}>
+                    <a href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer">
                       <Icon className="w-4 h-4" />
                     </a>
                   </Button>
