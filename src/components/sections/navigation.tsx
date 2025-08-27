@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Sparkles, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import aiverseLogo from "@/assets/aiverse-logo.png";
 
@@ -33,26 +33,29 @@ const Navigation: React.FC = () => {
     )}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <img 
-              src={aiverseLogo} 
-              alt="AIVERSE Technologies" 
-              className="h-8 w-auto"
-            />
-          </div>
+          {/* Logo e Menu Desktop */}
+          <div className="flex items-center gap-8">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <img 
+                src={aiverseLogo} 
+                alt="AIVERSE Technologies" 
+                className="h-8 w-auto"
+              />
+            </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-300"
-              >
-                {item.label}
-              </a>
-            ))}
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              {navItems.map((item, index) => (
+                <a
+                  key={index}
+                  href={item.href}
+                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-300"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* CTA Button */}
