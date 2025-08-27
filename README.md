@@ -1,73 +1,148 @@
-# Welcome to your Lovable project
+# AIVERSE Technologies - Landing Page
 
-## Project info
+Uma landing page profissional e moderna para captura de leads, desenvolvida com React, TypeScript e Tailwind CSS.
 
-**URL**: https://lovable.dev/projects/f6850430-c843-4a90-a57f-863b4a4c859f
+## 🚀 Tecnologias Utilizadas
 
-## How can I edit this code?
+- **React 18** - Biblioteca para criação de interfaces
+- **TypeScript** - Tipagem estática para JavaScript
+- **Tailwind CSS** - Framework CSS utilitário
+- **Vite** - Bundler e servidor de desenvolvimento
+- **Shadcn/ui** - Componentes de interface modernos
+- **Lucide React** - Ícones vetoriais
 
-There are several ways of editing your application.
+## 📋 Pré-requisitos
 
-**Use Lovable**
+Antes de começar, certifique-se de ter instalado em sua máquina:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f6850430-c843-4a90-a57f-863b4a4c859f) and start prompting.
+- **Node.js** (versão 18 ou superior) - [Download aqui](https://nodejs.org/)
+- **npm** ou **yarn** (gerenciador de pacotes)
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🔧 Instalação e Execução
 
-**Use your preferred IDE**
+### 1. Clone ou baixe o projeto
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+```bash
+# Se você tem o Git instalado
+git clone <URL_DO_REPOSITORIO>
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+# Ou baixe o arquivo ZIP e extraia
 ```
 
-**Edit a file directly in GitHub**
+### 2. Navegue até a pasta do projeto
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+cd aiverse-landing-page
+```
 
-**Use GitHub Codespaces**
+### 3. Instale as dependências
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+# Usando npm
+npm install
 
-## What technologies are used for this project?
+# Ou usando yarn
+yarn install
+```
 
-This project is built with:
+### 4. Execute o projeto
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```bash
+# Usando npm
+npm run dev
 
-## How can I deploy this project?
+# Ou usando yarn
+yarn dev
+```
 
-Simply open [Lovable](https://lovable.dev/projects/f6850430-c843-4a90-a57f-863b4a4c859f) and click on Share -> Publish.
+### 5. Acesse no navegador
 
-## Can I connect a custom domain to my Lovable project?
+Abra seu navegador e acesse: `http://localhost:8080`
 
-Yes, you can!
+O projeto será executado em modo de desenvolvimento com hot-reload ativado.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📁 Estrutura do Projeto
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+```
+src/
+├── assets/              # Imagens e recursos estáticos
+├── components/
+│   ├── ui/             # Componentes base (botões, cards, etc.)
+│   └── sections/       # Seções da página (hero, serviços, etc.)
+├── pages/              # Páginas da aplicação
+├── hooks/              # Hooks customizados
+├── lib/                # Utilitários e configurações
+└── index.css           # Estilos globais e design system
+```
+
+## 🎨 Design System
+
+O projeto utiliza um design system personalizado baseado em:
+
+- **Cores principais**: Neural Blue e Cyan
+- **Tema**: Escuro com efeitos de brilho e gradientes
+- **Componentes**: Shadcn/ui customizados
+- **Animações**: Transições suaves e efeitos hover
+
+## ✨ Funcionalidades
+
+- **Navegação fixa** com efeito de scroll
+- **Hero Section** com call-to-action impactante
+- **Seção de Serviços** com cards interativos
+- **Formulário de contato** para captura de leads
+- **ChatBot interativo** para demonstração de IA
+- **Design responsivo** para todos os dispositivos
+- **SEO otimizado** para mecanismos de busca
+
+## 🛠️ Scripts Disponíveis
+
+```bash
+# Executa em modo de desenvolvimento
+npm run dev
+
+# Gera build de produção
+npm run build
+
+# Visualiza o build de produção
+npm run preview
+
+# Executa verificação de tipos
+npm run type-check
+
+# Executa linting do código
+npm run lint
+```
+
+## 📱 Responsividade
+
+A página é totalmente responsiva e otimizada para:
+
+- **Desktop** (1920px+)
+- **Laptop** (1024px+)
+- **Tablet** (768px+)
+- **Mobile** (320px+)
+
+## 🔍 SEO
+
+O projeto inclui:
+
+- Meta tags otimizadas
+- Open Graph para redes sociais
+- Estrutura semântica HTML5
+- Performance otimizada
+
+## 📞 Suporte
+
+Para dúvidas ou suporte, entre em contato:
+
+- **Email**: contato@aiverse.tech
+- **WhatsApp**: (11) 99999-9999
+- **Website**: https://aiverse.tech
+
+## 📄 Licença
+
+Este projeto é propriedade da AIVERSE Technologies.
+
+---
+
+**AIVERSE Technologies** - Transformando negócios com Inteligência Artificial
