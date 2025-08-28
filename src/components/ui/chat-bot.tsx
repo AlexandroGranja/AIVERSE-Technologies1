@@ -16,16 +16,21 @@ interface ChatBotProps {
   className?: string;
 }
 
-const predefinedResponses = {
-  "ola": "Olá! Seja bem-vindo à AIVERSE Technologies! 👋 Como posso ajudá-lo hoje?",
-  "hello": "Hello! Welcome to AIVERSE Technologies! 👋 How can I help you today?",
-  "servicos": "Nossos principais serviços incluem:\n• Criação de páginas web completas\n• Agentes de atendimento com IA\n• Automações de processos\n• Páginas de cardápio online\n\nGostaria de saber mais sobre algum serviço específico?",
-  "precos": "Nossos preços são personalizados de acordo com suas necessidades. Vamos agendar uma consulta gratuita para discutir seu projeto? 💰",
-  "contato": "Entre em contato conosco:\n📧 Email: contato@aiverse.tech\n📱 WhatsApp: (11) 99999-9999\n🕒 Horário: Segunda à Sexta, 9h às 18h",
-  "portfolio": "Temos diversos projetos em nosso portfólio! Incluindo:\n• E-commerces modernos\n• Sistemas de gestão\n• Chatbots inteligentes\n• Automações empresariais\n\nGostaria de ver exemplos específicos?",
-  "ia": "Sim! Somos especialistas em IA! Desenvolvemos:\n🤖 Chatbots inteligentes\n🎯 Automações personalizadas\n📊 Análise de dados\n🚀 Soluções completas com IA\n\nComo podemos revolucionar seu negócio?",
-  "default": "Obrigado pela sua mensagem! Nossa equipe está pronta para ajudar com soluções de IA e desenvolvimento web. Para um atendimento mais personalizado, que tal agendar uma conversa? 🚀"
-};
+const systemPrompt = `
+Você é o Assistente Virtual da AIVERSE Technologies, uma empresa especializada em desenvolvimento web, automações com n8n, cardápios online e chatbots com agentes de IA. Seu tom deve ser profissional, claro, amigável e conciso. Siga estas diretrizes:
+
+1. Responda às perguntas do usuário com base nos serviços da AIVERSE:
+   - Desenvolvimento web: Criação de sites institucionais, e-commerces e aplicações web modernas.
+   - Automações: Integrações e fluxos de trabalho personalizados usando n8n para otimizar processos empresariais.
+   - Cardápios online: Soluções interativas para restaurantes, com integração de pagamentos e atualizações em tempo real.
+   - Chatbots e agentes de IA: Soluções personalizadas para atendimento ao cliente, suporte e automações inteligentes.
+2. Se a pergunta for sobre preços, explique que os valores são personalizados e sugira uma consulta gratuita via WhatsApp (21) 96958-5179.
+3. Se a pergunta for sobre contato, forneça: Email (contato@aiverse.tech), WhatsApp/Telefone (21) 96958-5179) e horário de atendimento (Segunda a Sexta, 9h às 18h).
+4. Se a pergunta for sobre portfólio, mencione exemplos como e-commerces, sistemas de automação, cardápios online e chatbots, e ofereça enviar detalhes por e-mail ou WhatsApp.
+5. Para qualquer pergunta que você não entenda ou que esteja fora do escopo, responda: "Desculpe, não entendi completamente sua pergunta. Para mais informações, entre em contato pelo WhatsApp/Telefone: (21) 96958-5179. Nossa equipe está pronta para ajudar!"
+6. Sempre finalize com uma pergunta para engajar o usuário, como: "Como posso ajudá-lo mais?" ou "Gostaria de mais detalhes sobre algum serviço?"
+7. Use português brasileiro e evite jargões técnicos, a menos que o usuário demonstre conhecimento técnico.
+`;
 
 export const ChatBot: React.FC<ChatBotProps> = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,10 +38,10 @@ export const ChatBot: React.FC<ChatBotProps> = ({ className }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Olá! Sou o assistente virtual da AIVERSE Technologies. Como posso ajudá-lo hoje? 🤖",
+      text: "Olá! Sou o assistente virtual da AIVERSE Technologies. Estamos aqui para ajudar com desenvolvimento web, automações, cardápios online e chatbots usando n8n e agentes de IA. Como posso auxiliá-lo hoje?",
       isBot: true,
-      timestamp: new Date()
-    }
+      timestamp: new Date(),
+    },
   ]);
   const [inputValue, setInputValue] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -49,40 +54,66 @@ export const ChatBot: React.FC<ChatBotProps> = ({ className }) => {
     scrollToBottom();
   }, [messages]);
 
-  const getResponse = (message: string): string => {
-    const lowerMessage = message.toLowerCase();
-    
-    for (const [key, response] of Object.entries(predefinedResponses)) {
-      if (key !== "default" && lowerMessage.includes(key)) {
-        return response;
+  const callGrokAPI = async (userMessage: string): Promise<string> => {
+    try {
+      console.log("Enviando mensagem para a API da Groq:", userMessage);
+      const proxyUrl = "https://cors-anywhere.herokuapp.com/"; // Proxy CORS temporário para teste
+      const apiUrl = "https://api.groq.com/openai/v1/chat/completions";
+      const response = await fetch(proxyUrl + apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer gsk_x8fxk7eDxLYuJQEvIZOOWGdyb3FYjoBA3PXjWvxZEnOn2PSeB9",
+        },
+        body: JSON.stringify({
+          model: "mixtral-8x7b-32768", // Ajuste o modelo conforme a documentação
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userMessage },
+          ],
+          max_tokens: 200,
+          temperature: 0.7,
+        }),
+      });
+
+      console.log("Status da resposta:", response.status);
+      const responseText = await response.clone().text();
+      console.log("Resposta bruta da API:", responseText);
+      const data = await response.json();
+      console.log("Dados processados da API:", data);
+
+      if (data.choices && data.choices[0]?.message?.content) {
+        return data.choices[0].message.content;
       }
+      throw new Error("Resposta inválida da API ou sem conteúdo nas choices: " + JSON.stringify(data));
+    } catch (error) {
+      console.error("Erro ao chamar a API da Groq:", error);
+      return "Desculpe, não entendi completamente sua pergunta. Para mais informações, entre em contato pelo WhatsApp/Telefone: (21) 96958-5179. Nossa equipe está pronta para ajudar!";
     }
-    
-    return predefinedResponses.default;
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       text: inputValue,
       isBot: false,
-      timestamp: new Date()
+      timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
 
-    // Simulate bot response delay
-    setTimeout(() => {
+    setTimeout(async () => {
+      const botResponseText = await callGrokAPI(inputValue);
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: getResponse(inputValue),
+        text: botResponseText,
         isBot: true,
-        timestamp: new Date()
+        timestamp: new Date(),
       };
-      setMessages(prev => [...prev, botResponse]);
+      setMessages((prev) => [...prev, botResponse]);
     }, 1000);
   };
 
@@ -110,18 +141,20 @@ export const ChatBot: React.FC<ChatBotProps> = ({ className }) => {
   }
 
   return (
-    <Card className={cn(
-      "fixed bottom-6 right-6 w-80 h-96 z-50 flex flex-col",
-      "bg-card/95 backdrop-blur-sm border-primary/20",
-      "shadow-[var(--shadow-card)] transition-all duration-300",
-      isMinimized && "h-14",
-      className
-    )}>
+    <Card
+      className={cn(
+        "fixed bottom-6 right-6 w-80 h-96 z-50 flex flex-col",
+        "bg-card/95 backdrop-blur-sm border-primary/20",
+        "shadow-[var(--shadow-card)] transition-all duration-300",
+        isMinimized && "h-14",
+        className
+      )}
+    >
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border/50">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-          <span className="font-semibold text-sm">AIVERSE Assistant</span>
+          <span className="font-semibold text-sm">Assistente AIVERSE</span>
         </div>
         <div className="flex gap-1">
           <Button
@@ -150,10 +183,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ className }) => {
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={cn(
-                  "flex",
-                  message.isBot ? "justify-start" : "justify-end"
-                )}
+                className={cn("flex", message.isBot ? "justify-start" : "justify-end")}
               >
                 <div
                   className={cn(
@@ -163,7 +193,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ className }) => {
                       : "bg-primary text-primary-foreground"
                   )}
                 >
-                  {message.text.split('\n').map((line, index) => (
+                  {message.text.split("\n").map((line, index) => (
                     <div key={index}>{line}</div>
                   ))}
                 </div>
