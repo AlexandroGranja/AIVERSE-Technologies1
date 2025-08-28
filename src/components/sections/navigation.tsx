@@ -24,6 +24,12 @@ const Navigation: React.FC = () => {
     { label: "Contato", href: "#contato" }
   ];
 
+  const handleWhatsappClick = () => {
+    const whatsappNumber = "5521969585179";
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de solicitar um orçamento.`;
+    window.open(whatsappUrl, "_blank");
+  };
+
   return (
     <nav className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
@@ -33,17 +39,17 @@ const Navigation: React.FC = () => {
     )}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo e Menu Desktop */}
-          <div className="flex items-center gap-8">
-            {/* Logo */}
-            <div className="flex items-center gap-3">
-              <img 
-                src={aiverseLogo} 
-                alt="AIVERSE Technologies" 
-                className="h-8 w-auto"
-              />
-            </div>
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <img 
+              src={aiverseLogo} 
+              alt="AIVERSE Technologies" 
+              className="h-8 w-auto"
+            />
+          </div>
 
+          {/* Menus e Botões alinhados à direita */}
+          <div className="flex items-center gap-8"> {/* <-- Novo container para agrupar menu e botão */}
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               {navItems.map((item, index) => (
@@ -56,18 +62,19 @@ const Navigation: React.FC = () => {
                 </a>
               ))}
             </div>
-          </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button 
-              variant="neural" 
-              size="sm"
-              className="shadow-[var(--shadow-neural)] hover:shadow-[var(--shadow-glow)]"
-            >
-              <Sparkles className="w-4 h-4 mr-2" />
-              Orçamento Grátis
-            </Button>
+            {/* CTA Button */}
+            <div className="hidden md:block">
+              <Button 
+                variant="neural" 
+                size="sm"
+                className="shadow-[var(--shadow-neural)] hover:shadow-[var(--shadow-glow)]"
+                onClick={handleWhatsappClick}
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                Orçamento Grátis
+              </Button>
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -103,6 +110,7 @@ const Navigation: React.FC = () => {
                 variant="neural" 
                 size="sm" 
                 className="w-full mt-4"
+                onClick={handleWhatsappClick}
               >
                 <Sparkles className="w-4 h-4 mr-2" />
                 Orçamento Grátis
