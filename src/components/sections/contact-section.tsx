@@ -42,27 +42,36 @@ export const ContactSection: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    toast({
-      title: "Mensagem enviada com sucesso!",
-      description: "Nossa equipe entrará em contato em breve.",
-    });
-    
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      message: ""
-    });
-    
-    setIsSubmitting(false);
-  };
+  e.preventDefault();
+  setIsSubmitting(true);
+
+  const message = `Olá! Gostaria de solicitar um orçamento.%0A
+- Nome: ${formData.name}%0A
+- Email: ${formData.email}%0A
+- Telefone: ${formData.phone}%0A
+- Serviço: ${formData.service}%0A
+- Mensagem: ${formData.message}`;
+
+  const whatsappNumber = "5521969585179";
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+  window.open(whatsappUrl, "_blank");
+
+  toast({
+    title: "Redirecionando para o WhatsApp...",
+    description: "Você será atendido em instantes 🚀",
+  });
+
+  setFormData({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: ""
+  });
+
+  setIsSubmitting(false);
+};
 
   const contactInfo = [
     {

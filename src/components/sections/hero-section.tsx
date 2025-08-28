@@ -108,9 +108,14 @@ export const HeroSection: React.FC = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group shadow-[var(--shadow-neural)] hover:shadow-[var(--shadow-glow)] transition-all duration-300"
+            onClick={() => {
+              const whatsappNumber = "5521969585179";
+              const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de solicitar um orçamento.`;
+              window.open(whatsappUrl, "_blank");
+            }}
           >
             Solicitar Orçamento
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
