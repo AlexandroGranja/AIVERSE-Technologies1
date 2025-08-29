@@ -135,9 +135,9 @@ O projeto inclui:
 
 Para dúvidas ou suporte, entre em contato:
 
-- **Email**: contato@aiverse.tech
-- **WhatsApp**: (11) 99999-9999
-- **Website**: https://aiverse.tech
+- **Email**: alex.granjaaa@hotmail.com
+- **WhatsApp**: (21) 969585179
+- **Website**: https://alexandrogranja.github.io/Portfolio/
 
 ## 📄 Licença
 
