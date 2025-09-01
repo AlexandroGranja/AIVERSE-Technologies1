@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { 
-  Globe, 
-  Bot, 
-  Cog, 
-  Smartphone, 
-  ArrowRight, 
+import {
+  Globe,
+  Bot,
+  Cog,
+  Smartphone,
+  ArrowRight,
   Sparkles,
   Code,
   Zap,
@@ -22,9 +22,51 @@ import {
   MessageSquare,
   Calendar,
   TrendingUp,
-  Target
+  Target,
+  Github,
+  ExternalLink,
+  Search,
+  Eye
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// Imagem do projeto Morais Adesivos
+const moraisAdesivosImage = "/Moraes.png";
+
+// Array de projetos
+const projects = [
+  {
+    id: "morais-adesivos",
+    title: "Morais Adesivos",
+    category: "E-commerce & Catálogo Digital",
+    description: "Site completo para empresa de adesivos personalizados com catálogo digital, galeria de produtos e sistema de orçamentos online.",
+    shortDescription: "Plataforma digital para adesivos personalizados",
+    image: moraisAdesivosImage,
+    liveUrl: "https://www.moraesadesivos.com.br",
+    githubUrl: "https://github.com/AlexandroGranja/MoraisAdesivos",
+    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    features: [
+      "Catálogo digital interativo",
+      "Sistema de orçamentos online",
+      "Galeria de produtos personalizados",
+      "Design responsivo e moderno",
+      "SEO otimizado",
+      "Integração com WhatsApp"
+    ],
+    projectDetails: {
+      challenge: "Criar uma presença digital moderna para empresa de adesivos, permitindo que clientes visualizem produtos e solicitem orçamentos de forma prática.",
+      solution: "Desenvolvimento de site responsivo com catálogo digital, galeria de produtos e sistema de orçamentos integrado ao WhatsApp.",
+      results: [
+        "Aumento de 200% nas consultas online",
+        "Interface moderna e profissional",
+        "Tempo de carregamento otimizado",
+        "Experiência móvel aprimorada"
+      ]
+    },
+    gradient: "linear-gradient(135deg, #3b82f6, #9333ea)",
+    status: "live"
+  }
+];
 
 const services = [
   {
@@ -229,14 +271,136 @@ const services = [
   }
 ];
 
-const ServiceModal: React.FC<{ service: any }> = ({ service }) => {
-  const Icon = service.icon;
-  
+// Modal para projetos
+const ProjectModal: React.FC<{ project: any }> = ({ project }) => {
   return (
     <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto">
       <DialogHeader className="pb-6">
         <div className="flex items-center gap-4 mb-4">
-          <div 
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-16 h-16 rounded-xl object-contain bg-gray-900 p-1" // Adicionado object-contain, bg-gray-900 e p-1
+          />
+          <div>
+            <DialogTitle className="text-2xl font-bold">{project.title}</DialogTitle>
+            <DialogDescription className="text-base mt-2">
+              {project.description}
+            </DialogDescription>
+          </div>
+        </div>
+      </DialogHeader>
+
+      <div className="space-y-8">
+        {/* Imagem principal */}
+        <div className="flex justify-center overflow-hidden rounded-xl">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="max-h-[500px] w-auto rounded-xl object-contain"
+          />
+        </div>
+        {/* Desafio e Solução */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <Target className="w-5 h-5 text-primary" />
+              Desafio
+            </h3>
+            <p className="text-sm text-muted-foreground">{project.projectDetails.challenge}</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-primary" />
+              Solução
+            </h3>
+            <p className="text-sm text-muted-foreground">{project.projectDetails.solution}</p>
+          </div>
+        </div>
+
+        <Separator />
+
+        {/* Funcionalidades Principais */}
+        <div>
+          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+            <Code className="w-5 h-5 text-primary" />
+            Funcionalidades Principais
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {project.features.map((feature: string, index: number) => (
+              <div key={index} className="flex items-center gap-3">
+                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                <span className="text-sm">{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Separator />
+
+        {/* Tecnologias */}
+        <div>
+          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+            <Code className="w-5 h-5 text-primary" />
+            Tecnologias Utilizadas
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {project.technologies.map((tech: string, index: number) => (
+              <Badge key={index} variant="secondary" className="px-3 py-1">
+                {tech}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <Separator />
+
+        {/* Resultados */}
+        <div>
+          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-primary" />
+            Resultados Alcançados
+          </h3>
+          <div className="space-y-3">
+            {project.projectDetails.results.map((result: string, index: number) => (
+              <div key={index} className="flex items-center gap-3 p-3 bg-primary/5 rounded-lg">
+                <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
+                <span className="text-sm font-medium">{result}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Links */}
+        <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 rounded-xl border border-primary/20">
+          <div className="text-center space-y-4">
+            <h4 className="text-lg font-semibold">Ver Projeto</h4>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button onClick={() => window.open(project.liveUrl, "_blank")}>
+                <ExternalLink className="mr-2 w-4 h-4" />
+                Site ao Vivo
+              </Button>
+              <Button variant="outline" onClick={() => window.open(project.githubUrl, "_blank")}>
+                <Github className="mr-2 w-4 h-4" />
+                Código no GitHub
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </DialogContent>
+  );
+};
+
+// Modal para serviços
+const ServiceModal: React.FC<{ service: any }> = ({ service }) => {
+  const Icon = service.icon;
+
+  return (
+    <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto">
+      <DialogHeader className="pb-6">
+        <div className="flex items-center gap-4 mb-4">
+          <div
             className="p-4 rounded-xl shadow-lg"
             style={{ background: service.gradient }}
           >
@@ -374,13 +538,13 @@ export const ServicesSection: React.FC = () => {
             <Sparkles className="w-4 h-4" />
             Nossos Serviços
           </div>
-          
+
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Soluções que <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">transformam</span> negócios
           </h2>
-          
+
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Oferecemos tecnologias avançadas de IA e desenvolvimento web para automatizar, 
+            Oferecemos tecnologias avançadas de IA e desenvolvimento web para automatizar,
             otimizar e revolucionar a forma como sua empresa opera.
           </p>
         </div>
@@ -389,9 +553,9 @@ export const ServicesSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {services.map((service, index) => {
             const Icon = service.icon;
-            
+
             return (
-              <Card 
+              <Card
                 key={index}
                 className={cn(
                   "group relative overflow-hidden bg-card/50 backdrop-blur-sm",
@@ -405,10 +569,10 @@ export const ServicesSection: React.FC = () => {
                   "absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500",
                   `bg-gradient-to-br ${service.color}`
                 )} />
-                
+
                 <CardHeader className="relative z-10">
                   <div className="flex items-center gap-4 mb-4">
-                    <div 
+                    <div
                       className="p-3 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300"
                       style={{ background: service.gradient }}
                     >
@@ -420,7 +584,7 @@ export const ServicesSection: React.FC = () => {
                       </CardTitle>
                     </div>
                   </div>
-                  
+
                   <CardDescription className="text-base leading-relaxed">
                     {service.description}
                   </CardDescription>
@@ -438,8 +602,8 @@ export const ServicesSection: React.FC = () => {
 
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         className="w-full group/btn border-primary/30 hover:bg-primary/10 hover:border-primary/50"
                       >
                         <span className="flex items-center">
@@ -456,18 +620,123 @@ export const ServicesSection: React.FC = () => {
           })}
         </div>
 
+        {/* Seção de Projetos */}
+        <div className="py-20">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <Sparkles className="w-4 h-4" />
+              Meus Projetos
+            </div>
+
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Projetos que <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">transformam</span> ideias em realidade
+            </h2>
+
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Confira alguns dos projetos que desenvolvi, desde sites corporativos até
+              plataformas e-commerce completas.
+            </p>
+          </div>
+
+          {/* Grid de Projetos */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <Card
+                key={index}
+                className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]"
+              >
+                {/* Project Image */}
+                <div className="relative overflow-hidden flex justify-center items-center h-[200px] sm:h-[250px] bg-gray-900 rounded-t-lg">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="h-full w-auto object-contain rounded-t-lg"
+                  />
+
+                  <div className="absolute top-4 left-4">
+                    <Badge variant="secondary" className="bg-green-500/10 text-green-600 border-green-500/20">
+                      <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
+                      Live
+                    </Badge>
+                  </div>
+
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex gap-2">
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        className="h-8 w-8 p-0"
+                        onClick={() => window.open(project.liveUrl, "_blank")}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        className="h-8 w-8 p-0"
+                        onClick={() => window.open(project.githubUrl, "_blank")}
+                      >
+                        <Github className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                <CardHeader>
+                  <Badge variant="outline" className="text-xs w-fit mb-2">
+                    {project.category}
+                  </Badge>
+
+                  <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
+                    {project.title}
+                  </CardTitle>
+
+                  <CardDescription className="text-sm">
+                    {project.shortDescription}
+                  </CardDescription>
+                </CardHeader>
+
+                <CardContent>
+                  <div className="flex flex-wrap gap-1 mb-4">
+                    {project.technologies.slice(0, 3).map((tech, techIndex) => (
+                      <Badge key={techIndex} variant="secondary" className="text-xs">
+                        {tech}
+                      </Badge>
+                    ))}
+                    {project.technologies.length > 3 && (
+                      <Badge variant="secondary" className="text-xs">
+                        +{project.technologies.length - 3}
+                      </Badge>
+                    )}
+                  </div>
+
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="w-full">
+                        Ver Detalhes
+                        <Eye className="ml-2 w-4 h-4" />
+                      </Button>
+                    </DialogTrigger>
+                    <ProjectModal project={project} />
+                  </Dialog>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
         {/* CTA Section */}
         <div className="text-center bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-8 border border-primary/20">
           <div className="max-w-3xl mx-auto">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">
               Pronto para revolucionar seu negócio?
             </h3>
-            
+
             <p className="text-muted-foreground mb-6">
-              Nossa equipe está pronta para criar soluções personalizadas que atendam 
+              Nossa equipe está pronta para criar soluções personalizadas que atendam
               exatamente às necessidades do seu negócio. Vamos conversar!
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
@@ -477,7 +746,6 @@ export const ServicesSection: React.FC = () => {
                 <Zap className="mr-2 w-5 h-5" />
                 Solicitar Proposta
               </Button>
-            
             </div>
           </div>
         </div>

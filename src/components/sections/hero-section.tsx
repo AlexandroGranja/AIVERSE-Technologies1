@@ -71,7 +71,7 @@ export const HeroSection: React.FC = () => {
           <img 
             src={aiverseLogo} 
             alt="AIVERSE Technologies" 
-            className="h-24 mx-auto mb-6 animate-float"
+            className="h-0 w-auto mx-auto mb-6 animate-float"
           />
         </div>
 
