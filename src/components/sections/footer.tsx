@@ -4,9 +4,8 @@ import { Button } from "@/components/ui/button";
 import {
   Mail,
   Phone,
+  Instagram,
   MapPin,
-  Github,
-  Linkedin,
   MessageCircle,
   Sparkles,
   Globe,
@@ -37,10 +36,9 @@ export const Footer: React.FC = () => {
   ];
 
   const socialLinks = [
-    { icon: Github, href: "#", label: "GitHub" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
+    { icon: Instagram, href: "https://www.instagram.com/aiversetech_oficial/", label: "Instagram" },
     { icon: MessageCircle, href: "https://wa.me/5521969585179?text=Olá,%20vim%20pelo%20site!", label: "WhatsApp" },
-    { icon: Mail, href: "mailto:alex.granjaaa@hotmail.com", label: "Email" }
+    { icon: Mail, href: "mailto:technologiesaiverse@gmail.com", label: "Email" }
   ];
 
   return (
@@ -75,7 +73,7 @@ export const Footer: React.FC = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-sm">
                 <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">alex.granjaaa@hotmail.com</span>
+                <span className="text-muted-foreground">technologiesaiverse@gmail.com</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="w-4 h-4 text-primary flex-shrink-0" />

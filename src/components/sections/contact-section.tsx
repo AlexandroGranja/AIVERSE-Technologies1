@@ -77,13 +77,13 @@ export const ContactSection: React.FC = () => {
     {
       icon: Mail,
       title: "Email",
-      content: "contato@aiverse.tech",
+      content: "technologiesaiverse@gmail.com",
       description: "Resposta em até 2 horas"
     },
     {
       icon: MessageCircle,
       title: "WhatsApp",
-      content: "(21) 969585179",
+      content: "(21) 96958-5179",
       description: "Atendimento imediato"
     },
     {
@@ -173,7 +173,7 @@ export const ContactSection: React.FC = () => {
                       <Input
                         id="phone"
                         type="tel"
-                        placeholder="(21) 96958-5179"
+                        placeholder="(55) 99999-9999"
                         value={formData.phone}
                         onChange={(e) => handleInputChange("phone", e.target.value)}
                         className="bg-background/50"
