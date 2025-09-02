@@ -1,10 +1,10 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
+import {
+  Mail,
+  Phone,
+  MapPin,
   Github,
   Linkedin,
   MessageCircle,
@@ -47,7 +47,7 @@ export const Footer: React.FC = () => {
     <footer className="relative bg-background border-t border-border/50">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/50" />
-      
+
       {/* Floating elements */}
       <div className="absolute inset-0 overflow-hidden opacity-20">
         <div className="absolute top-10 left-10 w-24 h-24 bg-primary/10 rounded-full blur-2xl animate-pulse" />
@@ -59,14 +59,14 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company info */}
           <div className="lg:col-span-1">
-            <div className="mb-6">
-              <img 
-                src={aiverseLogo} 
-                alt="AIVERSE Technologies" 
-                className="h-12 w-auto mb-4"
+            <div className="mb-6 flex flex-col items-start">
+              <img
+                src={aiverseLogo}
+                alt="AIVERSE Technologies"
+                className="h-13 w-auto mb-6 filter brightness-[4.4] contrast-[3.9] drop-shadow-[0_0_3px_rgba(255,255,255,0.23)]"
               />
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                Revolucionamos negócios com soluções avançadas de IA e desenvolvimento web. 
+              <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
+                Revolucionamos negócios com soluções avançadas de IA e desenvolvimento web.
                 Transformamos ideias em realidade digital.
               </p>
             </div>
@@ -94,8 +94,8 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2">
               {services.map((service, index) => (
                 <li key={index}>
-                  <a 
-                    href="#servicos" 
+                  <a
+                    href="#servicos"
                     className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
                   >
                     {service}
@@ -111,8 +111,8 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <a 
-                    href={link.href} 
+                  <a
+                    href={link.href}
                     className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
                   >
                     {link.label}
@@ -131,9 +131,9 @@ export const Footer: React.FC = () => {
                 <p className="text-sm text-muted-foreground mb-4">
                   Solicite um orçamento gratuito e transforme seu negócio
                 </p>
-                <Button 
-                  variant="neural" 
-                  size="sm" 
+                <Button
+                  variant="neural"
+                  size="sm"
                   className="w-full"
                   asChild
                 >
@@ -192,7 +192,7 @@ export const Footer: React.FC = () => {
               <div className="text-center md:text-right">
                 <p className="flex items-center gap-2 justify-center md:justify-end">
                   <Cpu className="w-4 h-4 text-primary" />
-                  Desenvolvido com as tecnologias mais avançadas • 
+                  Desenvolvido com as tecnologias mais avançadas •
                   <span className="text-primary"> React • TypeScript • IA</span>
                 </p>
               </div>

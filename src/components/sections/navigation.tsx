@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Sparkles, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
-import aiverseLogo from "@/assets/aiverse-logo.png";
+import aiverseLogo from "@/assets/Gemini_Generated_Image_5juymw5juymw5juy_pixian_ai.png";
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,7 +44,7 @@ const Navigation: React.FC = () => {
             <img 
               src={aiverseLogo} 
               alt="AIVERSE Technologies" 
-              className="h-8 w-auto"
+              className="h-12 w-auto filter brightness-[2.9] contrast-[2.9] drop-shadow-[0_0_20px_rgba(255,255,255,0.23)]"
             />
           </div>
 
