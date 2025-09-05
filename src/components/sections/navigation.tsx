@@ -20,7 +20,7 @@ const Navigation: React.FC = () => {
   const navItems = [
     { label: "Início", href: "#inicio" },
     { label: "Serviços", href: "#servicos" },
-    { label: "Feedbacks", href: "#Feedbacks" },
+    { label: "Feedbacks", href: "#feedbacks" },
     { label: "Contato", href: "#contato" }
   ];
 

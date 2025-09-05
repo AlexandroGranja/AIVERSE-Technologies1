@@ -33,8 +33,44 @@ import { cn } from "@/lib/utils";
 // Imagem do projeto Morais Adesivos
 const moraisAdesivosImage = "/Moraes.png";
 
+// Imagem do projeto Burger House
+const burgerHouseImage = "/projects/project-burger-house.png";
+
 // Array de projetos
 const projects = [
+
+  {
+    id: "burger-house",
+    title: "Burger House",
+    category: "Cardápio Online & Delivery",
+    description: "Landing page completa para hamburguerias com cardápio digital, sistema de pedidos, integração com WhatsApp/Telegram e design responsivo.",
+    shortDescription: "Cardápio digital interativo com pedidos online",
+    image: burgerHouseImage,
+    liveUrl: "https://seu-link-aqui.com", // coloque o link do site rodando
+    githubUrl: "https://github.com/AlexandroGranja/Projeto05-Burger-House",
+    technologies: ["React", "Flask", "JavaScript", "Tailwind CSS"],
+    features: [
+      "Cardápio digital interativo",
+      "Carrinho dinâmico de pedidos",
+      "Integração com WhatsApp e Telegram",
+      "Painel de administração de pedidos",
+      "Design responsivo para celular e desktop"
+    ],
+    projectDetails: {
+      challenge: "Criar uma solução digital moderna para hamburguerias, permitindo pedidos online de forma prática e intuitiva.",
+      solution: "Desenvolvimento de uma landing page responsiva com cardápio digital, carrinho de compras e integração com WhatsApp/Telegram para envio de pedidos.",
+      results: [
+        "Redução de 60% no tempo de atendimento",
+        "Aumento de 45% no ticket médio",
+        "Clientes fazendo pedidos direto do celular",
+        "Design otimizado para mobile first"
+      ]
+    },
+    gradient: "linear-gradient(135deg, #f97316, #ef4444)", // laranja e vermelho 🍔
+    status: "live"
+  },
+
+
   {
     id: "morais-adesivos",
     title: "Morais Adesivos",
@@ -67,6 +103,8 @@ const projects = [
     status: "live"
   }
 ];
+
+
 
 const services = [
   {
@@ -621,7 +659,7 @@ export const ServicesSection: React.FC = () => {
         </div>
 
         {/* Seção de Projetos */}
-        <div className="py-20">
+        <div id="projects" className="py-20">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
               <Sparkles className="w-4 h-4" />
@@ -725,30 +763,44 @@ export const ServicesSection: React.FC = () => {
           </div>
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-8 border border-primary/20">
-          <div className="max-w-3xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">
-              Pronto para revolucionar seu negócio?
+        {/* Feedbacks Section */}
+        <div id="feedbacks" className="py-20">
+          <div className="max-w-6xl mx-auto px-4">
+            <h3 className="text-2xl md:text-3xl font-bold text-center mb-12">
+              O que nossos clientes dizem 🚀
             </h3>
 
-            <p className="text-muted-foreground mb-6">
-              Nossa equipe está pronta para criar soluções personalizadas que atendam
-              exatamente às necessidades do seu negócio. Vamos conversar!
-            </p>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {/* Card 1 */}
+              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg hover:scale-[1.02] transition-transform">
+                <img
+                  src="/prints/feedback1.png"
+                  alt="Feedback cliente 1"
+                  className="rounded-lg w-full object-cover"
+                />
+              </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                onClick={() => window.open("https://wa.me/5521969585179?text=Olá%2C+gostaria+de+uma+proposta.", "_blank")}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 shadow-[var(--shadow-neural)]"
-              >
-                <Zap className="mr-2 w-5 h-5" />
-                Solicitar Proposta
-              </Button>
+              {/* Card 2 */}
+              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg hover:scale-[1.02] transition-transform">
+                <img
+                  src="/prints/feedback2.png"
+                  alt="Feedback cliente 2"
+                  className="rounded-lg w-full object-cover"
+                />
+              </div>
+
+              {/* Card 3 */}
+              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg hover:scale-[1.02] transition-transform">
+                <img
+                  src="/prints/feedback3.png"
+                  alt="Feedback cliente 3"
+                  className="rounded-lg w-full object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

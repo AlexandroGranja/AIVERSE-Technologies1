@@ -122,13 +122,15 @@ export const HeroSection: React.FC = () => {
           </Button>
           
           <Button 
-            size="lg" 
-            variant="outline"
-            className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-4 text-lg group"
-          >
-            <Sparkles className="mr-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
-            Ver Projetos
-          </Button>
+  size="lg" 
+  variant="outline"
+  className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-4 text-lg group"
+  onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+>
+  <Sparkles className="mr-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
+  Ver Projetos
+</Button>
+
         </div>
 
         {/* Trust indicators */}

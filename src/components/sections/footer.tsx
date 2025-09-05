@@ -151,9 +151,27 @@ export const Footer: React.FC = () => {
             <div className="text-sm text-muted-foreground text-center md:text-left">
               <p className="text-center text-xs text-gray-400 tracking-wide flex items-center justify-center gap-2">
                 <Globe className="w-4 h-4" />
-                © {currentYear} AIVERSE Technologies — Desenvolvido por Alexandro Granja e Igor Amorim.
+                © {currentYear} AIVERSE Technologies — Desenvolvido por{" "}
+                <a
+                  href="https://www.instagram.com/alexsandrogranja/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Alexandro Granja
+                </a>
+                e{" "}
+                <a
+                  href="https://www.instagram.com/igoramorimm7/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Igor Amorim
+                </a>.
               </p>
             </div>
+
 
             {/* Social links */}
             <div className="flex items-center gap-2">
