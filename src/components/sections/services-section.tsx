@@ -34,7 +34,7 @@ import { cn } from "@/lib/utils";
 const moraisAdesivosImage = "/Moraes.png";
 
 // Imagem do projeto Burger House
-const burgerHouseImage = "/projects/project-burger-house.png";
+const burgerHouseImage = "/burger-house.png";
 
 // Array de projetos
 const projects = [
@@ -43,22 +43,24 @@ const projects = [
     id: "burger-house",
     title: "Burger House",
     category: "Cardápio Online & Delivery",
-    description: "Landing page completa para hamburguerias com cardápio digital, sistema de pedidos, integração com WhatsApp/Telegram e design responsivo.",
-    shortDescription: "Cardápio digital interativo com pedidos online",
+    description: "Landing page completa para hamburguerias com cardápio digital, sistema de pedidos, integração com WhatsApp/Telegram e automação de notificações via n8n para aceitação e entrega de pedidos, com design responsivo.",
+    shortDescription: "Cardápio digital interativo com pedidos online e automação n8n",
     image: burgerHouseImage,
-    liveUrl: "https://seu-link-aqui.com", // coloque o link do site rodando
+    liveUrl: "https://burger-house.up.railway.app", // coloque o link do site rodando
     githubUrl: "https://github.com/AlexandroGranja/Projeto05-Burger-House",
-    technologies: ["React", "Flask", "JavaScript", "Tailwind CSS"],
+    adminUrl: "https://burger-house.up.railway.app/adm-pagina.html",
+    technologies: ["React", "Flask", "JavaScript", "Tailwind CSS", "n8n"],
     features: [
       "Cardápio digital interativo",
       "Carrinho dinâmico de pedidos",
       "Integração com WhatsApp e Telegram",
       "Painel de administração de pedidos",
+      "Automação de notificações de pedido (aceitação e entrega) via n8n",
       "Design responsivo para celular e desktop"
     ],
     projectDetails: {
       challenge: "Criar uma solução digital moderna para hamburguerias, permitindo pedidos online de forma prática e intuitiva.",
-      solution: "Desenvolvimento de uma landing page responsiva com cardápio digital, carrinho de compras e integração com WhatsApp/Telegram para envio de pedidos.",
+      solution: "Desenvolvimento de uma landing page responsiva com cardápio digital, carrinho de compras, integração com WhatsApp/Telegram para envio de pedidos e automação de notificações de status de pedido (aceitação e entrega) via n8n.",
       results: [
         "Redução de 60% no tempo de atendimento",
         "Aumento de 45% no ticket médio",
@@ -422,6 +424,12 @@ const ProjectModal: React.FC<{ project: any }> = ({ project }) => {
                 <Github className="mr-2 w-4 h-4" />
                 Código no GitHub
               </Button>
+              {project.adminUrl && (
+                <Button variant="outline" onClick={() => window.open(project.adminUrl, "_blank")}>
+                  <Eye className="mr-2 w-4 h-4" />
+                  Painel Admin
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -761,6 +769,25 @@ export const ServicesSection: React.FC = () => {
               </Card>
             ))}
           </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center mt-16">
+          <p className="text-lg text-muted-foreground mb-6">
+            Quer ver seu projeto aqui? Vamos criar algo incrível juntos!
+          </p>
+          <Button
+            size="lg"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group shadow-[var(--shadow-neural)] hover:shadow-[var(--shadow-glow)] transition-all duration-300"
+            onClick={() => {
+              const whatsappNumber = "5521969585179";
+              const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de desenvolver um projeto personalizado.`;
+              window.open(whatsappUrl, "_blank");
+            }}
+          >
+            <MessageSquare className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
+            Iniciar Projeto
+          </Button>
         </div>
 
         {/* Feedbacks Section */}
