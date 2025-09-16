@@ -1,6 +1,17 @@
-# AIVERSE Technologies - Landing Page
+# 🚀 AIVERSE Technologies - Landing Page
 
-Uma landing page profissional e moderna para captura de leads, desenvolvida com React, TypeScript e Tailwind CSS.
+Uma landing page profissional e moderna para captura de leads, desenvolvida com React, TypeScript e Tailwind CSS. 
+
+## 🍔 Projeto em Destaque: Burger House
+
+**Transformando o futuro da gastronomia digital!** Nosso projeto mais recente, o [Burger House](https://burger-house.up.railway.app/), revoluciona a experiência de pedidos online com:
+
+- 🎯 **Cardápio Digital Interativo** - Interface moderna e intuitiva
+- ⚡ **Integração n8n + WhatsApp** - Pedidos chegam instantaneamente no WhatsApp do restaurante
+- 🛠️ **Painel Administrativo Completo** - [Acesse aqui](https://burger-house.up.railway.app/adm-pagina.html)
+- 🤖 **Automação Inteligente** - Processamento automático de pedidos em tempo real
+
+*Cada hambúrguer encomendado é uma demonstração de como a tecnologia pode transformar negócios reais!*
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -89,10 +100,12 @@ O projeto utiliza um design system personalizado baseado em:
 - **Navegação fixa** com efeito de scroll
 - **Hero Section** com call-to-action impactante
 - **Seção de Serviços** com cards interativos
+- **Seção de Projetos** destacando soluções reais (Burger House)
 - **Formulário de contato** para captura de leads
 - **ChatBot interativo** para demonstração de IA
 - **Design responsivo** para todos os dispositivos
 - **SEO otimizado** para mecanismos de busca
+- **Integração com projetos externos** (n8n, WhatsApp API)
 
 ## 🛠️ Scripts Disponíveis
 
