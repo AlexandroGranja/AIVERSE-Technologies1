@@ -801,7 +801,7 @@ export const ServicesSection: React.FC = () => {
               {/* Card 1 */}
               <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg hover:scale-[1.02] transition-transform">
                 <img
-                  src="/prints/feedback1.png"
+                  src="public\feedback1.png"
                   alt="Feedback cliente 1"
                   className="rounded-lg w-full object-cover"
                 />
@@ -810,7 +810,7 @@ export const ServicesSection: React.FC = () => {
               {/* Card 2 */}
               <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg hover:scale-[1.02] transition-transform">
                 <img
-                  src="/prints/feedback2.png"
+                  src="public\feedback2.png"
                   alt="Feedback cliente 2"
                   className="rounded-lg w-full object-cover"
                 />
@@ -819,7 +819,7 @@ export const ServicesSection: React.FC = () => {
               {/* Card 3 */}
               <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg hover:scale-[1.02] transition-transform">
                 <img
-                  src="/prints/feedback3.png"
+                  src="public\feedback3.png"
                   alt="Feedback cliente 3"
                   className="rounded-lg w-full object-cover"
                 />
