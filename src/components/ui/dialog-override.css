@@ -1,4 +1,9 @@
-/* Dialog/Modal Override Styles */
+/* Dialog/Modal Override Styles - Fixed Centering */
+
+/* Reset any zoom effects on body/html */
+html, body {
+  transform-origin: 0 0 !important;
+}
 
 /* Ensure Radix UI portal is properly positioned */
 [data-radix-portal] {
@@ -6,55 +11,73 @@
   inset: 0 !important;
   z-index: 99999 !important;
   pointer-events: none;
+  transform: none !important;
 }
 
 [data-radix-portal] > * {
   pointer-events: auto;
 }
 
-/* Overlay positioning */
+/* Overlay positioning with proper centering */
 [data-radix-dialog-overlay] {
   position: fixed !important;
   inset: 0 !important;
   z-index: 99998 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-/* Content positioning - force center */
+/* Content positioning - absolute center using viewport units */
 [data-radix-dialog-content] {
   position: fixed !important;
-  left: 50% !important;
-  top: 50% !important;
+  left: 50vw !important;
+  top: 50vh !important;
   transform: translate(-50%, -50%) !important;
   z-index: 99999 !important;
   max-height: 85vh !important;
   max-width: min(900px, 90vw) !important;
-  margin: 0 !important;
+  margin: 0 auto !important;
+  transform-origin: center center !important;
 }
 
-/* Prevent transform conflicts */
+/* Force centering for all dialog states */
+[data-state="open"][data-radix-dialog-content],
+[data-state="closed"][data-radix-dialog-content] {
+  left: 50vw !important;
+  top: 50vh !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Prevent transform conflicts on mobile */
 @media screen and (max-width: 768px) {
   [data-radix-dialog-content] {
     width: calc(100vw - 2rem) !important;
     max-width: calc(100vw - 2rem) !important;
-  }
-}
-
-/* Handle different zoom levels */
-@media screen and (min-zoom: 0.25) and (max-zoom: 0.75) {
-  [data-radix-dialog-content] {
-    position: fixed !important;
-    left: 50% !important;
-    top: 50% !important;
+    left: 50vw !important;
+    top: 50vh !important;
     transform: translate(-50%, -50%) !important;
   }
 }
 
-/* Ensure visibility at all zoom levels */
+/* Handle browser zoom - use viewport units */
+@media screen and (min-zoom: 0.1) and (max-zoom: 5) {
+  [data-radix-dialog-content] {
+    position: fixed !important;
+    left: 50vw !important;
+    top: 50vh !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+
+/* Ensure visibility at all zoom levels using viewport units */
 html[style*="zoom"] [data-radix-dialog-content],
-body[style*="zoom"] [data-radix-dialog-content] {
+body[style*="zoom"] [data-radix-dialog-content],
+html[style*="scale"] [data-radix-dialog-content],
+body[style*="scale"] [data-radix-dialog-content] {
   position: fixed !important;
-  left: 50% !important;
-  top: 50% !important;
+  left: 50vw !important;
+  top: 50vh !important;
   transform: translate(-50%, -50%) !important;
 }
 
@@ -80,14 +103,26 @@ body[style*="zoom"] [data-radix-dialog-content] {
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   [data-radix-dialog-content] {
     position: fixed !important;
-    left: 50% !important;
-    top: 50% !important;
+    left: 50vw !important;
+    top: 50vh !important;
     transform: translate(-50%, -50%) !important;
   }
 }
 
-/* Ensure proper stacking context */
+/* Ensure proper stacking context and centering */
 .fixed[role="dialog"] {
   position: fixed !important;
   z-index: 99999 !important;
+  left: 50vw !important;
+  top: 50vh !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Additional fix for dialog container */
+[data-radix-dismissable-layer] {
+  position: fixed !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
