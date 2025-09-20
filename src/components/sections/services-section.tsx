@@ -834,13 +834,35 @@ export const ServicesSection: React.FC = () => {
 
       {/* Modais */}
       <Dialog open={isServiceModalOpen} onOpenChange={setIsServiceModalOpen}>
-        <DialogContent className="sm:max-w-[900px] w-[90vw] max-h-[85vh] overflow-y-auto">
+        <DialogContent 
+          className="sm:max-w-[900px] w-[90vw] max-h-[85vh] overflow-y-auto"
+          style={{
+            position: 'fixed',
+            left: '50vw',
+            top: '50vh',
+            transform: 'translate(-50%, -50%)',
+            maxHeight: '85vh',
+            maxWidth: 'min(900px, 90vw)',
+            margin: '0 auto'
+          }}
+        >
           {selectedService && <ServiceModal service={selectedService} />}
         </DialogContent>
       </Dialog>
 
       <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
-        <DialogContent className="sm:max-w-[900px] w-[90vw] max-h-[85vh] overflow-y-auto">
+        <DialogContent 
+          className="sm:max-w-[900px] w-[90vw] max-h-[85vh] overflow-y-auto"
+          style={{
+            position: 'fixed',
+            left: '50vw',
+            top: '50vh',
+            transform: 'translate(-50%, -50%)',
+            maxHeight: '85vh',
+            maxWidth: 'min(900px, 90vw)',
+            margin: '0 auto'
+          }}
+        >
           {selectedProject && <ProjectModal project={selectedProject} />}
         </DialogContent>
       </Dialog>
