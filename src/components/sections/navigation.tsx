@@ -20,6 +20,7 @@ const Navigation: React.FC = () => {
   const navItems = [
     { label: "Início", href: "#inicio" },
     { label: "Serviços", href: "#servicos" },
+    { label: "Chat IA", href: "#chat-ia" },
     { label: "Feedbacks", href: "#feedbacks" },
     { label: "Contato", href: "#contato" }
   ];
@@ -32,7 +33,7 @@ const Navigation: React.FC = () => {
 
   return (
     <nav className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      "relative z-50 transition-all duration-300",
       isScrolled 
         ? "bg-background/80 backdrop-blur-md border-b border-border/50" 
         : "bg-transparent"

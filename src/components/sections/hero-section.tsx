@@ -6,66 +6,8 @@ import aiverseLogo from "@/assets/aiverse-logo.png";
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-[var(--gradient-dark)]" />
-      
-      {/* Animated background elements */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className={cn(
-              "absolute w-1 h-1 bg-primary/30 rounded-full",
-              "animate-pulse"
-            )}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Neural network lines */}
-      <div className="absolute inset-0 opacity-20">
-        <svg className="w-full h-full" viewBox="0 0 1200 800">
-          <defs>
-            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0" />
-              <stop offset="50%" stopColor="hsl(var(--primary))" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          
-          <g stroke="url(#lineGradient)" strokeWidth="2" fill="none">
-            <path d="M100 200 Q600 100 1100 300" className="animate-network-flow" />
-            <path d="M200 500 Q700 300 1000 600" className="animate-network-flow" style={{ animationDelay: '1s' }} />
-            <path d="M50 600 Q500 400 900 200" className="animate-network-flow" style={{ animationDelay: '2s' }} />
-          </g>
-          
-          {/* Network nodes */}
-          {[
-            { x: 100, y: 200 }, { x: 600, y: 100 }, { x: 1100, y: 300 },
-            { x: 200, y: 500 }, { x: 700, y: 300 }, { x: 1000, y: 600 },
-            { x: 50, y: 600 }, { x: 500, y: 400 }, { x: 900, y: 200 }
-          ].map((node, i) => (
-            <circle
-              key={i}
-              cx={node.x}
-              cy={node.y}
-              r="4"
-              fill="hsl(var(--primary))"
-              className="animate-pulse"
-              style={{ animationDelay: `${i * 0.3}s` }}
-            />
-          ))}
-        </svg>
-      </div>
-
-      <div className="relative z-10 text-center max-w-6xl mx-auto px-4">
+    <section className="relative min-h-screen flex items-center justify-center">
+      <div className="text-center max-w-6xl mx-auto px-4">
         {/* Logo */}
         <div className="mb-8 animate-fade-in-up">
           <img 

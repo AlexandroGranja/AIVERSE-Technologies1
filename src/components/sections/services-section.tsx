@@ -38,7 +38,6 @@ const burgerHouseImage = "/burger-house.png";
 
 // Array de projetos
 const projects = [
-
   {
     id: "burger-house",
     title: "Burger House",
@@ -46,7 +45,7 @@ const projects = [
     description: "Landing page completa para hamburguerias com cardápio digital, sistema de pedidos, integração com WhatsApp/Telegram e automação de notificações via n8n para aceitação e entrega de pedidos, com design responsivo.",
     shortDescription: "Cardápio digital interativo com pedidos online e automação n8n",
     image: burgerHouseImage,
-    liveUrl: "https://burger-house.up.railway.app", // coloque o link do site rodando
+    liveUrl: "https://burger-house.up.railway.app",
     githubUrl: "https://github.com/AlexandroGranja/Projeto05-Burger-House",
     adminUrl: "https://burger-house.up.railway.app/adm-pagina.html",
     technologies: ["React", "Flask", "JavaScript", "Tailwind CSS", "n8n"],
@@ -68,11 +67,9 @@ const projects = [
         "Design otimizado para mobile first"
       ]
     },
-    gradient: "linear-gradient(135deg, #f97316, #ef4444)", // laranja e vermelho 🍔
+    gradient: "linear-gradient(135deg, #f97316, #ef4444)",
     status: "live"
   },
-
-
   {
     id: "morais-adesivos",
     title: "Morais Adesivos",
@@ -105,8 +102,6 @@ const projects = [
     status: "live"
   }
 ];
-
-
 
 const services = [
   {
@@ -157,7 +152,7 @@ const services = [
       ]
     },
     color: "from-blue-500 to-cyan-500",
-    gradient: "var(--blue-gradient)"
+    gradient: "linear-gradient(135deg, #3b82f6, #06b6d4)"
   },
   {
     icon: Bot,
@@ -207,7 +202,7 @@ const services = [
       ]
     },
     color: "from-purple-500 to-pink-500",
-    gradient: "var(--purple-gradient)"
+    gradient: "linear-gradient(135deg, #8b5cf6, #ec4899)"
   },
   {
     icon: Cog,
@@ -251,13 +246,13 @@ const services = [
         "Relatórios automáticos em tempo real"
       ],
       examples: [
-        "Automação de envio de 1000+ e-mails/dia",
+        "Automação de envio de 1000+ e-mails/day",
         "Sincronização automática entre 5 sistemas",
         "Geração automática de relatórios semanais"
       ]
     },
     color: "from-green-500 to-emerald-500",
-    gradient: "var(--green-gradient)"
+    gradient: "linear-gradient(135deg, #10b981, #059669)"
   },
   {
     icon: Smartphone,
@@ -307,20 +302,20 @@ const services = [
       ]
     },
     color: "from-orange-500 to-red-500",
-    gradient: "var(--orange-gradient)"
+    gradient: "linear-gradient(135deg, #f97316, #ef4444)"
   }
 ];
 
 // Modal para projetos
 const ProjectModal: React.FC<{ project: any }> = ({ project }) => {
   return (
-    <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto">
+    <>
       <DialogHeader className="pb-6">
         <div className="flex items-center gap-4 mb-4">
           <img
             src={project.image}
             alt={project.title}
-            className="w-16 h-16 rounded-xl object-contain bg-gray-900 p-1" // Adicionado object-contain, bg-gray-900 e p-1
+            className="w-16 h-16 rounded-xl object-contain bg-gray-900 p-1"
           />
           <div>
             <DialogTitle className="text-2xl font-bold">{project.title}</DialogTitle>
@@ -337,9 +332,10 @@ const ProjectModal: React.FC<{ project: any }> = ({ project }) => {
           <img
             src={project.image}
             alt={project.title}
-            className="max-h-[500px] w-auto rounded-xl object-contain"
+            className="max-h-[400px] w-auto rounded-xl object-contain"
           />
         </div>
+        
         {/* Desafio e Solução */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -434,7 +430,7 @@ const ProjectModal: React.FC<{ project: any }> = ({ project }) => {
           </div>
         </div>
       </div>
-    </DialogContent>
+    </>
   );
 };
 
@@ -443,7 +439,7 @@ const ServiceModal: React.FC<{ service: any }> = ({ service }) => {
   const Icon = service.icon;
 
   return (
-    <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto">
+    <>
       <DialogHeader className="pb-6">
         <div className="flex items-center gap-4 mb-4">
           <div
@@ -561,11 +557,16 @@ const ServiceModal: React.FC<{ service: any }> = ({ service }) => {
           </div>
         </div>
       </div>
-    </DialogContent>
+    </>
   );
 };
 
 export const ServicesSection: React.FC = () => {
+  const [selectedService, setSelectedService] = React.useState<any>(null);
+  const [selectedProject, setSelectedProject] = React.useState<any>(null);
+  const [isServiceModalOpen, setIsServiceModalOpen] = React.useState(false);
+  const [isProjectModalOpen, setIsProjectModalOpen] = React.useState(false);
+
   return (
     <section className="py-20 px-4 relative">
       {/* Background pattern */}
@@ -606,7 +607,7 @@ export const ServicesSection: React.FC = () => {
                 className={cn(
                   "group relative overflow-hidden bg-card/50 backdrop-blur-sm",
                   "border-border/50 hover:border-primary/50",
-                  "transition-all duration-500 hover:shadow-[var(--shadow-card)]",
+                  "transition-all duration-500 hover:shadow-2xl",
                   "hover:scale-[1.02]"
                 )}
               >
@@ -646,20 +647,19 @@ export const ServicesSection: React.FC = () => {
                     ))}
                   </ul>
 
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className="w-full group/btn border-primary/30 hover:bg-primary/10 hover:border-primary/50"
-                      >
-                        <span className="flex items-center">
-                          Ver Detalhes Completos
-                          <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                        </span>
-                      </Button>
-                    </DialogTrigger>
-                    <ServiceModal service={service} />
-                  </Dialog>
+                  <Button
+                    variant="outline"
+                    className="w-full group/btn border-primary/30 hover:bg-primary/10 hover:border-primary/50"
+                    onClick={() => {
+                      setSelectedService(service);
+                      setIsServiceModalOpen(true);
+                    }}
+                  >
+                    <span className="flex items-center">
+                      Ver Detalhes Completos
+                      <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </span>
+                  </Button>
                 </CardContent>
               </Card>
             );
@@ -756,15 +756,17 @@ export const ServicesSection: React.FC = () => {
                     )}
                   </div>
 
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" className="w-full">
-                        Ver Detalhes
-                        <Eye className="ml-2 w-4 h-4" />
-                      </Button>
-                    </DialogTrigger>
-                    <ProjectModal project={project} />
-                  </Dialog>
+                  <Button 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={() => {
+                      setSelectedProject(project);
+                      setIsProjectModalOpen(true);
+                    }}
+                  >
+                    Ver Detalhes
+                    <Eye className="ml-2 w-4 h-4" />
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -778,7 +780,7 @@ export const ServicesSection: React.FC = () => {
           </p>
           <Button
             size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group shadow-[var(--shadow-neural)] hover:shadow-[var(--shadow-glow)] transition-all duration-300"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group shadow-lg hover:shadow-xl transition-all duration-300"
             onClick={() => {
               const whatsappNumber = "5521969585179";
               const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de desenvolver um projeto personalizado.`;
@@ -799,29 +801,29 @@ export const ServicesSection: React.FC = () => {
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {/* Card 1 */}
-              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg hover:scale-[1.02] transition-transform">
+              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg">
                 <img
-                  src="public\feedback1.png"
+                  src="/feedback1.png"
                   alt="Feedback cliente 1"
-                  className="rounded-lg w-full object-cover"
+                  className="rounded-lg w-full h-[400px] object-contain hover:scale-[1.02] transition-transform"
                 />
               </div>
 
               {/* Card 2 */}
-              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg hover:scale-[1.02] transition-transform">
+              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg">
                 <img
-                  src="public\feedback2.png"
+                  src="/feedback2.png"
                   alt="Feedback cliente 2"
-                  className="rounded-lg w-full object-cover"
+                  className="rounded-lg w-full h-[400px] object-contain hover:scale-[1.02] transition-transform"
                 />
               </div>
 
               {/* Card 3 */}
-              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg hover:scale-[1.02] transition-transform">
+              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg">
                 <img
-                  src="public\feedback3.png"
+                  src="/feedback3.png"
                   alt="Feedback cliente 3"
-                  className="rounded-lg w-full object-cover"
+                  className="rounded-lg w-full h-[400px] object-contain hover:scale-[1.02] transition-transform"
                 />
               </div>
             </div>
@@ -829,6 +831,20 @@ export const ServicesSection: React.FC = () => {
         </div>
 
       </div>
+
+      {/* Modais */}
+      <Dialog open={isServiceModalOpen} onOpenChange={setIsServiceModalOpen}>
+        <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto z-[9999]">
+          {selectedService && <ServiceModal service={selectedService} />}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
+        <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto z-[9999]">
+          {selectedProject && <ProjectModal project={selectedProject} />}
+        </DialogContent>
+      </Dialog>
+
     </section>
   );
 };

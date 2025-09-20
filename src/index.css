@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* FORÇAR NAVBAR A NÃO SER FIXA - REGRA PRIORITÁRIA */
+nav {
+  position: static !important;
+}
+
+/* Garantir que o background animado funcione */
+.fixed {
+  position: fixed !important;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
@@ -95,6 +105,196 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground overflow-x-hidden;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    zoom: 1;
+    transform: scale(1);
+  }
+
+  html {
+    zoom: 1;
+    transform: scale(1);
+  }
+
+  /* Garantir que não há zoom indesejado */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Reset de zoom e escala */
+  html, body {
+    zoom: 1 !important;
+    transform: scale(1) !important;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Garantir que imagens não causem overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Garantir que containers não excedam a largura da tela */
+  .container, .max-w-7xl, .max-w-6xl, .max-w-5xl {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Forçar navbar a não ser fixa */
+  nav {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Garantir que não há posicionamento fixo */
+  .fixed {
+    position: relative !important;
+  }
+
+  /* Forçar navbar específica */
+  nav[class*="relative"] {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar todas as navs */
+  nav, nav *, nav > * {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica com ID ou classe */
+  nav[class*="relative"], nav[class*="z-50"] {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar com qualquer classe */
+  nav[class] {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica */
+  nav.relative {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica */
+  nav.z-50 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica */
+  nav.transition-all {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica */
+  nav.duration-300 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica */
+  nav.bg-transparent {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica */
+  nav.bg-background {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica */
+  nav.backdrop-blur-md {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica */
+  nav.border-b {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica */
+  nav.border-border {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica */
+  nav.border-border\/50 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica - regra mais forte */
+  nav[class*="relative"][class*="z-50"] {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica - regra mais forte */
+  nav[class*="relative"][class*="transition"] {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica - regra mais forte */
+  nav[class*="relative"][class*="duration"] {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Forçar navbar específica - regra mais forte */
+  nav[class*="relative"][class*="z-50"][class*="transition"] {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
   }
 
   /* Neural Network Animation */
@@ -124,6 +324,21 @@ All colors MUST be HSL.
 
   .animate-network-flow {
     animation: network-flow 3s ease-in-out infinite;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
   }
 
   /* Custom scrollbar */

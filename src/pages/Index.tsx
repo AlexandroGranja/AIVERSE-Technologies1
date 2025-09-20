@@ -2,17 +2,18 @@ import React from "react";
 import { Navigation } from "@/components/sections/navigation";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ServicesSection } from "@/components/sections/services-section";
-import { ProjectsSection } from "@/components/sections/projects-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { Footer } from "@/components/sections/footer";
-import { ChatBot } from "@/components/ui/chat-bot";
+import { AnimatedBackground } from "@/components/ui/animated-background";
+import { AIChatSection } from "@/components/sections/AIChatSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
+      <AnimatedBackground />
       <Navigation />
       
-      <main>
+      <main className="relative z-10">
         <section id="inicio">
           <HeroSection />
         </section>
@@ -21,8 +22,8 @@ const Index = () => {
           <ServicesSection />
         </section>
         
-        <section id="projetos">
-          <ProjectsSection />
+        <section id="chat-ia">
+          <AIChatSection />
         </section>
         
         <section id="contato">
@@ -31,9 +32,6 @@ const Index = () => {
       </main>
 
       <Footer />
-      
-      {/* Chatbot */}
-      <ChatBot />
     </div>
   );
 };
