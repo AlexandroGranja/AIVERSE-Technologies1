@@ -328,12 +328,14 @@ const ProjectModal: React.FC<{ project: any }> = ({ project }) => {
 
       <div className="space-y-8">
         {/* Imagem principal */}
-        <div className="flex justify-center overflow-hidden rounded-xl">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="max-h-[400px] w-auto rounded-xl object-contain"
-          />
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 p-8">
+          <div className="flex justify-center">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="max-h-[400px] w-auto object-contain drop-shadow-2xl"
+            />
+          </div>
         </div>
         
         {/* Desafio e Solução */}
@@ -685,42 +687,50 @@ export const ServicesSection: React.FC = () => {
           </div>
 
           {/* Grid de Projetos */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {projects.map((project, index) => (
               <Card
                 key={index}
-                className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]"
+                className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:scale-[1.02] flex flex-col h-full"
               >
                 {/* Project Image */}
-                <div className="relative overflow-hidden flex justify-center items-center h-[200px] sm:h-[250px] bg-gray-900 rounded-t-lg">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="h-full w-auto object-contain rounded-t-lg"
-                  />
+                <div className="relative overflow-hidden bg-gradient-to-br from-gray-900/50 to-gray-800/30 aspect-[16/10] rounded-t-lg">
+                  <div className="absolute inset-0 flex justify-center items-center p-6">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="max-w-full max-h-full object-contain drop-shadow-2xl"
+                    />
+                  </div>
 
-                  <div className="absolute top-4 left-4">
-                    <Badge variant="secondary" className="bg-green-500/10 text-green-600 border-green-500/20">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
+                  <div className="absolute top-4 left-4 z-10">
+                    <Badge variant="secondary" className="bg-green-500/10 text-green-600 border-green-500/20 backdrop-blur-sm">
+                      <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
                       Live
                     </Badge>
                   </div>
 
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                     <div className="flex gap-2">
                       <Button
                         size="sm"
                         variant="secondary"
-                        className="h-8 w-8 p-0"
-                        onClick={() => window.open(project.liveUrl, "_blank")}
+                        className="h-8 w-8 p-0 backdrop-blur-sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(project.liveUrl, "_blank");
+                        }}
                       >
                         <ExternalLink className="w-4 h-4" />
                       </Button>
                       <Button
                         size="sm"
                         variant="secondary"
-                        className="h-8 w-8 p-0"
-                        onClick={() => window.open(project.githubUrl, "_blank")}
+                        className="h-8 w-8 p-0 backdrop-blur-sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(project.githubUrl, "_blank");
+                        }}
                       >
                         <Github className="w-4 h-4" />
                       </Button>
@@ -728,7 +738,7 @@ export const ServicesSection: React.FC = () => {
                   </div>
                 </div>
 
-                <CardHeader>
+                <CardHeader className="flex-grow">
                   <Badge variant="outline" className="text-xs w-fit mb-2">
                     {project.category}
                   </Badge>
@@ -737,20 +747,20 @@ export const ServicesSection: React.FC = () => {
                     {project.title}
                   </CardTitle>
 
-                  <CardDescription className="text-sm">
+                  <CardDescription className="text-sm mt-2">
                     {project.shortDescription}
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent>
+                <CardContent className="pt-0 mt-auto">
                   <div className="flex flex-wrap gap-1 mb-4">
                     {project.technologies.slice(0, 3).map((tech, techIndex) => (
-                      <Badge key={techIndex} variant="secondary" className="text-xs">
+                      <Badge key={techIndex} variant="secondary" className="text-xs px-2 py-0.5">
                         {tech}
                       </Badge>
                     ))}
                     {project.technologies.length > 3 && (
-                      <Badge variant="secondary" className="text-xs">
+                      <Badge variant="secondary" className="text-xs px-2 py-0.5">
                         +{project.technologies.length - 3}
                       </Badge>
                     )}
@@ -758,14 +768,17 @@ export const ServicesSection: React.FC = () => {
 
                   <Button 
                     variant="outline" 
-                    className="w-full"
-                    onClick={() => {
+                    className="w-full group/btn border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all"
+                    onClick={(e) => {
+                      e.stopPropagation();
                       setSelectedProject(project);
                       setIsProjectModalOpen(true);
                     }}
                   >
-                    Ver Detalhes
-                    <Eye className="ml-2 w-4 h-4" />
+                    <span className="flex items-center">
+                      Ver Detalhes
+                      <Eye className="ml-2 w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+                    </span>
                   </Button>
                 </CardContent>
               </Card>
