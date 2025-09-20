@@ -834,13 +834,13 @@ export const ServicesSection: React.FC = () => {
 
       {/* Modais */}
       <Dialog open={isServiceModalOpen} onOpenChange={setIsServiceModalOpen}>
-        <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto z-[9999]">
+        <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto" style={{ zIndex: 99999 }}>
           {selectedService && <ServiceModal service={selectedService} />}
         </DialogContent>
       </Dialog>
 
       <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
-        <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto z-[9999]">
+        <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto" style={{ zIndex: 99999 }}>
           {selectedProject && <ProjectModal project={selectedProject} />}
         </DialogContent>
       </Dialog>
