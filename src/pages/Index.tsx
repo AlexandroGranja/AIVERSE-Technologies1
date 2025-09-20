@@ -13,7 +13,7 @@ const Index = () => {
       <AnimatedBackground />
       <Navigation />
       
-      <main className="relative z-10">
+      <main className="relative z-10 pt-20">
         <section id="inicio">
           <HeroSection />
         </section>

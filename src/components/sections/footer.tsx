@@ -58,11 +58,19 @@ export const Footer: React.FC = () => {
           {/* Company info */}
           <div className="lg:col-span-1">
             <div className="mb-6 flex flex-col items-start">
-              <img
-                src={aiverseLogo}
-                alt="AIVERSE Technologies"
-                className="h-13 w-auto mb-6 filter brightness-[4.4] contrast-[3.9] drop-shadow-[0_0_3px_rgba(255,255,255,0.23)]"
-              />
+              <div className="relative group mb-6">
+                {/* Efeito de glow sutil */}
+                <div className="absolute -inset-2 rounded-full transition-all duration-500 bg-gradient-to-r from-primary/20 to-cyan-400/15 blur-lg scale-105 opacity-0 group-hover:opacity-30" />
+                
+                <img
+                  src={aiverseLogo}
+                  alt="AIVERSE Technologies"
+                  className="relative z-10 h-28 w-auto transition-all duration-300 group-hover:scale-105 group-active:scale-95 filter brightness-[3.5] contrast-[4.5] drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]"
+                />
+                
+                {/* Efeito de borda sutil */}
+                <div className="absolute inset-0 rounded-full transition-all duration-300 border border-transparent group-hover:border-primary/30" />
+              </div>
               <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
                 Revolucionamos negócios com soluções avançadas de IA e desenvolvimento web.
                 Transformamos ideias em realidade digital.

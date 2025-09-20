@@ -36,6 +36,12 @@ const moraisAdesivosImage = "/Moraes.png";
 // Imagem do projeto Burger House
 const burgerHouseImage = "/burger-house.png";
 
+// Imagem do projeto AI Automation Bot
+const aiAutomationBotImage = "/Gerador-de-img.png";
+
+// Imagem do projeto WhatsApp Assistant
+const whatsappAssistantImage = "/agente-de-WhatsApp.png";
+
 // Array de projetos
 const projects = [
   {
@@ -100,6 +106,68 @@ const projects = [
     },
     gradient: "linear-gradient(135deg, #3b82f6, #9333ea)",
     status: "live"
+  },
+  {
+    id: "ai-automation-bot",
+    title: "Bot Designer WhatsApp",
+    category: "Automação de Processos & IA",
+    description: "Agente inteligente gerador de imagens no WhatsApp que cria promoções, logos, designs e carrosséis automaticamente. O bot identifica áudio, imagem e mensagem de texto para gerar conteúdo visual personalizado.",
+    shortDescription: "Bot de IA que gera imagens e designs via WhatsApp",
+    image: aiAutomationBotImage,
+    liveUrl: "https://wa.me/5521969585179?text=Olá! Tenho interesse no projeto Bot Designer WhatsApp - Gerador de Imagens e Designs",
+    githubUrl: "#",
+    technologies: ["Python", "OpenAI API", "WhatsApp API", "PIL/Pillow", "Flask", "n8n"],
+    features: [
+      "Geração automática de imagens promocionais",
+      "Criação de logos personalizados",
+      "Design de carrosséis para redes sociais",
+      "Reconhecimento de áudio e texto",
+      "Integração completa com WhatsApp",
+      "Processamento de imagens via IA"
+    ],
+    projectDetails: {
+      challenge: "Automatizar a criação de conteúdo visual para empresas, permitindo que clientes gerem promoções, logos e designs através de comandos simples no WhatsApp.",
+      solution: "Desenvolvimento de um bot inteligente que processa comandos de texto, áudio e imagens via WhatsApp e utiliza IA para gerar conteúdo visual personalizado automaticamente.",
+      results: [
+        "Redução de 80% no tempo de criação de artes",
+        "Automação completa do processo criativo",
+        "Interface intuitiva via WhatsApp",
+        "Geração de conteúdo 24/7"
+      ]
+    },
+    gradient: "linear-gradient(135deg, #8b5cf6, #06b6d4)",
+    status: "development"
+  },
+  {
+    id: "whatsapp-assistant",
+    title: "Assistente WhatsApp IA",
+    category: "Automação de Processos & IA",
+    description: "Assistente inteligente para WhatsApp que entende áudio, imagem e texto. Capaz de fazer agendamentos, responder perguntas e automatizar atendimento 24/7 com IA avançada.",
+    shortDescription: "Assistente IA completo para WhatsApp com agendamentos",
+    image: whatsappAssistantImage,
+    liveUrl: "https://wa.me/5521969585179?text=Olá! Tenho interesse no projeto Assistente WhatsApp IA - Automação de Atendimento",
+    githubUrl: "#",
+    technologies: ["Python", "OpenAI API", "WhatsApp API", "Speech Recognition", "Flask", "n8n"],
+    features: [
+      "Reconhecimento de áudio e conversão para texto",
+      "Processamento de imagens e documentos",
+      "Sistema de agendamentos automático",
+      "Respostas inteligentes baseadas em IA",
+      "Integração completa com WhatsApp",
+      "Atendimento 24/7 automatizado"
+    ],
+    projectDetails: {
+      challenge: "Criar um assistente inteligente que possa atender clientes via WhatsApp de forma automatizada, entendendo diferentes tipos de mídia e realizando agendamentos.",
+      solution: "Desenvolvimento de um assistente IA que processa áudio, imagens e texto via WhatsApp, utilizando reconhecimento de fala e processamento de linguagem natural para automatizar atendimentos e agendamentos.",
+      results: [
+        "Redução de 90% no tempo de atendimento",
+        "Atendimento 24/7 sem intervenção humana",
+        "Agendamentos automáticos e organizados",
+        "Satisfação do cliente aumentada em 85%"
+      ]
+    },
+    gradient: "linear-gradient(135deg, #25D366, #128C7E)",
+    status: "development"
   }
 ];
 
@@ -687,7 +755,7 @@ export const ServicesSection: React.FC = () => {
           </div>
 
           {/* Grid de Projetos */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
             {projects.map((project, index) => (
               <Card
                 key={index}
@@ -766,20 +834,20 @@ export const ServicesSection: React.FC = () => {
                     )}
                   </div>
 
-                  <Button 
-                    variant="outline" 
-                    className="w-full group/btn border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedProject(project);
-                      setIsProjectModalOpen(true);
-                    }}
-                  >
-                    <span className="flex items-center">
-                      Ver Detalhes
-                      <Eye className="ml-2 w-4 h-4 group-hover/btn:scale-110 transition-transform" />
-                    </span>
-                  </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full group/btn border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedProject(project);
+                    setIsProjectModalOpen(true);
+                  }}
+                >
+                  <span className="flex items-center">
+                    Ver Detalhes
+                    <Eye className="ml-2 w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+                  </span>
+                </Button>
                 </CardContent>
               </Card>
             ))}

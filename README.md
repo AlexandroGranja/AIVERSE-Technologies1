@@ -1,161 +1,249 @@
-# 🚀 AIVERSE Technologies - Landing Page
+# 🚀 AIVERSE Technologies
 
-Uma landing page profissional e moderna para captura de leads, desenvolvida com React, TypeScript e Tailwind CSS. 
+> **Revolucionamos negócios com soluções avançadas de IA e desenvolvimento web**
 
-## 🍔 Projeto em Destaque: Burger House
+[![Railway](https://img.shields.io/badge/Deployed%20on-Railway-blue)](https://railway.app)
+[![React](https://img.shields.io/badge/React-18.3.1-blue)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.4.19-purple)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.17-cyan)](https://tailwindcss.com/)
 
-**Transformando o futuro da gastronomia digital!** Nosso projeto mais recente, o [Burger House](https://burger-house.up.railway.app/), revoluciona a experiência de pedidos online com:
+## 📋 Sobre o Projeto
 
-- 🎯 **Cardápio Digital Interativo** - Interface moderna e intuitiva
-- ⚡ **Integração n8n + WhatsApp** - Pedidos chegam instantaneamente no WhatsApp do restaurante
-- 🛠️ **Painel Administrativo Completo** - [Acesse aqui](https://burger-house.up.railway.app/adm-pagina.html)
-- 🤖 **Automação Inteligente** - Processamento automático de pedidos em tempo real
+AIVERSE Technologies é uma empresa especializada em soluções de Inteligência Artificial e desenvolvimento web avançado. Nossa plataforma apresenta nossos projetos e serviços, incluindo:
 
-*Cada hambúrguer encomendado é uma demonstração de como a tecnologia pode transformar negócios reais!*
+### 🎯 Projetos em Destaque
 
-## 🚀 Tecnologias Utilizadas
+1. **🍔 Burger House** - Cardápio digital interativo com pedidos online e automação n8n
+2. **🏷️ Morais Adesivos** - Plataforma digital para adesivos personalizados
+3. **🎨 Bot Designer WhatsApp** - Bot de IA que gera imagens e designs via WhatsApp
+4. **🤖 Assistente WhatsApp IA** - Assistente IA completo para WhatsApp com agendamentos
 
-- **React 18** - Biblioteca para criação de interfaces
-- **TypeScript** - Tipagem estática para JavaScript
-- **Tailwind CSS** - Framework CSS utilitário
-- **Vite** - Bundler e servidor de desenvolvimento
-- **Shadcn/ui** - Componentes de interface modernos
-- **Lucide React** - Ícones vetoriais
+### 🛠️ Tecnologias Utilizadas
 
-## 📋 Pré-requisitos
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS, Radix UI
+- **Icons**: Lucide React
+- **Routing**: React Router DOM
+- **State Management**: TanStack Query
+- **Forms**: React Hook Form + Zod
+- **Deployment**: Railway
 
-Antes de começar, certifique-se de ter instalado em sua máquina:
+## 🚀 Instalação e Execução
 
-- **Node.js** (versão 18 ou superior) - [Download aqui](https://nodejs.org/)
-- **npm** ou **yarn** (gerenciador de pacotes)
+### Pré-requisitos
 
-## 🔧 Instalação e Execução
+- Node.js 18+ 
+- npm ou yarn
+- Git
 
-### 1. Clone ou baixe o projeto
+### 1. Clone o repositório
 
 ```bash
-# Se você tem o Git instalado
-git clone https://github.com/AlexandroGranja/AIVERSE-Technologies1.git
-
-# Ou baixe o arquivo ZIP e extraia
+git clone https://github.com/seu-usuario/aiverse-technologies.git
+cd aiverse-technologies
 ```
 
-### 2. Navegue até a pasta do projeto
+### 2. Instale as dependências
 
 ```bash
-cd aiverse-landing-page
-```
-
-### 3. Instale as dependências
-
-```bash
-# Usando npm
 npm install
-
-# Ou usando yarn
+# ou
 yarn install
 ```
 
-### 4. Execute o projeto
+### 3. Configure as variáveis de ambiente
 
 ```bash
-# Usando npm
-npm run dev
+cp env.example .env
+```
 
-# Ou usando yarn
+Edite o arquivo `.env` com suas configurações:
+
+```env
+PORT=3000
+NODE_ENV=production
+VITE_APP_TITLE=AIVERSE Technologies
+VITE_WHATSAPP_NUMBER=5521969585179
+```
+
+### 4. Execute em desenvolvimento
+
+```bash
+npm run dev
+# ou
 yarn dev
 ```
 
-### 5. Acesse no navegador
+Acesse: `http://localhost:5173`
 
-Abra seu navegador e acesse: `http://localhost:8080`
+### 5. Build para produção
 
-O projeto será executado em modo de desenvolvimento com hot-reload ativado.
+```bash
+npm run build
+# ou
+yarn build
+```
+
+### 6. Preview da build
+
+```bash
+npm run preview
+# ou
+yarn preview
+```
+
+## 🚂 Deploy na Railway
+
+### Método 1: Deploy via GitHub (Recomendado)
+
+1. **Faça push do código para o GitHub**
+   ```bash
+   git add .
+   git commit -m "feat: prepare for Railway deployment"
+   git push origin main
+   ```
+
+2. **Acesse [Railway.app](https://railway.app)**
+   - Faça login com sua conta GitHub
+   - Clique em "New Project"
+   - Selecione "Deploy from GitHub repo"
+   - Escolha este repositório
+
+3. **Configure as variáveis de ambiente**
+   - Vá em "Variables" no dashboard do Railway
+   - Adicione as variáveis do arquivo `env.example`
+
+4. **Deploy automático**
+   - O Railway detectará automaticamente o `railway.json`
+   - O deploy será iniciado automaticamente
+
+### Método 2: Deploy via Railway CLI
+
+1. **Instale o Railway CLI**
+   ```bash
+   npm install -g @railway/cli
+   ```
+
+2. **Faça login**
+   ```bash
+   railway login
+   ```
+
+3. **Inicialize o projeto**
+   ```bash
+   railway init
+   ```
+
+4. **Configure as variáveis**
+   ```bash
+   railway variables set PORT=3000
+   railway variables set NODE_ENV=production
+   ```
+
+5. **Deploy**
+   ```bash
+   railway up
+   ```
 
 ## 📁 Estrutura do Projeto
 
 ```
-src/
-├── assets/              # Imagens e recursos estáticos
-├── components/
-│   ├── ui/             # Componentes base (botões, cards, etc.)
-│   └── sections/       # Seções da página (hero, serviços, etc.)
-├── pages/              # Páginas da aplicação
-├── hooks/              # Hooks customizados
-├── lib/                # Utilitários e configurações
-└── index.css           # Estilos globais e design system
+aiverse-technologies/
+├── public/                 # Arquivos estáticos
+│   ├── burger-house.png
+│   ├── Moraes.png
+│   ├── Gerador-de-img.png
+│   └── agente-de-WhatsApp.png
+├── src/
+│   ├── components/         # Componentes React
+│   │   ├── sections/      # Seções da página
+│   │   └── ui/            # Componentes UI (shadcn/ui)
+│   ├── hooks/             # Custom hooks
+│   ├── lib/               # Utilitários
+│   ├── pages/             # Páginas
+│   └── assets/            # Assets do projeto
+├── railway.json           # Configuração do Railway
+├── env.example           # Exemplo de variáveis de ambiente
+├── package.json          # Dependências e scripts
+└── README.md            # Este arquivo
 ```
 
-## 🎨 Design System
+## 🎨 Funcionalidades
 
-O projeto utiliza um design system personalizado baseado em:
+### ✨ Interface Moderna
+- Design responsivo e moderno
+- Tema escuro com gradientes
+- Animações suaves e interativas
+- Componentes UI reutilizáveis
 
-- **Cores principais**: Neural Blue e Cyan
-- **Tema**: Escuro com efeitos de brilho e gradientes
-- **Componentes**: Shadcn/ui customizados
-- **Animações**: Transições suaves e efeitos hover
+### 📱 Seções Principais
+- **Hero Section**: Apresentação principal
+- **Serviços**: Cards de serviços oferecidos
+- **Projetos**: Portfólio de projetos desenvolvidos
+- **Chat IA**: Seção interativa de IA
+- **Contato**: Formulário e informações de contato
 
-## ✨ Funcionalidades
+### 🤖 Projetos de IA
+- **Bot Designer WhatsApp**: Geração de imagens via IA
+- **Assistente WhatsApp IA**: Automação de atendimento
+- Integração direta com WhatsApp
+- Mensagens personalizadas
 
-- **Navegação fixa** com efeito de scroll
-- **Hero Section** com call-to-action impactante
-- **Seção de Serviços** com cards interativos
-- **Seção de Projetos** destacando soluções reais (Burger House)
-- **Formulário de contato** para captura de leads
-- **ChatBot interativo** para demonstração de IA
-- **Design responsivo** para todos os dispositivos
-- **SEO otimizado** para mecanismos de busca
-- **Integração com projetos externos** (n8n, WhatsApp API)
-
-## 🛠️ Scripts Disponíveis
+## 🔧 Scripts Disponíveis
 
 ```bash
-# Executa em modo de desenvolvimento
-npm run dev
+# Desenvolvimento
+npm run dev              # Inicia servidor de desenvolvimento
 
-# Gera build de produção
-npm run build
+# Build
+npm run build            # Build para produção
+npm run build:dev        # Build em modo desenvolvimento
 
-# Visualiza o build de produção
-npm run preview
+# Deploy Railway
+npm run railway:build    # Build otimizado para Railway
+npm run railway:start    # Inicia servidor para Railway
 
-# Executa verificação de tipos
-npm run type-check
-
-# Executa linting do código
-npm run lint
+# Utilitários
+npm run lint             # Executa linter
+npm run preview          # Preview da build
 ```
 
-## 📱 Responsividade
+## 🌐 Variáveis de Ambiente
 
-A página é totalmente responsiva e otimizada para:
+| Variável | Descrição | Padrão |
+|----------|-----------|--------|
+| `PORT` | Porta do servidor | `3000` |
+| `NODE_ENV` | Ambiente de execução | `production` |
+| `VITE_APP_TITLE` | Título da aplicação | `AIVERSE Technologies` |
+| `VITE_WHATSAPP_NUMBER` | Número do WhatsApp | `5521969585179` |
 
-- **Desktop** (1920px+)
-- **Laptop** (1024px+)
-- **Tablet** (768px+)
-- **Mobile** (320px+)
+## 📞 Contato
 
-## 🔍 SEO
-
-O projeto inclui:
-
-- Meta tags otimizadas
-- Open Graph para redes sociais
-- Estrutura semântica HTML5
-- Performance otimizada
-
-## 📞 Suporte
-
-Para dúvidas ou suporte, entre em contato:
-
-- **Email**: alex.granjaaa@hotmail.com
-- **WhatsApp**: (21) 969585179
-- **Website**: https://alexandrogranja.github.io/Portfolio/
+- **WhatsApp**: [5521969585179](https://wa.me/5521969585179)
+- **Email**: technologiesaiverse@gmail.com
+- **Instagram**: [@aiversetech_oficial](https://www.instagram.com/aiversetech_oficial/)
 
 ## 📄 Licença
 
-Este projeto é propriedade da AIVERSE Technologies.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 🤝 Contribuição
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 🙏 Agradecimentos
+
+- [shadcn/ui](https://ui.shadcn.com/) - Componentes UI
+- [Radix UI](https://www.radix-ui.com/) - Primitivos acessíveis
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS
+- [Vite](https://vitejs.dev/) - Build tool
+- [Railway](https://railway.app/) - Plataforma de deploy
 
 ---
 
-**AIVERSE Technologies** - Transformando negócios com Inteligência Artificial
+**Desenvolvido com ❤️ por [AIVERSE Technologies](https://github.com/AlexandroGranja)**
