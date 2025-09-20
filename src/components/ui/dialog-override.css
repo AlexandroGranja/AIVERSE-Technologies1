@@ -6,6 +6,9 @@
   inset: 0 !important;
   z-index: 99999 !important;
   pointer-events: none;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 [data-radix-portal] > * {
@@ -29,6 +32,8 @@
   max-height: 85vh !important;
   max-width: min(900px, 90vw) !important;
   margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 /* Prevent transform conflicts */
@@ -76,6 +81,23 @@ body[style*="zoom"] [data-radix-dialog-content] {
   overflow-x: hidden;
 }
 
+/* Force modal to always be centered */
+[data-radix-dialog-content] {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 99999 !important;
+  max-height: 85vh !important;
+  max-width: min(900px, 90vw) !important;
+  width: 90vw !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+}
+
 /* Fix for browsers with non-standard zoom */
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   [data-radix-dialog-content] {
@@ -90,4 +112,35 @@ body[style*="zoom"] [data-radix-dialog-content] {
 .fixed[role="dialog"] {
   position: fixed !important;
   z-index: 99999 !important;
+}
+
+/* Additional centering rules for all scenarios */
+[data-radix-dialog-content],
+[data-radix-dialog-content] * {
+  box-sizing: border-box !important;
+}
+
+/* Override any conflicting positioning */
+[data-radix-dialog-content] {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 99999 !important;
+  max-height: 85vh !important;
+  max-width: min(900px, 90vw) !important;
+  width: 90vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+}
+
+/* Ensure content doesn't overflow */
+[data-radix-dialog-content] > * {
+  max-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
 }
