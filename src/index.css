@@ -358,4 +358,173 @@ All colors MUST be HSL.
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--primary) / 0.5);
   }
+
+  /* Modal/Dialog fixes for proper centering */
+  [role="dialog"] {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+  }
+
+  /* Ensure modals are always visible and centered */
+  .fixed[style*="z-index: 99999"],
+  .fixed[style*="z-index: 9999"] {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+  }
+
+  /* Force modal overlay to cover entire viewport */
+  [data-radix-popper-content-wrapper] {
+    position: fixed !important;
+    inset: 0 !important;
+  }
+
+  /* Ensure proper viewport settings for mobile */
+  @media (max-width: 640px) {
+    [role="dialog"] {
+      width: calc(100vw - 2rem) !important;
+      max-width: calc(100vw - 2rem) !important;
+    }
+  }
+
+  /* Fix for zoom levels */
+  @media screen and (min-resolution: 120dpi), 
+         screen and (-webkit-min-device-pixel-ratio: 1.25),
+         screen and (min--moz-device-pixel-ratio: 1.25) {
+    [role="dialog"] {
+      position: fixed !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) scale(1) !important;
+    }
+  }
+}
+
+/* Estilos específicos para centralização do card de chat */
+/* Reset de zoom para garantir visualização correta */
+#chat-ia * {
+  zoom: 1 !important;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Container principal do chat */
+#chat-ia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+#chat-ia > div {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Grid responsivo */
+#chat-ia .grid {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+@media screen and (max-width: 1024px) {
+  #chat-ia .grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+}
+
+/* Container do mockup mobile - centralização forçada */
+#chat-ia .order-2 {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100%;
+  padding: 0;
+}
+
+#chat-ia .order-2 > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Ajustes para diferentes resoluções e zoom */
+@media screen and (max-width: 640px) {
+  #chat-ia .order-2 > div > div {
+    transform: scale(0.85) !important;
+    transform-origin: center center;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  #chat-ia .order-2 > div > div {
+    transform: scale(0.75) !important;
+    transform-origin: center center;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #chat-ia .order-2 > div > div {
+    transform: scale(0.7) !important;
+    transform-origin: center center;
+  }
+}
+
+/* Garantir que o card fique visível em zoom de 25% */
+@media screen and (min-width: 1920px) {
+  #chat-ia .order-2 > div > div {
+    transform: scale(1.2);
+    transform-origin: center center;
+  }
+}
+
+@media screen and (min-width: 2560px) {
+  #chat-ia .order-2 > div > div {
+    transform: scale(1.5);
+    transform-origin: center center;
+  }
+}
+
+/* Forçar visibilidade em zoom extremo */
+@media screen and (min-width: 3840px) {
+  #chat-ia .order-2 > div > div {
+    transform: scale(2);
+    transform-origin: center center;
+  }
+}
+
+/* Ajuste para zoom do navegador */
+@media screen and (-webkit-min-device-pixel-ratio: 0.25) {
+  #chat-ia .order-2 > div > div {
+    transform: scale(4) !important;
+    transform-origin: center center;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0.5) {
+  #chat-ia .order-2 > div > div {
+    transform: scale(2) !important;
+    transform-origin: center center;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0.75) {
+  #chat-ia .order-2 > div > div {
+    transform: scale(1.33) !important;
+    transform-origin: center center;
+  }
 }

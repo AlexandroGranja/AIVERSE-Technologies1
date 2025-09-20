@@ -281,30 +281,30 @@ const AIChatSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 px-4 relative" id="chat-ia">
+    <section className="py-16 sm:py-20 px-4 relative overflow-hidden" id="chat-ia">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4 sm:mb-6">
             <Bot className="w-4 h-4" />
             Chat com IA
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-4">
             Experimente nosso <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">Assistente Virtual</span>
           </h2>
           
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
             Veja como nossa inteligência artificial pode revolucionar o atendimento do seu negócio
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Mockup Mobile */}
-          <div className="order-2 lg:order-1 flex justify-center">
-            <div className="relative">
+          <div className="order-2 lg:order-1 flex justify-center items-center min-h-[500px] sm:min-h-[600px] w-full">
+            <div className="relative transform scale-75 xs:scale-85 sm:scale-95 md:scale-100 transition-transform duration-300">
               {/* Frame do Celular - Design Realista */}
-              <div className="relative w-72 h-[580px] bg-gradient-to-b from-gray-900 to-black rounded-[2.5rem] shadow-2xl border-2 border-gray-700 overflow-hidden">
+              <div className="relative w-[260px] xs:w-[280px] sm:w-72 h-[520px] sm:h-[580px] bg-gradient-to-b from-gray-900 to-black rounded-[2.5rem] shadow-2xl border-2 border-gray-700 overflow-hidden mx-auto">
                 {/* Borda interna para simular tela */}
                 <div className="absolute inset-1 bg-black rounded-[2rem] overflow-hidden">
                   {/* Tela do celular */}
@@ -344,7 +344,7 @@ const AIChatSection: React.FC = () => {
                 {/* Messages Area */}
                 <div 
                   ref={chatContainerRef}
-                  className="flex-1 overflow-y-auto px-4 py-4 space-y-4 h-[350px] scroll-smooth"
+                  className="flex-1 overflow-y-auto px-3 sm:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4 h-[300px] sm:h-[350px] scroll-smooth"
                 >
                   {messages.map((message, index) => (
                     <div
@@ -361,7 +361,7 @@ const AIChatSection: React.FC = () => {
                     >
                       <div
                         className={cn(
-                          "max-w-[80%] p-3 rounded-2xl text-sm shadow-sm",
+                          "max-w-[80%] p-2 sm:p-3 rounded-2xl text-xs sm:text-sm shadow-sm",
                           message.isBot
                             ? "bg-gradient-to-r from-slate-700 to-slate-600 text-white rounded-bl-md"
                             : "bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-br-md"
@@ -422,10 +422,10 @@ const AIChatSection: React.FC = () => {
           </div>
 
           {/* Exemplos de Agentes IA */}
-          <div className="order-1 lg:order-2 space-y-8">
+          <div className="order-1 lg:order-2 space-y-6 lg:space-y-8">
             <div>
-              <h3 className="text-2xl font-bold mb-6">Exemplos de Agentes IA</h3>
-              <div className="space-y-6">
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Exemplos de Agentes IA</h3>
+              <div className="space-y-4 sm:space-y-6">
                 {/* Exemplo 1 - Atendimento E-commerce */}
                 <Card className="p-6 bg-card/50 backdrop-blur-sm border-border/50 hover:translate-x-2 transition-all duration-300 hover:shadow-lg group">
                   <div className="flex items-start gap-4">

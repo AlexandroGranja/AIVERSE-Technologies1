@@ -1,0 +1,93 @@
+/* Dialog/Modal Override Styles */
+
+/* Ensure Radix UI portal is properly positioned */
+[data-radix-portal] {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  pointer-events: none;
+}
+
+[data-radix-portal] > * {
+  pointer-events: auto;
+}
+
+/* Overlay positioning */
+[data-radix-dialog-overlay] {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99998 !important;
+}
+
+/* Content positioning - force center */
+[data-radix-dialog-content] {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 99999 !important;
+  max-height: 85vh !important;
+  max-width: min(900px, 90vw) !important;
+  margin: 0 !important;
+}
+
+/* Prevent transform conflicts */
+@media screen and (max-width: 768px) {
+  [data-radix-dialog-content] {
+    width: calc(100vw - 2rem) !important;
+    max-width: calc(100vw - 2rem) !important;
+  }
+}
+
+/* Handle different zoom levels */
+@media screen and (min-zoom: 0.25) and (max-zoom: 0.75) {
+  [data-radix-dialog-content] {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+
+/* Ensure visibility at all zoom levels */
+html[style*="zoom"] [data-radix-dialog-content],
+body[style*="zoom"] [data-radix-dialog-content] {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Override any viewport scaling */
+@viewport {
+  zoom: 1.0;
+  width: device-width;
+}
+
+@-ms-viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+/* Ensure dialog scrolling works properly */
+[data-radix-dialog-content] > div {
+  max-height: calc(85vh - 3rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Fix for browsers with non-standard zoom */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  [data-radix-dialog-content] {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+
+/* Ensure proper stacking context */
+.fixed[role="dialog"] {
+  position: fixed !important;
+  z-index: 99999 !important;
+}
