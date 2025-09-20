@@ -297,7 +297,7 @@ const AIChatSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-20 px-4 relative overflow-hidden" id="chat-ia">
+    <section className="py-16 sm:py-20 px-4 relative" id="chat-ia">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
@@ -317,16 +317,16 @@ const AIChatSection: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Mockup Mobile */}
-          <div className="order-2 lg:order-1 flex justify-center items-center min-h-[500px] sm:min-h-[600px] w-full">
+          <div className="order-2 lg:order-1 flex justify-center items-start pt-8 sm:pt-12 lg:pt-0 lg:items-center min-h-[500px] sm:min-h-[600px] w-full">
             <div 
               className={cn(
-                "relative transform scale-90 xs:scale-95 sm:scale-100 md:scale-90 lg:scale-75 xl:scale-80 transition-all duration-500 ease-out cursor-pointer",
-                "hover:scale-95 hover:scale-100 hover:scale-95 hover:scale-80 hover:scale-85", // Ajuste de escala no hover
+                "relative transform scale-85 xs:scale-90 sm:scale-95 md:scale-85 lg:scale-70 xl:scale-75 transition-all duration-500 ease-out cursor-pointer",
+                "hover:scale-90 hover:scale-95 hover:scale-90 hover:scale-75 hover:scale-80", // Ajuste de escala no hover
                 isHovered || isClicked ? "rotate-0" : "rotate-3", // Inclinação padrão
-                isClicked ? "scale-95 sm:scale-105 md:scale-95 lg:scale-80 xl:scale-85" : ""
+                isClicked ? "scale-90 sm:scale-100 md:scale-90 lg:scale-75 xl:scale-80" : ""
               )}
               style={{
-                transform: `perspective(1000px) rotateX(${isHovered || isClicked ? '0deg' : '5deg'}) rotateY(${isHovered || isClicked ? '0deg' : '-8deg'}) rotateZ(${isHovered || isClicked ? '0deg' : '2deg'})`,
+                transform: `perspective(1000px) rotateX(${isHovered || isClicked ? '0deg' : '2deg'}) rotateY(${isHovered || isClicked ? '0deg' : '-3deg'}) rotateZ(${isHovered || isClicked ? '0deg' : '1deg'})`,
                 transformStyle: 'preserve-3d'
               }}
               onMouseEnter={handleMouseEnter}
@@ -335,13 +335,13 @@ const AIChatSection: React.FC = () => {
             >
               {/* Frame do Celular - Design Realista */}
               <div className={cn(
-                "relative w-[280px] xs:w-[300px] sm:w-80 md:w-72 lg:w-64 xl:w-72 h-[560px] sm:h-[640px] md:h-[580px] lg:h-[520px] xl:h-[580px] bg-gradient-to-b from-gray-900 to-black rounded-[2.5rem] border-2 border-gray-700 overflow-hidden mx-auto transition-all duration-500",
+                "relative w-[260px] xs:w-[280px] sm:w-72 md:w-64 lg:w-56 xl:w-64 h-[520px] sm:h-[600px] md:h-[540px] lg:h-[480px] xl:h-[540px] bg-gradient-to-b from-gray-900 to-black rounded-[2.5rem] border-2 border-gray-700 overflow-hidden mx-auto transition-all duration-500",
                 isHovered || isClicked ? "shadow-2xl" : "shadow-3xl"
               )}
               style={{
                 boxShadow: isHovered || isClicked 
                   ? '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05)' 
-                  : '0 35px 60px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), -20px 20px 40px rgba(0, 0, 0, 0.3)'
+                  : '0 35px 60px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), -8px 8px 20px rgba(0, 0, 0, 0.2)'
               }}
             >
                 {/* Borda interna para simular tela */}
@@ -387,7 +387,7 @@ const AIChatSection: React.FC = () => {
                 {/* Messages Area */}
                 <div 
                   ref={chatContainerRef}
-                  className="flex-1 overflow-y-auto px-3 sm:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4 h-[320px] sm:h-[380px] md:h-[340px] lg:h-[300px] xl:h-[340px] scroll-smooth"
+                  className="flex-1 overflow-y-auto px-3 sm:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4 h-[300px] sm:h-[360px] md:h-[320px] lg:h-[280px] xl:h-[320px] scroll-smooth"
                 >
                   {messages.map((message, index) => (
                     <div

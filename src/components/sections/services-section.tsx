@@ -873,43 +873,6 @@ export const ServicesSection: React.FC = () => {
           </Button>
         </div>
 
-        {/* Feedbacks Section */}
-        <div id="feedbacks" className="py-20">
-          <div className="max-w-6xl mx-auto px-4">
-            <h3 className="text-2xl md:text-3xl font-bold text-center mb-12">
-              O que nossos clientes dizem 🚀
-            </h3>
-
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {/* Card 1 */}
-              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg">
-                <img
-                  src="/feedback1.png"
-                  alt="Feedback cliente 1"
-                  className="rounded-lg w-full h-[400px] object-contain hover:scale-[1.02] transition-transform"
-                />
-              </div>
-
-              {/* Card 2 */}
-              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg">
-                <img
-                  src="/feedback2.png"
-                  alt="Feedback cliente 2"
-                  className="rounded-lg w-full h-[400px] object-contain hover:scale-[1.02] transition-transform"
-                />
-              </div>
-
-              {/* Card 3 */}
-              <div className="bg-white/5 border border-primary/20 rounded-2xl p-4 shadow-lg">
-                <img
-                  src="/feedback3.png"
-                  alt="Feedback cliente 3"
-                  className="rounded-lg w-full h-[400px] object-contain hover:scale-[1.02] transition-transform"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
 
       </div>
 
