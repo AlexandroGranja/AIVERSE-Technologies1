@@ -15,7 +15,7 @@ const Navigation: React.FC = () => {
       setIsScrolled(scrollY > 20);
 
       // Detectar seção ativa baseada no scroll
-      const sections = ['inicio', 'servicos', 'chat-ia', 'feedbacks', 'contato'];
+      const sections = ['inicio', 'servicos', 'feedbacks', 'chat-ia', 'contato'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -37,8 +37,8 @@ const Navigation: React.FC = () => {
   const navItems = [
     { label: "Início", href: "#inicio", id: "inicio" },
     { label: "Serviços", href: "#servicos", id: "servicos" },
-    { label: "Chat IA", href: "#chat-ia", id: "chat-ia" },
     { label: "Feedbacks", href: "#feedbacks", id: "feedbacks" },
+    { label: "Chat IA", href: "#chat-ia", id: "chat-ia" },
     { label: "Contato", href: "#contato", id: "contato" }
   ];
 
@@ -57,10 +57,10 @@ const Navigation: React.FC = () => {
 
   return (
     <nav className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out",
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out group",
       isScrolled 
-        ? "bg-transparent border-b border-primary/10" 
-        : "bg-transparent"
+        ? "opacity-10 hover:opacity-100 focus-within:opacity-100 bg-transparent border-b border-primary/10" 
+        : "opacity-100 bg-transparent"
     )}>
       
       <div className="max-w-7xl mx-auto px-4">

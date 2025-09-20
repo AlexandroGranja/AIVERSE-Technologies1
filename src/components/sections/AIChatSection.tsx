@@ -21,8 +21,24 @@ const AIChatSection: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [typingMessageId, setTypingMessageId] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  // Funções para controlar o efeito 3D
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setIsClicked(false);
+  };
+
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+  };
 
   // Efeito de digitação natural e envolvente
   const typeMessage = (messageId: string, fullText: string, onComplete?: () => void) => {
@@ -302,11 +318,38 @@ const AIChatSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Mockup Mobile */}
           <div className="order-2 lg:order-1 flex justify-center items-center min-h-[500px] sm:min-h-[600px] w-full">
-            <div className="relative transform scale-75 xs:scale-85 sm:scale-95 md:scale-100 transition-transform duration-300">
+            <div 
+              className={cn(
+                "relative transform scale-90 xs:scale-95 sm:scale-100 md:scale-90 lg:scale-75 xl:scale-80 transition-all duration-500 ease-out cursor-pointer",
+                "hover:scale-95 hover:scale-100 hover:scale-95 hover:scale-80 hover:scale-85", // Ajuste de escala no hover
+                isHovered || isClicked ? "rotate-0" : "rotate-3", // Inclinação padrão
+                isClicked ? "scale-95 sm:scale-105 md:scale-95 lg:scale-80 xl:scale-85" : ""
+              )}
+              style={{
+                transform: `perspective(1000px) rotateX(${isHovered || isClicked ? '0deg' : '5deg'}) rotateY(${isHovered || isClicked ? '0deg' : '-8deg'}) rotateZ(${isHovered || isClicked ? '0deg' : '2deg'})`,
+                transformStyle: 'preserve-3d'
+              }}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={handleClick}
+            >
               {/* Frame do Celular - Design Realista */}
-              <div className="relative w-[260px] xs:w-[280px] sm:w-72 h-[520px] sm:h-[580px] bg-gradient-to-b from-gray-900 to-black rounded-[2.5rem] shadow-2xl border-2 border-gray-700 overflow-hidden mx-auto">
+              <div className={cn(
+                "relative w-[280px] xs:w-[300px] sm:w-80 md:w-72 lg:w-64 xl:w-72 h-[560px] sm:h-[640px] md:h-[580px] lg:h-[520px] xl:h-[580px] bg-gradient-to-b from-gray-900 to-black rounded-[2.5rem] border-2 border-gray-700 overflow-hidden mx-auto transition-all duration-500",
+                isHovered || isClicked ? "shadow-2xl" : "shadow-3xl"
+              )}
+              style={{
+                boxShadow: isHovered || isClicked 
+                  ? '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05)' 
+                  : '0 35px 60px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), -20px 20px 40px rgba(0, 0, 0, 0.3)'
+              }}
+            >
                 {/* Borda interna para simular tela */}
                 <div className="absolute inset-1 bg-black rounded-[2rem] overflow-hidden">
+                  {/* Efeito de brilho quando ativo */}
+                  {(isHovered || isClicked) && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent rounded-[2rem] pointer-events-none" />
+                  )}
                   {/* Tela do celular */}
                   <div className="w-full h-full bg-gradient-to-b from-slate-900 to-slate-800">
                 {/* Notch - Simulando iPhone */}
@@ -344,7 +387,7 @@ const AIChatSection: React.FC = () => {
                 {/* Messages Area */}
                 <div 
                   ref={chatContainerRef}
-                  className="flex-1 overflow-y-auto px-3 sm:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4 h-[300px] sm:h-[350px] scroll-smooth"
+                  className="flex-1 overflow-y-auto px-3 sm:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4 h-[320px] sm:h-[380px] md:h-[340px] lg:h-[300px] xl:h-[340px] scroll-smooth"
                 >
                   {messages.map((message, index) => (
                     <div
