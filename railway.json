@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "npx http-server dist -p $PORT -a 0.0.0.0",
+    "startCommand": "npx serve dist -p $PORT -s",
     "healthcheckPath": "/",
     "healthcheckTimeout": 100,
     "restartPolicyType": "ON_FAILURE",
