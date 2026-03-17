@@ -264,6 +264,24 @@ All colors MUST be HSL.
     }
   }
 
+  @keyframes service-sign-pass {
+    0% {
+      transform: translate3d(100vw, 0, 0);
+    }
+    100% {
+      transform: translate3d(-100%, 0, 0);
+    }
+  }
+
+  @keyframes service-sign-scan {
+    0% {
+      transform: translateX(-140%);
+    }
+    100% {
+      transform: translateX(140%);
+    }
+  }
+
   @keyframes earth-horizontal {
     0% {
       transform: perspective(1400px) rotateX(10deg) rotateY(-24deg) scaleX(1);
@@ -420,9 +438,265 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-panel);
   }
 
+  .projects-timeline {
+    position: relative;
+    padding: 0.5rem 0 0.25rem;
+  }
+
+  .projects-timeline::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    transform: translateX(-50%);
+    border-left: 2px dashed hsl(210 18% 58% / 0.5);
+    opacity: 0.9;
+  }
+
+  .project-timeline-item {
+    --project-visibility: 0;
+    position: relative;
+    width: 50%;
+    padding: 0.25rem 2.5rem 1.5rem 0;
+    opacity: calc(0.08 + (var(--project-visibility) * 0.92));
+    transform: scale(calc(0.9 + (var(--project-visibility) * 0.1)));
+    transition:
+      opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .project-timeline-item-right {
+    left: 50%;
+    padding: 0.25rem 0 1.5rem 2.5rem;
+  }
+
+  .project-timeline-item-left {
+    transform-origin: 100% 0%;
+  }
+
+  .project-timeline-item-right {
+    transform-origin: 0% 0%;
+  }
+
+  .project-card-content-shell {
+    position: relative;
+  }
+
+  .project-timeline-dot {
+    position: absolute;
+    top: -13.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 999px;
+    border: 2px solid hsl(210 18% 62% / 0.88);
+    background: hsl(222 24% 11% / 0.96);
+    box-shadow:
+      0 0 0 3px hsl(222 28% 8% / 0.95),
+      0 0 14px hsl(var(--primary) / 0.3);
+    z-index: 3;
+  }
+
+  .project-timeline-dot::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: 999px;
+    background: hsl(var(--primary) / 0.88);
+  }
+
+  .project-timeline-item-left .project-card-content-shell .project-timeline-dot {
+    right: calc(-2.5rem - 0.7rem);
+  }
+
+  .project-timeline-item-right .project-timeline-dot {
+    right: auto;
+    left: calc(-2.5rem - 0.7rem);
+  }
+
+  .project-card-fx {
+    position: relative;
+    isolation: isolate;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    transform-style: flat;
+  }
+
+  .project-card-body {
+    position: relative;
+    border: 1px solid hsl(var(--border) / 0.56);
+    border-top: 0;
+    border-radius: 0 0 1.5rem 1.5rem;
+    background: hsl(220 16% 16% / 0.9);
+    overflow: visible;
+  }
+
+  .project-timeline-pointer {
+    position: absolute;
+    top: -13.58rem;
+    width: 0;
+    height: 0;
+    z-index: 3;
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    filter: drop-shadow(0 1px 0 hsl(220 24% 8% / 0.5));
+  }
+
+  .project-timeline-item-left .project-timeline-pointer {
+    right: -11px;
+    border-left: 11px solid hsl(220 16% 16% / 0.9);
+  }
+
+  .project-timeline-item-right .project-timeline-pointer {
+    left: -11px;
+    border-right: 11px solid hsl(220 16% 16% / 0.9);
+  }
+
+  .project-card-fx::before {
+    content: none;
+  }
+
+  .project-card-fx::after {
+    content: none;
+  }
+
+  .project-card-fx > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-card-fx:hover {
+    box-shadow: none;
+    transform: translateY(-2px);
+  }
+
+  .project-showcase-item {
+    border-bottom: 0;
+  }
+
+  .project-showcase-trigger {
+    margin-bottom: 0.42rem;
+    border: 0;
+    border-radius: 0.65rem;
+    background: hsl(220 16% 16% / 0.86);
+    padding: 0.72rem 0.85rem;
+    font-size: 0.92rem;
+    line-height: 1.35;
+    color: hsl(var(--foreground) / 0.95);
+  }
+
+  .project-showcase-trigger:hover {
+    text-decoration: none !important;
+    color: hsl(var(--primary));
+  }
+
+  .project-showcase-trigger[data-state="open"] {
+    background: hsl(var(--primary) / 0.18);
+    color: hsl(var(--foreground));
+  }
+
+  .project-showcase-content {
+    padding: 0 0.85rem 0.7rem;
+    font-size: 0.88rem;
+    line-height: 1.62;
+    color: hsl(var(--muted-foreground));
+  }
+
   .service-marquee-shell {
     position: relative;
     overflow: hidden;
+  }
+
+  .service-title-signboard {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: visible;
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+  }
+
+  .service-title-signboard::before {
+    content: none;
+  }
+
+  .service-title-signboard::after {
+    content: none;
+  }
+
+  .service-title-signboard > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .service-sign-lane {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .service-sign-lane-title {
+    padding-block: 0.2rem;
+  }
+
+  .service-sign-track {
+    display: inline-flex;
+    align-items: center;
+    width: max-content;
+    animation-name: service-sign-pass;
+    animation-delay: 0s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+  }
+
+  .service-sign-chunk {
+    display: flex;
+    align-items: baseline;
+    gap: 0.46rem;
+    white-space: nowrap;
+    padding-right: 1.8rem;
+  }
+
+  .service-sign-chunk-title {
+    font-size: clamp(1.95rem, 7.2vw, 3.95rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+
+  .service-sign-title-word {
+    color: hsl(var(--foreground));
+  }
+
+  .service-sign-title-highlight {
+    background-image: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .service-sign-lane-title .service-sign-track {
+    animation-duration: 58s;
+  }
+
+  .service-sign-lane-subtitle .service-sign-track {
+    animation-duration: 58s;
+    opacity: 0.95;
+  }
+
+  .service-sign-subtitle-chunk {
+    white-space: nowrap;
+    padding-right: 2rem;
+    color: hsl(var(--muted-foreground));
+    font-size: clamp(0.75rem, 2.35vw, 1.08rem);
+    line-height: 1.5;
+    letter-spacing: 0.015em;
   }
 
   .service-marquee-track {
@@ -438,8 +712,64 @@ All colors MUST be HSL.
   }
 
   .service-marquee-card {
-    width: min(84vw, 25rem);
+    width: clamp(15rem, 72vw, 21rem);
     flex: 0 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .service-sign-lane-title .service-sign-track {
+      animation-duration: 44s;
+    }
+
+    .service-sign-lane-subtitle .service-sign-track {
+      animation-duration: 44s;
+    }
+
+    .service-marquee-track {
+      gap: 0.75rem;
+      animation-duration: 44s;
+    }
+
+    .service-marquee-card {
+      width: min(74vw, 16.8rem);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .projects-timeline::after {
+      left: 0.9rem;
+      transform: none;
+    }
+
+    .project-timeline-item,
+    .project-timeline-item-right {
+      width: 100%;
+      left: 0;
+      padding: 0.25rem 0 1.1rem 2.4rem;
+    }
+
+    .project-timeline-dot,
+    .project-timeline-item-right .project-timeline-dot {
+      left: calc(-2.4rem + 0.26rem);
+      right: auto;
+      top: -8.15rem;
+    }
+
+    .project-timeline-item-left .project-timeline-pointer,
+    .project-timeline-item-right .project-timeline-pointer {
+      top: -8.23rem;
+      left: -11px;
+      right: auto;
+      border-left: 0;
+      border-right: 11px solid hsl(220 16% 16% / 0.9);
+    }
+
+  }
+
+  @media (hover: none) {
+    .project-card-fx:hover {
+      transform: none;
+    }
   }
 
   [data-reveal-stagger="true"] [data-reveal-item] {
@@ -490,7 +820,9 @@ All colors MUST be HSL.
       animation: none !important;
     }
 
-    .service-marquee-track {
+    .service-marquee-track,
+    .service-sign-track,
+    .service-title-signboard::before {
       animation: none !important;
       transform: none !important;
     }

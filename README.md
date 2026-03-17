@@ -169,6 +169,22 @@ aiverse-technologies/
 └── README.md            # Este arquivo
 ```
 
+## 🤖 Skill de Referência para IA
+
+Foi adicionada uma skill de projeto para aproveitar o repositório de prompts:
+
+- **Skill**: `.cursor/skills/ai-tools-prompt-research/SKILL.md`
+- **Guia rápido**: `.cursor/skills/ai-tools-prompt-research/reference.md`
+- **Espelho local da base**: `content/system-prompts-and-models-of-ai-tools`
+
+### Atualizar a base de referência
+
+```bash
+powershell -ExecutionPolicy Bypass -File .cursor/skills/ai-tools-prompt-research/scripts/sync-source.ps1
+```
+
+Essa skill ajuda a aplicar padrões de agentes (Cursor, v0, Lovable, Windsurf etc.) no desenvolvimento da página, revisão de código e debug.
+
 ## 🎨 Funcionalidades
 
 ### ✨ Interface Moderna

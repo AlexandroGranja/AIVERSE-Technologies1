@@ -1,27 +1,22 @@
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import {
   Globe,
   Bot,
   Cog,
   Smartphone,
-  ArrowRight,
-  Sparkles,
   Code,
   CheckCircle,
   BarChart3,
   Workflow,
   MessageSquare,
-  Calendar,
   TrendingUp,
   Target,
   Github,
-  ExternalLink,
-  Eye
+  ExternalLink
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
@@ -393,288 +388,17 @@ const services = [
 
 const marqueeServices = [...services, ...services];
 
-const statusConfig: Record<string, { label: string; className: string; dotClassName: string }> = {
-  live: {
-    label: "Ao vivo",
-    className: "bg-green-500/10 text-green-600 border-green-500/20",
-    dotClassName: "bg-green-500",
-  },
-  repository: {
-    label: "Case técnico",
-    className: "bg-blue-500/10 text-blue-600 border-blue-500/20",
-    dotClassName: "bg-blue-500",
-  },
-};
-
-// Modal para projetos
-const ProjectModal: React.FC<{ project: any }> = ({ project }) => {
-  const status = statusConfig[project.status] ?? statusConfig.repository;
-
-  return (
-    <>
-      <DialogHeader className="pb-6">
-        <div className="flex items-center gap-4 mb-4">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-16 h-16 rounded-xl object-contain bg-gray-900 p-1"
-          />
-          <div>
-            <DialogTitle className="text-2xl font-bold">{project.title}</DialogTitle>
-            <DialogDescription className="text-base mt-2">
-              {project.description}
-            </DialogDescription>
-          </div>
-        </div>
-      </DialogHeader>
-
-      <div className="space-y-8">
-        {/* Imagem principal */}
-        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 p-8">
-          <div className="flex justify-center">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="max-h-[400px] w-auto object-contain drop-shadow-2xl"
-            />
-          </div>
-        </div>
-        
-        {/* Desafio e Solução */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <Target className="w-5 h-5 text-primary" />
-              Desafio
-            </h3>
-            <p className="text-sm text-muted-foreground">{project.projectDetails.challenge}</p>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-primary" />
-              Solução
-            </h3>
-            <p className="text-sm text-muted-foreground">{project.projectDetails.solution}</p>
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Funcionalidades Principais */}
-        <div>
-          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Code className="w-5 h-5 text-primary" />
-            Funcionalidades Principais
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {project.features.map((feature: string, index: number) => (
-              <div key={index} className="flex items-center gap-3">
-                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                <span className="text-sm">{feature}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Tecnologias */}
-        <div>
-          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Code className="w-5 h-5 text-primary" />
-            Tecnologias Utilizadas
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech: string, index: number) => (
-              <Badge key={index} variant="secondary" className="px-3 py-1">
-                {tech}
-              </Badge>
-            ))}
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Resultados */}
-        <div>
-          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-primary" />
-            Resultados Alcançados
-          </h3>
-          <div className="space-y-3">
-            {project.projectDetails.results.map((result: string, index: number) => (
-              <div key={index} className="flex items-center gap-3 p-3 bg-primary/5 rounded-lg">
-                <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
-                <span className="text-sm font-medium">{result}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Links */}
-        <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 rounded-xl border border-primary/20">
-          <div className="text-center space-y-4">
-            <h4 className="text-lg font-semibold">Ver Projeto</h4>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              {project.liveUrl && (
-                <Button onClick={() => window.open(project.liveUrl, "_blank")}>
-                  <ExternalLink className="mr-2 w-4 h-4" />
-                  Site ao Vivo
-                </Button>
-              )}
-              {project.githubUrl && (
-                <Button variant="outline" onClick={() => window.open(project.githubUrl, "_blank")}>
-                  <Github className="mr-2 w-4 h-4" />
-                  Código no GitHub
-                </Button>
-              )}
-              {project.adminUrl && (
-                <Button variant="outline" onClick={() => window.open(project.adminUrl, "_blank")}>
-                  <Eye className="mr-2 w-4 h-4" />
-                  Painel Admin
-                </Button>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-// Modal para serviços
-const ServiceModal: React.FC<{ service: any }> = ({ service }) => {
-  const Icon = service.icon;
-
-  return (
-    <>
-      <DialogHeader className="pb-6">
-        <div className="flex items-center gap-4 mb-4">
-          <div
-            className="p-4 rounded-xl shadow-lg"
-            style={{ background: service.gradient }}
-          >
-            <Icon className="w-8 h-8 text-white" />
-          </div>
-          <div>
-            <DialogTitle className="text-2xl font-bold">{service.title}</DialogTitle>
-            <DialogDescription className="text-base mt-2">
-              {service.longDescription}
-            </DialogDescription>
-          </div>
-        </div>
-      </DialogHeader>
-
-      <div className="space-y-8">
-        {/* Como Funciona */}
-        <div>
-          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Workflow className="w-5 h-5 text-primary" />
-            Como Funciona
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {service.howItWorks.process.map((step: any, index: number) => {
-              const StepIcon = step.icon;
-              return (
-                <div key={index} className="flex gap-3 p-4 bg-muted/30 rounded-lg">
-                  <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <StepIcon className="w-5 h-5 text-primary" />
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-sm mb-1">{step.step}</h4>
-                    <p className="text-sm text-muted-foreground">{step.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Tecnologias */}
-        <div>
-          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Code className="w-5 h-5 text-primary" />
-            Tecnologias Utilizadas
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {service.howItWorks.technologies.map((tech: string, index: number) => (
-              <Badge key={index} variant="secondary" className="px-3 py-1">
-                {tech}
-              </Badge>
-            ))}
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Benefícios */}
-        <div>
-          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-primary" />
-            Principais Benefícios
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {service.howItWorks.benefits.map((benefit: string, index: number) => (
-              <div key={index} className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                <span className="text-sm">{benefit}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Exemplos Práticos */}
-        <div>
-          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Target className="w-5 h-5 text-primary" />
-            Exemplos de Projetos
-          </h3>
-          <div className="space-y-3">
-            {service.howItWorks.examples.map((example: string, index: number) => (
-              <div key={index} className="flex items-center gap-3 p-3 bg-primary/5 rounded-lg">
-                <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
-                <span className="text-sm font-medium">{example}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 rounded-xl border border-primary/20">
-          <div className="text-center space-y-4">
-            <h4 className="text-lg font-semibold">Interessado neste serviço?</h4>
-            <p className="text-sm text-muted-foreground">
-              Vamos conversar sobre como podemos ajudar o seu negócio com {service.title.toLowerCase()}.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button className="px-6">
-                <MessageSquare className="mr-2 w-4 h-4" />
-                Falar com Especialista
-              </Button>
-              <Button variant="outline">
-                <Calendar className="mr-2 w-4 h-4" />
-                Agendar Demonstração
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
 export const ServicesSection: React.FC = () => {
-  const [selectedService, setSelectedService] = React.useState<any>(null);
-  const [isServiceModalOpen, setIsServiceModalOpen] = React.useState(false);
+  const [isSignHovered, setIsSignHovered] = React.useState(false);
+  const [isSignPinnedPause, setIsSignPinnedPause] = React.useState(false);
+  const isSignPaused = isSignHovered || isSignPinnedPause;
+
+  const toggleSignPause = () => {
+    setIsSignPinnedPause((current) => !current);
+  };
 
   return (
-    <section className="relative overflow-hidden px-4 py-24 md:py-28">
+    <section className="relative overflow-hidden px-4 pb-4 pt-16 sm:pb-6 sm:pt-20 md:pb-8 md:pt-24">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(222_34%_5%/0.92)_0%,hsl(224_38%_4%/0.97)_18%,hsl(226_42%_3%/0.99)_52%,hsl(228_45%_2%/1)_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center_top,hsl(var(--primary)/0.05),transparent_30%)] opacity-60" />
 
@@ -689,275 +413,308 @@ export const ServicesSection: React.FC = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Soluções que <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">transformam</span> negócios
-          </h2>
-
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Oferecemos tecnologias avançadas de IA e desenvolvimento web para automatizar,
-            otimizar e revolucionar a forma como sua empresa opera.
+        <div
+          className="service-title-signboard mx-auto mb-8 w-full max-w-7xl cursor-pointer py-3 md:mb-12 md:py-4"
+          role="button"
+          tabIndex={0}
+          aria-label="Pausar ou retomar o letreiro de serviços"
+          aria-pressed={isSignPinnedPause}
+          onMouseEnter={() => setIsSignHovered(true)}
+          onMouseLeave={() => setIsSignHovered(false)}
+          onClick={toggleSignPause}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              toggleSignPause();
+            }
+          }}
+        >
+          <h2 className="sr-only">Soluções que transformam negócios</h2>
+          <p className="sr-only">
+            Oferecemos tecnologias avançadas de IA e desenvolvimento web para automatizar, otimizar e revolucionar a forma como sua empresa opera.
           </p>
-        </div>
 
-        {/* Services marquee */}
-        <ScrollReveal variant="fade-up" yOffset={26} durationMs={1100}>
-          <div className="relative mb-24 overflow-x-hidden overflow-y-visible rounded-[32px] bg-[linear-gradient(180deg,hsl(224_34%_5%/0.88),hsl(228_40%_3%/0.94))] px-0 py-8 shadow-[var(--shadow-depth)] backdrop-blur-xl">
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 bg-gradient-to-r from-background via-background/90 to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 bg-gradient-to-l from-background via-background/90 to-transparent" />
-
-            <div className="service-marquee-shell overflow-x-hidden overflow-y-visible py-4">
-              <div className="service-marquee-track items-stretch px-5 py-2">
-                {marqueeServices.map((service, index) => {
-                  const Icon = service.icon;
-
-                  return (
-                    <Card
-                      key={`${service.title}-${index}`}
-                      className={cn(
-                        "service-marquee-card group relative overflow-hidden rounded-[28px] !border-0 border-transparent ring-0 bg-[linear-gradient(180deg,hsl(224_24%_8%/0.86),hsl(228_28%_6%/0.82))] shadow-[0_22px_60px_-34px_hsl(220_65%_3%/0.95)] backdrop-blur-xl",
-                        "hover:-translate-y-2"
-                      )}
-                    >
-                      <div
-                        className={cn(
-                          "absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-20",
-                          `bg-gradient-to-br ${service.color}`
-                        )}
-                      />
-
-                      <CardHeader className="relative z-10 space-y-4 pb-4">
-                        <div className="flex items-center gap-4">
-                          <div
-                            className="rounded-2xl p-3 shadow-lg transition-transform duration-300 group-hover:scale-110"
-                            style={{ background: service.gradient }}
-                          >
-                            <Icon className="h-6 w-6 text-white" />
-                          </div>
-
-                          <div>
-                            <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.26em] text-primary/70">
-                              Solucao Premium
-                            </div>
-                            <CardTitle className="text-xl font-bold leading-tight transition-colors group-hover:text-primary">
-                              {service.title}
-                            </CardTitle>
-                          </div>
-                        </div>
-
-                        <CardDescription className="min-h-[4.5rem] text-sm leading-6">
-                          {service.description}
-                        </CardDescription>
-                      </CardHeader>
-
-                      <CardContent className="relative z-10">
-                        <div className="mb-6 flex flex-wrap gap-2">
-                          {service.features.slice(0, 3).map((feature, featureIndex) => (
-                            <span
-                              key={featureIndex}
-                              className="rounded-full bg-white/5 px-3 py-1 text-xs text-muted-foreground"
-                            >
-                              {feature}
-                            </span>
-                          ))}
-                        </div>
-
-                        <Button
-                          variant="outline"
-                          className="w-full border-primary/30 bg-background/30 hover:border-primary/60 hover:bg-primary/10"
-                          onClick={() => {
-                            setSelectedService(service);
-                            setIsServiceModalOpen(true);
-                          }}
-                        >
-                          <span className="flex items-center">
-                            Ver Detalhes Completos
-                            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                          </span>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
+          <div className="service-sign-lane service-sign-lane-title" aria-hidden="true">
+            <div className="service-sign-track" style={{ animationPlayState: isSignPaused ? "paused" : "running" }}>
+              <div className="service-sign-chunk service-sign-chunk-title">
+                <span className="service-sign-title-word">Soluções que</span>
+                <span className="service-sign-title-highlight">transformam</span>
+                <span className="service-sign-title-word">negócios.</span>
               </div>
             </div>
           </div>
-        </ScrollReveal>
 
-        {/* CTA Section */}
-        <ScrollReveal variant="fade-up" yOffset={24} delayMs={140}>
-          <div className="mt-20 text-center">
-            <p className="text-lg text-muted-foreground mb-6">
-              Quer ver seu projeto aqui? Vamos criar algo incrível juntos!
-            </p>
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              onClick={() => {
-                const whatsappNumber = "5521996062455";
-                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de desenvolver um projeto personalizado.`;
-                window.open(whatsappUrl, "_blank");
-              }}
-            >
-              <MessageSquare className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
-              Iniciar Projeto
-            </Button>
+          <div className="service-sign-lane service-sign-lane-subtitle mt-3 sm:mt-4" aria-hidden="true">
+            <div className="service-sign-track" style={{ animationPlayState: isSignPaused ? "paused" : "running" }}>
+              <p className="service-sign-subtitle-chunk">
+                Oferecemos tecnologias avançadas de IA e desenvolvimento web para automatizar, otimizar e revolucionar a forma como sua empresa opera.
+              </p>
+            </div>
           </div>
-        </ScrollReveal>
+        </div>
 
+        {/* Services marquee */}
+        <div className="relative mb-3 overflow-x-hidden overflow-y-visible rounded-none bg-[hsl(227_45%_4%/0.88)] px-0 py-4 sm:mb-4 sm:rounded-[24px] sm:py-7 md:mb-6">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 hidden w-16 bg-gradient-to-r from-[hsl(227_45%_4%)] via-[hsl(227_45%_4%/0.9)] to-transparent sm:block md:w-24" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 hidden w-16 bg-gradient-to-l from-[hsl(227_45%_4%)] via-[hsl(227_45%_4%/0.9)] to-transparent sm:block md:w-24" />
+
+          <div className="service-marquee-shell overflow-x-hidden overflow-y-visible py-2 sm:py-4">
+            <div className="service-marquee-track items-stretch px-2 py-2 sm:px-5">
+              {marqueeServices.map((service, index) => {
+                const Icon = service.icon;
+
+                return (
+                  <Card
+                    key={`${service.title}-${index}`}
+                    className={cn(
+                      "service-marquee-card group relative overflow-hidden rounded-[22px] !border-0 border-transparent ring-0 bg-[linear-gradient(180deg,hsl(224_24%_8%/0.86),hsl(228_28%_6%/0.82))] shadow-[0_18px_44px_-30px_hsl(220_65%_3%/0.95)] backdrop-blur-xl",
+                      "hover:-translate-y-2"
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        "absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-20",
+                        `bg-gradient-to-br ${service.color}`
+                      )}
+                    />
+
+                    <CardHeader className="relative z-10 space-y-3 px-4 pb-3 pt-4 sm:space-y-4 sm:px-5 sm:pt-5">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className="rounded-xl p-2.5 shadow-lg transition-transform duration-300 group-hover:scale-110"
+                          style={{ background: service.gradient }}
+                        >
+                          <Icon className="h-5 w-5 text-white sm:h-6 sm:w-6" />
+                        </div>
+
+                        <div>
+                          <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-primary/70 sm:text-[11px] sm:tracking-[0.26em]">
+                            Solucao Premium
+                          </div>
+                          <CardTitle className="text-lg font-bold leading-tight transition-colors group-hover:text-primary sm:text-[1.18rem]">
+                            {service.title}
+                          </CardTitle>
+                        </div>
+                      </div>
+
+                      <CardDescription className="min-h-[3.8rem] text-xs leading-5 sm:min-h-[4.2rem] sm:text-sm sm:leading-6">
+                        {service.description}
+                      </CardDescription>
+                    </CardHeader>
+
+                    <CardContent className="relative z-10 px-4 pb-4 pt-0 sm:px-5 sm:pb-5">
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                        {service.features.slice(0, 2).map((feature, featureIndex) => (
+                          <span
+                            key={featureIndex}
+                            className="rounded-full bg-white/5 px-2.5 py-1 text-[10px] text-muted-foreground sm:px-3 sm:text-xs"
+                          >
+                            {feature}
+                          </span>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        </div>
 
       </div>
-
-      {/* Modais */}
-      <Dialog open={isServiceModalOpen} onOpenChange={setIsServiceModalOpen}>
-        <DialogContent className="sm:max-w-[900px] w-[90vw] max-h-[85vh] overflow-y-auto">
-          {selectedService && <ServiceModal service={selectedService} />}
-        </DialogContent>
-      </Dialog>
-
     </section>
   );
 };
 
 export const ProjectsSection: React.FC = () => {
-  const [selectedProject, setSelectedProject] = React.useState<any>(null);
-  const [isProjectModalOpen, setIsProjectModalOpen] = React.useState(false);
+  const timelineItemRefs = React.useRef<Array<HTMLElement | null>>([]);
+  const [timelineProgress, setTimelineProgress] = React.useState<Record<number, number>>({});
+
+  React.useEffect(() => {
+    const thresholds = Array.from({ length: 101 }, (_, index) => index / 100);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        setTimelineProgress((current) => {
+          let hasChange = false;
+          const next = { ...current };
+
+          for (const entry of entries) {
+            const element = entry.target as HTMLElement;
+            const indexValue = element.dataset.projectIndex;
+            if (!indexValue) continue;
+
+            const projectIndex = Number(indexValue);
+            if (!Number.isFinite(projectIndex)) continue;
+
+            const rawRatio = entry.isIntersecting ? entry.intersectionRatio : 0;
+            const normalized = Math.max(0, Math.min(1, (rawRatio - 0.02) / 0.48));
+            const eased = normalized * normalized * (3 - 2 * normalized);
+            const visibility = Math.round(eased * 1000) / 1000;
+
+            if ((next[projectIndex] ?? 0) !== visibility) {
+              next[projectIndex] = visibility;
+              hasChange = true;
+            }
+          }
+
+          return hasChange ? next : current;
+        });
+      },
+      {
+        threshold: thresholds,
+        rootMargin: "0px 0px -8% 0px",
+      }
+    );
+
+    timelineItemRefs.current.forEach((node) => {
+      if (node) observer.observe(node);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="py-20 px-4 relative">
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
-            <Sparkles className="w-4 h-4" />
-            Meus Projetos
-          </div>
+    <section className="relative -mt-2 overflow-hidden px-4 pb-20 pt-2 md:pb-24 md:pt-4">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(222_34%_5%/0.92)_0%,hsl(224_38%_4%/0.97)_18%,hsl(226_42%_3%/0.99)_52%,hsl(228_45%_2%/1)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center_top,hsl(var(--primary)/0.05),transparent_30%)] opacity-60" />
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 18% 52%, hsl(var(--primary)) 1px, transparent 1px),
+                           radial-gradient(circle at 82% 48%, hsl(var(--accent)) 1px, transparent 1px)`,
+          backgroundSize: "100px 100px"
+        }} />
+      </div>
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-10 bg-[linear-gradient(180deg,hsl(228_45%_2%)_0%,hsl(228_45%_2%/0.98)_38%,hsl(228_45%_2%/0.88)_70%,transparent_100%)]" />
 
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center mb-14 md:mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Projetos que <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">transformam</span> ideias em realidade
+            Projetos que <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">entregam</span> resultado real
           </h2>
 
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Cases reais do meu portfólio, com foco em plataformas web, sites comerciais,
-            ferramentas operacionais e soluções digitais que resolvem problemas do negócio.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+            Uma vitrine de soluções para você entender, de forma simples, o que cada projeto faz,
+            como pode ajudar no dia a dia e quais ganhos pode gerar para o seu negócio.
           </p>
         </div>
 
-        <ScrollReveal variant="scale-in" staggerChildren staggerStepMs={95} childDistance={58} durationMs={1080}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+        <ScrollReveal variant="scale-in" durationMs={1080}>
+          <div className="projects-timeline mx-auto max-w-6xl">
             {projects.map((project, index) => {
-              const status = statusConfig[project.status] ?? statusConfig.repository;
+              const isLeft = index % 2 === 0;
 
               return (
-                <Card
+                <article
                   key={project.id}
-                  data-reveal-item
-                  style={{ ["--item-index" as string]: index } as React.CSSProperties}
-                  className="premium-card group relative overflow-hidden hover:border-primary/60 transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 flex flex-col h-full"
+                  ref={(node) => {
+                    timelineItemRefs.current[index] = node;
+                  }}
+                  data-project-index={index}
+                  style={{
+                    ["--project-visibility" as string]: timelineProgress[index] ?? 0,
+                  } as React.CSSProperties}
+                  className={cn(
+                    "project-timeline-item",
+                    isLeft ? "project-timeline-item-left" : "project-timeline-item-right"
+                  )}
                 >
-                <div className="relative overflow-hidden bg-gradient-to-br from-gray-900/50 to-gray-800/30 aspect-[16/10] rounded-t-lg">
-                  <div className="absolute inset-0 flex justify-center items-center p-6">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="max-w-full max-h-full object-contain drop-shadow-2xl transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/35 via-transparent to-primary/5 opacity-80" />
-
-                  <div className="absolute top-4 left-4 z-10">
-                    <Badge variant="secondary" className={cn("backdrop-blur-sm", status.className)}>
-                      <div className={cn("w-2 h-2 rounded-full mr-2 animate-pulse", status.dotClassName)} />
-                      {status.label}
-                    </Badge>
-                  </div>
-
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                    <div className="flex gap-2">
-                      {project.liveUrl && (
-                        <Button
-                          size="sm"
-                          variant="secondary"
-                          className="h-8 w-8 p-0 backdrop-blur-sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(project.liveUrl, "_blank");
-                          }}
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </Button>
-                      )}
-                      {project.githubUrl && (
-                        <Button
-                          size="sm"
-                          variant="secondary"
-                          className="h-8 w-8 p-0 backdrop-blur-sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(project.githubUrl, "_blank");
-                          }}
-                        >
-                          <Github className="w-4 h-4" />
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <CardHeader className="flex-grow">
-                  <Badge variant="outline" className="text-xs w-fit mb-2">
-                    {project.category}
-                  </Badge>
-
-                  <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
-                    {project.title}
-                  </CardTitle>
-
-                  <CardDescription className="text-sm mt-2">
-                    {project.shortDescription}
-                  </CardDescription>
-                </CardHeader>
-
-                <CardContent className="pt-0 mt-auto">
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {project.technologies.slice(0, 3).map((tech, techIndex) => (
-                      <Badge key={techIndex} variant="secondary" className="text-xs px-2 py-0.5">
-                        {tech}
-                      </Badge>
-                    ))}
-                    {project.technologies.length > 3 && (
-                      <Badge variant="secondary" className="text-xs px-2 py-0.5">
-                        +{project.technologies.length - 3}
-                      </Badge>
-                    )}
-                  </div>
-
-                  <Button
-                    variant="outline"
-                    className="w-full group/btn border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedProject(project);
-                      setIsProjectModalOpen(true);
-                    }}
+                  <Card
+                    style={{
+                      ["--project-glow" as string]: project.gradient,
+                    } as React.CSSProperties}
+                    className="project-timeline-card project-card-fx group relative overflow-visible !border-0 !shadow-none !bg-transparent rounded-[24px] transition-all duration-500"
                   >
-                    <span className="flex items-center">
-                      Ver Detalhes
-                      <Eye className="ml-2 w-4 h-4 group-hover/btn:scale-110 transition-transform" />
-                    </span>
-                  </Button>
-                </CardContent>
-              </Card>
+                    <div className="relative overflow-hidden rounded-t-[24px] bg-transparent">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="block h-auto w-full object-contain"
+                      />
+                    </div>
+
+                    <div className="project-card-content-shell">
+                      <span className="project-timeline-dot" aria-hidden="true" />
+
+                      <div className="project-card-body">
+                        <span className="project-timeline-pointer" aria-hidden="true" />
+
+                        <CardHeader className="pb-2">
+                          <Badge variant="secondary" className="mb-2 w-fit border-0 bg-white/10 text-xs text-slate-200">
+                            {project.category}
+                          </Badge>
+
+                          <CardTitle className="text-xl font-bold transition-colors group-hover:text-primary">
+                            {project.title}
+                          </CardTitle>
+
+                          <CardDescription className="mt-2 text-sm">
+                            {project.shortDescription}
+                          </CardDescription>
+                        </CardHeader>
+
+                        <CardContent className="pb-5 pt-0">
+                          <Accordion type="single" collapsible defaultValue={`${project.id}-overview`} className="project-showcase-accordion">
+                            <AccordionItem value={`${project.id}-overview`} className="project-showcase-item">
+                              <AccordionTrigger className="project-showcase-trigger">O que essa solução faz</AccordionTrigger>
+                              <AccordionContent className="project-showcase-content">
+                                <p>{project.description}</p>
+                              </AccordionContent>
+                            </AccordionItem>
+
+                            <AccordionItem value={`${project.id}-help`} className="project-showcase-item">
+                              <AccordionTrigger className="project-showcase-trigger">Como pode ajudar seu negócio</AccordionTrigger>
+                              <AccordionContent className="project-showcase-content">
+                                <ul className="space-y-2">
+                                  {project.features.slice(0, 4).map((feature: string, itemIndex: number) => (
+                                    <li key={itemIndex} className="flex items-start gap-2">
+                                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary/85" />
+                                      <span>{feature}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </AccordionContent>
+                            </AccordionItem>
+
+                            <AccordionItem value={`${project.id}-results`} className="project-showcase-item">
+                              <AccordionTrigger className="project-showcase-trigger">Resultados que você pode esperar</AccordionTrigger>
+                              <AccordionContent className="project-showcase-content">
+                                <ul className="space-y-2">
+                                  {project.projectDetails.results.slice(0, 3).map((result: string, itemIndex: number) => (
+                                    <li key={itemIndex} className="flex items-start gap-2">
+                                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent/85" />
+                                      <span>{result}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </AccordionContent>
+                            </AccordionItem>
+                          </Accordion>
+
+                          <div className="mt-4 flex flex-wrap gap-2">
+                            {project.liveUrl && (
+                              <Button size="sm" className="bg-primary/90 text-primary-foreground hover:bg-primary" onClick={() => window.open(project.liveUrl, "_blank")}>
+                                Ver exemplo
+                                <ExternalLink className="ml-2 h-4 w-4" />
+                              </Button>
+                            )}
+                            {!project.liveUrl && project.githubUrl && (
+                              <Button size="sm" variant="outline" className="border-primary/35 hover:border-primary/55 hover:bg-primary/10" onClick={() => window.open(project.githubUrl, "_blank")}>
+                                Ver referencia
+                                <Github className="ml-2 h-4 w-4" />
+                              </Button>
+                            )}
+                          </div>
+                        </CardContent>
+                      </div>
+                    </div>
+                  </Card>
+                </article>
               );
             })}
           </div>
         </ScrollReveal>
       </div>
-
-      <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
-        <DialogContent className="sm:max-w-[900px] w-[90vw] max-h-[85vh] overflow-y-auto">
-          {selectedProject && <ProjectModal project={selectedProject} />}
-        </DialogContent>
-      </Dialog>
     </section>
   );
 };

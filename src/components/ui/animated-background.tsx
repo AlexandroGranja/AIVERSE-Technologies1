@@ -57,17 +57,17 @@ function createPlanetTexture() {
   if (!ctx) return null;
 
   const backgroundGradient = ctx.createLinearGradient(0, 0, width, height);
-  backgroundGradient.addColorStop(0, "#030712");
-  backgroundGradient.addColorStop(0.35, "#07192f");
-  backgroundGradient.addColorStop(0.68, "#0b2f57");
-  backgroundGradient.addColorStop(1, "#031120");
+  backgroundGradient.addColorStop(0, "#061228");
+  backgroundGradient.addColorStop(0.35, "#0c2948");
+  backgroundGradient.addColorStop(0.68, "#145077");
+  backgroundGradient.addColorStop(1, "#0a1d35");
   ctx.fillStyle = backgroundGradient;
   ctx.fillRect(0, 0, width, height);
 
   const atmosphere = ctx.createRadialGradient(width * 0.32, height * 0.24, 20, width * 0.42, height * 0.46, width * 0.62);
-  atmosphere.addColorStop(0, "rgba(255,255,255,0.22)");
-  atmosphere.addColorStop(0.18, "rgba(147,223,255,0.16)");
-  atmosphere.addColorStop(0.44, "rgba(27,125,214,0.08)");
+  atmosphere.addColorStop(0, "rgba(255,255,255,0.28)");
+  atmosphere.addColorStop(0.18, "rgba(170,232,255,0.22)");
+  atmosphere.addColorStop(0.44, "rgba(73,168,236,0.14)");
   atmosphere.addColorStop(1, "rgba(0,0,0,0)");
   ctx.fillStyle = atmosphere;
   ctx.fillRect(0, 0, width, height);
@@ -320,14 +320,14 @@ export const AnimatedBackground: React.FC = () => {
     const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
     camera.position.set(0, 0, 12);
 
-    const ambientLight = new THREE.AmbientLight(0xa7d7ff, 1.55);
+    const ambientLight = new THREE.AmbientLight(0xb7e4ff, 1.9);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xc4ebff, 2.1);
+    const keyLight = new THREE.DirectionalLight(0xd9f3ff, 2.35);
     keyLight.position.set(-4, 3, 7);
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0x2da7ff, 0.06);
+    const rimLight = new THREE.DirectionalLight(0x5bb8ff, 0.14);
     rimLight.position.set(5, -2, 4);
     scene.add(rimLight);
 
@@ -343,8 +343,8 @@ export const AnimatedBackground: React.FC = () => {
       new THREE.MeshStandardMaterial({
         map: planetTexture ?? undefined,
         color: new THREE.Color("#dff5ff"),
-        emissive: new THREE.Color("#0b2540"),
-        emissiveIntensity: 0.06,
+        emissive: new THREE.Color("#12385a"),
+        emissiveIntensity: 0.11,
         roughness: 0.72,
         metalness: 0.06,
         transparent: true,
@@ -448,9 +448,12 @@ export const AnimatedBackground: React.FC = () => {
       rafId = window.requestAnimationFrame(animate);
 
       const progress = prefersReducedMotion ? 0 : easeOutCubic(scrollProgress);
+      const isMobileViewport = window.innerWidth < 768;
+      const startScale = isMobileViewport ? 1.18 : 1.42;
+      const scaleRange = isMobileViewport ? 0.54 : 0.78;
       const x = -0.42 + progress * 1.18;
       const y = 2.95 - progress * 5.7;
-      const scale = 1.42 - progress * 0.78;
+      const scale = startScale - progress * scaleRange;
       const opacity = 0.96 - progress * 0.34;
       const hiddenFactor = 1 - progress;
 
@@ -467,7 +470,7 @@ export const AnimatedBackground: React.FC = () => {
       stars.rotation.y = progress * 0.22;
 
       (sphere.material as THREE.MeshStandardMaterial).opacity = opacity;
-      (clouds.material as THREE.MeshLambertMaterial).opacity = 0.012 + hiddenFactor * 0.01;
+      (clouds.material as THREE.MeshLambertMaterial).opacity = 0.018 + hiddenFactor * 0.014;
       (shell.material as THREE.MeshBasicMaterial).opacity = 0;
       (atmosphere.material as THREE.MeshBasicMaterial).opacity = 0;
       (glow.material as THREE.SpriteMaterial).opacity = 0;
@@ -506,6 +509,13 @@ export const AnimatedBackground: React.FC = () => {
   return (
     <div ref={containerRef} className="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
       <canvas ref={canvasRef} className="h-full w-full" aria-hidden="true" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 18% 12%, rgba(154,224,255,0.17), transparent 38%), radial-gradient(circle at 52% 8%, rgba(116,205,255,0.12), transparent 43%), linear-gradient(180deg, rgba(15,39,61,0.22) 0%, transparent 46%)",
+        }}
+      />
     </div>
   );
 };

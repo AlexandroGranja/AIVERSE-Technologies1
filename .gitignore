@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local AI prompt mirror (external reference)
+content/system-prompts-and-models-of-ai-tools/

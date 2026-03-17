@@ -1,542 +1,721 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { MessageCircle, BarChart3, User, Languages, Sparkles, Send, Wifi, Battery, Signal, Bot, Zap } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Bot, RotateCcw, Send, Signal, Wifi, Battery } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
-interface Message {
+interface ChatMessage {
   id: string;
   text: string;
   isBot: boolean;
   timestamp: Date;
-  isVisible?: boolean;
-  isTyping?: boolean;
   displayText?: string;
 }
 
+interface TopicQuestion {
+  id: string;
+  question: string;
+  answer: (name: string) => string;
+}
+
+interface ConversationTopic {
+  id: string;
+  title: string;
+  intro: (name: string) => string;
+  questions: TopicQuestion[];
+}
+
+const initialBotMessage = (): ChatMessage => ({
+  id: "intro-name",
+  text: "Oi. Antes de comecarmos, como posso te chamar?",
+  isBot: true,
+  timestamp: new Date(),
+});
+
+const conversationTopics: ConversationTopic[] = [
+  {
+    id: "support-agent",
+    title: "Agente de atendimento",
+    intro: (name) =>
+      `${name}, esse tipo de agente ajuda a responder duvidas iniciais, orientar o visitante e encaminhar para sua equipe no momento certo.`,
+    questions: [
+      {
+        id: "support-hours",
+        question: "Ele consegue atender fora do horario comercial?",
+        answer: (name) =>
+          `Sim, ${name}. O agente pode ficar ativo fora do horario comercial para responder perguntas comuns e manter o atendimento em andamento.`,
+      },
+      {
+        id: "support-whatsapp",
+        question: "Ele pode levar a conversa para o WhatsApp?",
+        answer: (name) =>
+          `Pode, ${name}. Depois de entender a necessidade do visitante, ele pode direcionar a conversa para o WhatsApp e entregar o contato mais preparado para a equipe.`,
+      },
+      {
+        id: "support-faq",
+        question: "Ele tira duvidas antes de falar com um atendente?",
+        answer: (name) =>
+          `Sim. Ele consegue responder perguntas frequentes, explicar servicos e evitar que o visitante saia do site sem entender o proximo passo.`,
+      },
+      {
+        id: "support-site",
+        question: "Como isso aparece no meu site?",
+        answer: (name) =>
+          `${name}, ele pode aparecer de forma simples no site, como um canal de atendimento inicial que recebe o visitante e conduz a conversa de forma natural.`,
+      },
+    ],
+  },
+  {
+    id: "automation",
+    title: "Automacoes",
+    intro: (name) =>
+      `${name}, as automacoes ajudam a reduzir tarefas repetitivas e deixam o processo mais rapido no dia a dia do negocio.`,
+    questions: [
+      {
+        id: "automation-routine",
+        question: "Que tipo de tarefa da rotina da para automatizar?",
+        answer: (name) =>
+          `Depende do seu processo, ${name}, mas normalmente automatizamos atendimento inicial, envio de informacoes, organizacao de contatos e etapas operacionais repetitivas.`,
+      },
+      {
+        id: "automation-time",
+        question: "Isso ajuda mesmo a ganhar tempo?",
+        answer: (name) =>
+          `Ajuda sim. A ideia e tirar da equipe aquilo que e manual e repetitivo para sobrar mais tempo para atender, vender e organizar melhor o negocio.`,
+      },
+      {
+        id: "automation-integration",
+        question: "Da para conectar com o que eu ja uso hoje?",
+        answer: (name) =>
+          `Em muitos casos, sim, ${name}. Primeiro entendemos seu fluxo atual e depois avaliamos a forma mais simples de integrar sem complicar a operacao.`,
+      },
+      {
+        id: "automation-start",
+        question: "Qual seria o primeiro passo para automatizar?",
+        answer: (name) =>
+          `O primeiro passo e mapear o que mais toma tempo hoje. A partir disso, definimos o que vale automatizar primeiro para gerar resultado mais rapido.`,
+      },
+    ],
+  },
+  {
+    id: "web-project",
+    title: "Site ou landing page",
+    intro: (name) =>
+      `${name}, se o foco for apresentar melhor seu negocio e gerar mais contatos, um site bem pensado pode ser o melhor caminho.`,
+    questions: [
+      {
+        id: "web-goal",
+        question: "Como eu sei se preciso de um site ou de uma landing page?",
+        answer: (name) =>
+          `Isso depende do seu objetivo, ${name}. Se for apresentar o negocio de forma mais completa, um site costuma fazer sentido. Se for focar em uma oferta especifica, uma landing page pode funcionar melhor.`,
+      },
+      {
+        id: "web-leads",
+        question: "Isso ajuda mesmo a gerar mais contatos?",
+        answer: (name) =>
+          `Ajuda, porque a pagina passa a conduzir melhor a atencao do visitante, mostrar o que voce faz com clareza e facilitar a tomada de contato.`,
+      },
+      {
+        id: "web-professional",
+        question: "Meu negocio fica com uma imagem mais profissional?",
+        answer: (name) =>
+          `Sim, ${name}. Um projeto bem apresentado aumenta a confianca de quem visita e melhora a forma como sua marca e percebida.`,
+      },
+      {
+        id: "web-next-step",
+        question: "Se eu quiser fazer isso, como comeco?",
+        answer: (name) =>
+          `Voce comeca explicando seu objetivo e o momento do negocio. A partir disso, fica mais facil definir a melhor estrutura para sua pagina.`,
+      },
+    ],
+  },
+  {
+    id: "custom-solution",
+    title: "Projeto sob medida",
+    intro: (name) =>
+      `${name}, quando a necessidade e mais especifica, vale desenhar uma solucao sob medida para o seu processo ou modelo de negocio.`,
+    questions: [
+      {
+        id: "custom-fit",
+        question: "Como voces entendem o que faz sentido para o meu caso?",
+        answer: (name) =>
+          `Primeiro entendemos seu objetivo, ${name}, sua rotina e o que voce quer resolver. So depois pensamos na solucao mais adequada.`,
+      },
+      {
+        id: "custom-size",
+        question: "Precisa ser um projeto grande para valer a pena?",
+        answer: (name) =>
+          `Nao. Muitas vezes um ajuste bem pensado ou uma solucao mais enxuta ja resolve uma dor importante e traz resultado rapido.`,
+      },
+      {
+        id: "custom-process",
+        question: "Voces ajudam a organizar a ideia antes de desenvolver?",
+        answer: (name) =>
+          `Sim. Essa etapa faz parte do processo, porque ajuda a transformar uma necessidade solta em algo mais claro e viavel.`,
+      },
+      {
+        id: "custom-budget",
+        question: "Da para conversar antes de fechar qualquer coisa?",
+        answer: (name) =>
+          `Claro, ${name}. A conversa inicial existe justamente para entender seu caso e avaliar com calma o melhor caminho antes de qualquer decisao.`,
+      },
+    ],
+  },
+];
+
 const AIChatSection: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [messages, setMessages] = useState<ChatMessage[]>([initialBotMessage()]);
   const [isTyping, setIsTyping] = useState(false);
-  const [typingMessageId, setTypingMessageId] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [isHovered, setIsHovered] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [askedQuestionIds, setAskedQuestionIds] = useState<string[]>([]);
+  const [activeQuestionId, setActiveQuestionId] = useState<string | null>(null);
+  const [nameInput, setNameInput] = useState("");
+  const [leadName, setLeadName] = useState("");
+  const [hasStartedDemo, setHasStartedDemo] = useState(false);
+  const [hasShownWhatsappPrompt, setHasShownWhatsappPrompt] = useState(false);
+  const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
+  const [isDesktopChatScrollActive, setIsDesktopChatScrollActive] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const responseTimeoutRef = useRef<number | null>(null);
+  const typingTimeoutRef = useRef<number | null>(null);
 
-  // Funções para controlar o efeito 3D
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
+  const selectedTopic = useMemo(
+    () => conversationTopics.find((item) => item.id === selectedTopicId) ?? null,
+    [selectedTopicId]
+  );
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setIsClicked(false);
-  };
+  const canShowCta = askedQuestionIds.length >= 1 && hasStartedDemo && !!selectedTopicId;
 
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
+  const availableQuestions = useMemo(() => {
+    if (!selectedTopic) return [];
+    return selectedTopic.questions.filter((item) => !askedQuestionIds.includes(item.id));
+  }, [askedQuestionIds, selectedTopic]);
 
-  // Efeito de digitação natural e envolvente
-  const typeMessage = (messageId: string, fullText: string, onComplete?: () => void) => {
-    let currentIndex = 0;
-    const baseSpeed = 30; // ms por caractere base
-    const variation = 15; // variação de velocidade
+  const visibleQuestions = availableQuestions.length
+    ? availableQuestions
+    : selectedTopic?.questions ?? [];
 
-    const typeNextChar = () => {
-      if (currentIndex <= fullText.length) {
-        // Velocidade variável para simular digitação humana real
-        const speed = baseSpeed + Math.random() * variation;
-        
-        setMessages(prev => prev.map(msg => 
-          msg.id === messageId 
-            ? { ...msg, displayText: fullText.slice(0, currentIndex) }
-            : msg
-        ));
-        
-        currentIndex++;
-        
-        // Pausas naturais para simular pensamento
-        if (currentIndex % 20 === 0 && Math.random() < 0.3) {
-          // Pausa mais longa ocasionalmente
-          setTimeout(typeNextChar, 200 + Math.random() * 300);
-        } else if (currentIndex % 8 === 0 && Math.random() < 0.4) {
-          // Pausa curta frequente
-          setTimeout(typeNextChar, 50 + Math.random() * 100);
-        } else {
-          setTimeout(typeNextChar, speed);
-        }
-      } else {
-        setTypingMessageId(null);
-        // Chamar callback quando a digitação terminar
-        if (onComplete) {
-          setTimeout(onComplete, 800); // Delay natural após terminar
-        }
-      }
-    };
-
-    typeNextChar();
-  };
-
-  // Função para gerar mensagens com timestamps dinâmicos
-  const generateMessages = (): Message[] => {
-    const now = new Date();
-    return [
-      {
-        id: '1',
-        text: 'Olá! Sou o assistente virtual da AIVERSE Technologies. Somos especialistas em soluções digitais inovadoras. Como posso te ajudar hoje?',
-        isBot: true,
-        timestamp: new Date(now.getTime() - 8 * 60 * 1000), // 8 minutos atrás
-      },
-      {
-        id: '2',
-        text: 'Oi! Quero saber mais sobre chatbots para meu negócio',
-        isBot: false,
-        timestamp: new Date(now.getTime() - 7 * 60 * 1000), // 7 minutos atrás
-      },
-      {
-        id: '3',
-        text: 'Nossos Agentes de Atendimento IA revolucionam o atendimento ao cliente:\n\n• Chatbots inteligentes com processamento de linguagem natural\n• Integração com WhatsApp Business\n• Respostas 24/7 automatizadas\n• Aprendizado contínuo\n• Relatórios detalhados de atendimento\n• Integração com CRM\n\nPerfeito para empresas que querem melhorar o atendimento e reduzir custos. Posso te mostrar alguns exemplos?',
-        isBot: true,
-        timestamp: new Date(now.getTime() - 6 * 60 * 1000), // 6 minutos atrás
-      },
-      {
-        id: '4',
-        text: 'E quanto custa para implementar?',
-        isBot: false,
-        timestamp: new Date(now.getTime() - 5 * 60 * 1000), // 5 minutos atrás
-      },
-      {
-        id: '5',
-        text: 'Nossos valores são personalizados de acordo com a complexidade e necessidades de cada projeto:\n\n• Análise gratuita do seu projeto\n• Orçamento sem compromisso\n• Planos de pagamento flexíveis\n• Suporte técnico incluso\n• Garantia de satisfação\n\nPara um orçamento preciso, preciso entender melhor suas necessidades. Que tipo de solução você está buscando?',
-        isBot: true,
-        timestamp: new Date(now.getTime() - 4 * 60 * 1000), // 4 minutos atrás
-      },
-      {
-        id: '6',
-        text: 'Tenho um e-commerce e quero automatizar o atendimento',
-        isBot: false,
-        timestamp: new Date(now.getTime() - 3 * 60 * 1000), // 3 minutos atrás
-      },
-      {
-        id: '7',
-        text: 'Perfeito! Para e-commerce, desenvolvemos:\n\n• Sites responsivos e otimizados\n• E-commerce completo com sistema de pagamentos\n• Landing pages de alta conversão\n• SEO otimizado\n• Performance otimizada\n• Integração com sistemas existentes\n\nE o chatbot pode integrar com seu e-commerce para responder dúvidas sobre produtos, status de pedidos e muito mais!',
-        isBot: true,
-        timestamp: new Date(now.getTime() - 2 * 60 * 1000), // 2 minutos atrás
-      },
-      {
-        id: '8',
-        text: 'Como posso falar com um especialista?',
-        isBot: false,
-        timestamp: new Date(now.getTime() - 1 * 60 * 1000), // 1 minuto atrás
-      },
-      {
-        id: '9',
-        text: 'Entre em contato conosco através dos canais oficiais:\n\nWhatsApp/Telefone: (21) 99606-2455\nE-mail: contato@aiverse.tech\nInstagram: @aiversetech_oficial\n\nHorário de Atendimento:\nSegunda a Sexta: 9h às 18h\nSábado: 9h às 13h\n\nNossa equipe está pronta para atender você!',
-        isBot: true,
-        timestamp: new Date(now.getTime() - 30 * 1000), // 30 segundos atrás
-      },
-    ];
-  };
-
-  // Mensagens pré-definidas do chat baseadas no ChatBot real
-  const predefinedMessages: Message[] = generateMessages();
-
-  const scrollToBottom = () => {
-    if (chatContainerRef.current) {
-      // Scroll apenas dentro do container do chat, não da página inteira
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  };
-
-  // Função para formatar a hora
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('pt-BR', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    });
-  };
-
-  // Função para formatar timestamp das mensagens
-  const formatMessageTime = (date: Date) => {
-    return date.toLocaleTimeString('pt-BR', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    });
-  };
-
-  // Atualizar hora em tempo real
   useEffect(() => {
-    const timer = setInterval(() => {
+    const timer = window.setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
 
-    return () => clearInterval(timer);
+    return () => window.clearInterval(timer);
   }, []);
 
-  // Atualizar timestamps das mensagens quando o tempo mudar
   useEffect(() => {
-    const updateMessageTimestamps = () => {
-      setMessages(prev => prev.map(msg => ({
-        ...msg,
-        timestamp: new Date(msg.timestamp.getTime() + 1000) // Adiciona 1 segundo
-      })));
+    if (!chatContainerRef.current) return;
+    const timer = window.setTimeout(() => {
+      if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      }
+    }, 120);
+
+    return () => window.clearTimeout(timer);
+  }, [messages, isTyping]);
+
+  useEffect(() => {
+    return () => {
+      if (responseTimeoutRef.current) {
+        window.clearTimeout(responseTimeoutRef.current);
+      }
+      if (typingTimeoutRef.current) {
+        window.clearTimeout(typingTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!chatContainerRef.current?.contains(event.target as Node)) {
+        setIsDesktopChatScrollActive(false);
+      }
     };
 
-    const timer = setInterval(updateMessageTimestamps, 1000);
-    return () => clearInterval(timer);
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
   }, []);
 
-  useEffect(() => {
-    // Scroll suave apenas dentro do chat
-    if (messages.length > 0) {
-      const timer = setTimeout(scrollToBottom, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [messages.length]);
+  const formatTime = (date: Date) =>
+    date.toLocaleTimeString("pt-BR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
 
-  // Sistema de conversa natural e sequencial
-  useEffect(() => {
-    if (currentMessageIndex < predefinedMessages.length) {
-      const message = predefinedMessages[currentMessageIndex];
-      
-      // Delay inicial para começar a conversa
-      const startDelay = currentMessageIndex === 0 ? 2000 : 0;
-      
-      const showMessage = () => {
-        if (message.isBot) {
-          // Bot: Mostrar indicador de digitação primeiro
-          setIsTyping(true);
-          
-          // Tempo de "pensamento" do bot
-          const thinkingTime = 1500 + Math.random() * 1000; // 1.5-2.5s
-          
-          setTimeout(() => {
-            setIsTyping(false);
-            
-            // Adicionar mensagem do bot
-            const botMessage = { 
-              ...message, 
-              isVisible: true, 
-              displayText: '',
-              isTyping: true 
-            };
-            setMessages(prev => [...prev, botMessage]);
-            setTypingMessageId(message.id);
-            
-            // Iniciar digitação
-            typeMessage(message.id, message.text, () => {
-              // Após terminar a digitação, aguardar um pouco e passar para próxima
-              setTimeout(() => {
-                setCurrentMessageIndex(prev => prev + 1);
-              }, 1000);
-            });
-          }, thinkingTime);
-          
-        } else {
-          // Usuário: Aparece imediatamente
-          const userMessage = { 
-            ...message, 
-            isVisible: true, 
-            displayText: message.text 
-          };
-          setMessages(prev => [...prev, userMessage]);
-          
-          // Aguardar um pouco antes da próxima mensagem
-          setTimeout(() => {
-            setCurrentMessageIndex(prev => prev + 1);
-          }, 1500);
+  const handleWhatsappClick = () => {
+    const formattedName = leadName.trim();
+    const intro = formattedName
+      ? `Ola! Meu nome e ${formattedName} e quero entender como ter um agente de atendimento no meu site.`
+      : "Ola! Quero entender como ter um agente de atendimento no meu site.";
+
+    window.open(
+      `https://wa.me/5521996062455?text=${encodeURIComponent(intro)}`,
+      "_blank"
+    );
+  };
+
+  const clearPendingTimers = () => {
+    if (responseTimeoutRef.current) {
+      window.clearTimeout(responseTimeoutRef.current);
+      responseTimeoutRef.current = null;
+    }
+    if (typingTimeoutRef.current) {
+      window.clearTimeout(typingTimeoutRef.current);
+      typingTimeoutRef.current = null;
+    }
+  };
+
+  const appendUserMessage = (id: string, text: string) => {
+    setMessages((current) => [
+      ...current,
+      {
+        id,
+        text,
+        displayText: text,
+        isBot: false,
+        timestamp: new Date(),
+      },
+    ]);
+  };
+
+  const typeBotMessage = (messageId: string, fullText: string, onComplete?: () => void) => {
+    let currentIndex = 0;
+
+    const writeNext = () => {
+      currentIndex += 1;
+
+      setMessages((current) =>
+        current.map((message) =>
+          message.id === messageId
+            ? {
+                ...message,
+                displayText: fullText.slice(0, currentIndex),
+              }
+            : message
+        )
+      );
+
+      if (currentIndex < fullText.length) {
+        const currentCharacter = fullText[currentIndex - 1];
+        const nextDelay = /[,.!?]/.test(currentCharacter) ? 68 : 22 + Math.random() * 26;
+        typingTimeoutRef.current = window.setTimeout(writeNext, nextDelay);
+        return;
+      }
+
+      typingTimeoutRef.current = null;
+      if (onComplete) {
+        onComplete();
+      }
+    };
+
+    typingTimeoutRef.current = window.setTimeout(writeNext, 120);
+  };
+
+  const enqueueBotReply = (text: string, options?: { delayMs?: number; onComplete?: () => void }) => {
+    const delayMs = options?.delayMs ?? 620;
+
+    setIsTyping(true);
+
+    responseTimeoutRef.current = window.setTimeout(() => {
+      const messageId = `bot-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+      const timestamp = new Date();
+
+      setIsTyping(false);
+      setMessages((current) => [
+        ...current,
+        {
+          id: messageId,
+          text,
+          displayText: "",
+          isBot: true,
+          timestamp,
+        },
+      ]);
+
+      responseTimeoutRef.current = null;
+      typeBotMessage(messageId, text, options?.onComplete);
+    }, delayMs);
+  };
+
+  const resetDemo = () => {
+    clearPendingTimers();
+
+    setMessages([initialBotMessage()]);
+    setIsTyping(false);
+    setAskedQuestionIds([]);
+    setActiveQuestionId(null);
+    setNameInput("");
+    setLeadName("");
+    setHasStartedDemo(false);
+    setHasShownWhatsappPrompt(false);
+    setSelectedTopicId(null);
+  };
+
+  const startDemoWithName = () => {
+    const cleanedName = nameInput.trim();
+    if (!cleanedName || isTyping) return;
+
+    clearPendingTimers();
+    setLeadName(cleanedName);
+    setHasStartedDemo(true);
+    setMessages([initialBotMessage()]);
+    appendUserMessage("user-name", cleanedName);
+    enqueueBotReply(
+      `Prazer, ${cleanedName}. Vou te mostrar como esse atendimento pode funcionar no seu site. Primeiro, escolha o assunto que voce quer explorar.`,
+      { delayMs: 520 }
+    );
+  };
+
+  const handleTopicSelection = (topic: ConversationTopic) => {
+    if (isTyping || !hasStartedDemo || !leadName.trim()) return;
+
+    clearPendingTimers();
+    setSelectedTopicId(topic.id);
+    setAskedQuestionIds([]);
+    setActiveQuestionId(null);
+    setHasShownWhatsappPrompt(false);
+    appendUserMessage(`user-topic-${topic.id}-${Date.now()}`, topic.title);
+    enqueueBotReply(topic.intro(leadName.trim()), { delayMs: 520 });
+  };
+
+  const handleQuickQuestion = (item: TopicQuestion) => {
+    if (isTyping || askedQuestionIds.includes(item.id) || !hasStartedDemo || !leadName.trim()) return;
+
+    clearPendingTimers();
+    appendUserMessage(`user-${item.id}`, item.question);
+    setAskedQuestionIds((current) => [...current, item.id]);
+    setActiveQuestionId(item.id);
+
+    const shouldShowWhatsappPrompt = !hasShownWhatsappPrompt;
+
+    enqueueBotReply(item.answer(leadName.trim()), {
+      delayMs: 700,
+      onComplete: () => {
+        if (shouldShowWhatsappPrompt) {
+          setHasShownWhatsappPrompt(true);
+          enqueueBotReply(
+            `Se fizer sentido para voce, ${leadName.trim()}, eu tambem posso te direcionar para o WhatsApp para continuar essa conversa com a equipe.`,
+            {
+              delayMs: 720,
+              onComplete: () => {
+                setActiveQuestionId(null);
+              },
+            }
+          );
+          return;
         }
-      };
 
-      const timeoutId = setTimeout(showMessage, startDelay);
-      return () => clearTimeout(timeoutId);
+        setActiveQuestionId(null);
+      },
+    });
+  };
+
+  const renderOptionLabel = (item: ConversationTopic | TopicQuestion, isUsed: boolean) => {
+    if ("title" in item) {
+      return item.title;
     }
-  }, [currentMessageIndex]);
+    return isUsed ? `Perguntado: ${item.question}` : item.question;
+  };
 
-  // Reiniciar a conversa quando terminar
-  useEffect(() => {
-    if (currentMessageIndex >= predefinedMessages.length) {
-      const restartTimeout = setTimeout(() => {
-        setMessages([]);
-        setCurrentMessageIndex(0);
-        setIsTyping(false);
-        setTypingMessageId(null);
-      }, 8000);
-
-      return () => clearTimeout(restartTimeout);
+  const handleDesktopChatWheel: React.WheelEventHandler<HTMLDivElement> = (event) => {
+    if (window.innerWidth < 768 || !isDesktopChatScrollActive || !chatContainerRef.current) {
+      return;
     }
-  }, [currentMessageIndex]);
 
-  const features = [
-    {
-      icon: MessageCircle,
-      title: 'Agentes de Atendimento IA',
-      description: 'Chatbots inteligentes com processamento de linguagem natural, integração WhatsApp e respostas 24/7',
-    },
-    {
-      icon: BarChart3,
-      title: 'Páginas Web Completas',
-      description: 'Sites responsivos, e-commerce completo, landing pages de alta conversão e SEO otimizado',
-    },
-    {
-      icon: User,
-      title: 'Automações de Processos',
-      description: 'Workflows empresariais automatizados, integração entre sistemas e redução de custos operacionais',
-    },
-    {
-      icon: Languages,
-      title: 'Cardápios Online',
-      description: 'Cardápios digitais interativos, sistema de pedidos online e integração com delivery',
-    },
-  ];
+    event.preventDefault();
+    event.stopPropagation();
+    chatContainerRef.current.scrollTop += event.deltaY;
+  };
 
   return (
-    <section className="py-16 sm:py-20 px-4 relative" id="chat-ia">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4 sm:mb-6">
-            <Bot className="w-4 h-4" />
-            Chat com IA
-          </div>
-          
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-4">
-            Experimente nosso <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">Assistente Virtual</span>
+    <section className="relative -mt-2 overflow-hidden px-4 py-16 sm:py-20" id="chat-ia">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(222_34%_5%/0.92)_0%,hsl(224_38%_4%/0.97)_18%,hsl(226_42%_3%/0.99)_52%,hsl(228_45%_2%/1)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center_top,hsl(var(--primary)/0.05),transparent_30%)] opacity-60" />
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 20% 50%, hsl(var(--primary)) 1px, transparent 1px),
+                             radial-gradient(circle at 80% 50%, hsl(var(--accent)) 1px, transparent 1px)`,
+            backgroundSize: "100px 100px",
+          }}
+        />
+      </div>
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-10 bg-[linear-gradient(180deg,hsl(228_45%_2%)_0%,hsl(228_45%_2%/0.98)_38%,hsl(228_45%_2%/0.88)_70%,transparent_100%)]" />
+
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="mb-8 text-center sm:mb-12 lg:mb-16">
+          <h2 className="mb-4 px-4 text-3xl font-bold leading-tight sm:mb-6 sm:text-4xl md:text-5xl">
+            Veja como funciona um <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">atendimento com um de nossos agentes</span>
           </h2>
-          
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
-            Veja como nossa inteligência artificial pode revolucionar o atendimento do seu negócio
+
+          <p className="mx-auto max-w-3xl px-4 text-base leading-7 text-muted-foreground sm:text-xl">
+            Esta demonstracao mostra, de forma simples e realista, como um agente pode iniciar a conversa, responder as duvidas mais comuns e conduzir o cliente para o proximo passo.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Mockup Mobile */}
-          <div className="order-2 lg:order-1 flex justify-center items-start pt-8 sm:pt-12 lg:pt-0 lg:items-center min-h-[500px] sm:min-h-[600px] w-full">
-            <div 
-              className={cn(
-                "relative transform scale-85 xs:scale-90 sm:scale-95 md:scale-85 lg:scale-70 xl:scale-75 transition-all duration-500 ease-out cursor-pointer",
-                "hover:scale-90 hover:scale-95 hover:scale-90 hover:scale-75 hover:scale-80", // Ajuste de escala no hover
-                isHovered || isClicked ? "rotate-0" : "rotate-3", // Inclinação padrão
-                isClicked ? "scale-90 sm:scale-100 md:scale-90 lg:scale-75 xl:scale-80" : ""
-              )}
-              style={{
-                transform: `perspective(1000px) rotateX(${isHovered || isClicked ? '0deg' : '2deg'}) rotateY(${isHovered || isClicked ? '0deg' : '-3deg'}) rotateZ(${isHovered || isClicked ? '0deg' : '1deg'})`,
-                transformStyle: 'preserve-3d'
-              }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              onClick={handleClick}
+        <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-12">
+          <div className="order-1 flex min-h-[450px] w-full flex-col items-center justify-start pt-4 sm:min-h-[600px] sm:pt-8 lg:min-h-[unset] lg:items-center lg:justify-center lg:pt-0">
+            <div
+              className="relative transform scale-[0.82] xs:scale-[0.88] sm:scale-95 md:scale-85 lg:scale-[0.9] xl:scale-[1]"
             >
-              {/* Frame do Celular - Design Realista */}
-              <div className={cn(
-                "relative w-[260px] xs:w-[280px] sm:w-72 md:w-64 lg:w-56 xl:w-64 h-[520px] sm:h-[600px] md:h-[540px] lg:h-[480px] xl:h-[540px] bg-gradient-to-b from-gray-900 to-black rounded-[2.5rem] border-2 border-gray-700 overflow-hidden mx-auto transition-all duration-500",
-                isHovered || isClicked ? "shadow-2xl" : "shadow-3xl"
-              )}
-              style={{
-                boxShadow: isHovered || isClicked 
-                  ? '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05)' 
-                  : '0 35px 60px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), -8px 8px 20px rgba(0, 0, 0, 0.2)'
-              }}
-            >
-                {/* Borda interna para simular tela */}
-                <div className="absolute inset-1 bg-black rounded-[2rem] overflow-hidden">
-                  {/* Efeito de brilho quando ativo */}
-                  {(isHovered || isClicked) && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent rounded-[2rem] pointer-events-none" />
-                  )}
-                  {/* Tela do celular */}
-                  <div className="w-full h-full bg-gradient-to-b from-slate-900 to-slate-800">
-                {/* Notch - Simulando iPhone */}
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-10 flex items-center justify-center">
-                  {/* Câmera frontal */}
-                  <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
-                </div>
-                
-                {/* Status Bar */}
-                <div className="flex justify-between items-center px-6 py-3 text-white text-sm pt-8">
-                  <span className="font-medium">{formatTime(currentTime)}</span>
-                  <div className="flex items-center gap-1">
-                    <Signal className="w-4 h-4" />
-                    <Wifi className="w-4 h-4" />
-                    <Battery className="w-4 h-4" />
-                  </div>
-                </div>
-
-                {/* Header do Chat */}
-                <div className="px-4 py-3 border-b border-slate-700">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">AI</span>
+              <div
+                className="relative mx-auto h-[520px] w-[272px] max-w-full overflow-hidden rounded-[2.5rem] border-2 border-gray-700 bg-gradient-to-b from-gray-900 to-black shadow-3xl sm:h-[620px] sm:w-72 md:h-[560px] md:w-64 lg:h-[540px] lg:w-64 xl:h-[580px] xl:w-[272px]"
+                style={{
+                  boxShadow: "0 35px 60px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), -8px 8px 20px rgba(0, 0, 0, 0.2)",
+                }}
+              >
+                <div className="absolute inset-1 overflow-hidden rounded-[2rem] bg-black">
+                  <div className="flex h-full flex-col bg-gradient-to-b from-slate-900 to-slate-800">
+                    <div className="absolute left-1/2 top-0 z-10 flex h-6 w-32 -translate-x-1/2 items-center justify-center rounded-b-2xl bg-black">
+                      <div className="h-2 w-2 rounded-full bg-gray-600" />
                     </div>
-                    <div>
-                      <h3 className="text-white font-semibold">AIVERSE Assistant</h3>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span>Online • Digitando...</span>
+
+                    <div className="flex items-center justify-between px-5 py-3 pt-8 text-xs text-white sm:px-6 sm:text-sm">
+                      <span className="font-medium">{formatTime(currentTime)}</span>
+                      <div className="flex items-center gap-1">
+                        <Signal className="h-4 w-4" />
+                        <Wifi className="h-4 w-4" />
+                        <Battery className="h-4 w-4" />
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                {/* Messages Area */}
-                <div 
-                  ref={chatContainerRef}
-                  className="flex-1 overflow-y-auto px-3 sm:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4 h-[300px] sm:h-[360px] md:h-[320px] lg:h-[280px] xl:h-[320px] scroll-smooth"
-                >
-                  {messages.map((message, index) => (
-                    <div
-                      key={message.id}
-                      className={cn(
-                        "flex transition-all duration-500 ease-out",
-                        message.isBot ? "justify-start" : "justify-end",
-                        message.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-                      )}
-                      style={{ 
-                        animationDelay: `${index * 0.2}s`,
-                        transitionDelay: `${index * 0.1}s`
-                      }}
-                    >
-                      <div
-                        className={cn(
-                          "max-w-[80%] p-2 sm:p-3 rounded-2xl text-xs sm:text-sm shadow-sm",
-                          message.isBot
-                            ? "bg-gradient-to-r from-slate-700 to-slate-600 text-white rounded-bl-md"
-                            : "bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-br-md"
-                        )}
-                      >
-                        <p className="whitespace-pre-line">
-                          {message.displayText || message.text}
-                          {message.isTyping && typingMessageId === message.id && (
-                            <span className="inline-block w-2 h-4 bg-white/70 ml-1 animate-pulse"></span>
-                          )}
-                        </p>
-                        <span className="text-xs opacity-70 mt-1 block">
-                          {formatMessageTime(message.timestamp)}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                  
-                  {isTyping && (
-                    <div className="flex justify-start animate-fade-in">
-                      <div className="bg-gradient-to-r from-slate-700 to-slate-600 p-4 rounded-2xl">
-                        <div className="flex items-center space-x-2">
-                          <div className="flex space-x-1">
-                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
-                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="border-b border-slate-700 px-3 py-3 sm:px-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-600">
+                          <span className="text-sm font-bold text-white">AI</span>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-white">AIVERSE Assistant</h3>
+                          <div className="flex items-center gap-2 text-xs text-slate-400">
+                            <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                            <span>{isTyping ? "Respondendo agora" : "Pronto para atender"}</span>
                           </div>
-                          <span className="text-xs text-cyan-300 font-medium">AIVERSE está pensando...</span>
-                        </div>
-                        <div className="mt-2 text-xs text-slate-400">
-                          ✨ Analisando sua pergunta e preparando a melhor resposta
                         </div>
                       </div>
                     </div>
-                  )}
-                  <div ref={messagesEndRef} />
+
+                    <div
+                      ref={chatContainerRef}
+                      onClick={() => {
+                        if (window.innerWidth >= 768) {
+                          setIsDesktopChatScrollActive(true);
+                        }
+                      }}
+                      onWheel={handleDesktopChatWheel}
+                      className={cn(
+                        "h-[260px] flex-1 space-y-3 px-3 py-3 text-xs sm:h-[342px] sm:px-4 sm:py-4 sm:text-sm md:h-[300px] lg:h-[300px] xl:h-[318px]",
+                        "overflow-hidden md:overflow-y-auto",
+                        isDesktopChatScrollActive && "md:ring-1 md:ring-cyan-400/45 md:ring-inset"
+                      )}
+                    >
+                      <div className="space-y-3">
+                      {messages.map((message) => (
+                        <div
+                          key={message.id}
+                          className={cn(
+                            "flex animate-in fade-in-0 slide-in-from-bottom-2 duration-300",
+                            message.isBot ? "justify-start" : "justify-end"
+                          )}
+                        >
+                          <div
+                            className={cn(
+                              "max-w-[82%] rounded-2xl p-3 shadow-sm",
+                              message.isBot
+                                ? "rounded-bl-md bg-gradient-to-r from-slate-700 to-slate-600 text-white"
+                                : "rounded-br-md bg-gradient-to-r from-cyan-500 to-blue-600 text-white"
+                            )}
+                          >
+                            <p className="whitespace-pre-line leading-relaxed">{message.displayText ?? message.text}</p>
+                            <span className="mt-1 block text-[10px] opacity-70 sm:text-xs">
+                              {formatTime(message.timestamp)}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+
+                      {isTyping && (
+                        <div className="flex justify-start">
+                          <div className="rounded-2xl rounded-bl-md bg-gradient-to-r from-slate-700 to-slate-600 p-4">
+                            <div className="flex items-center gap-2">
+                              <div className="flex space-x-1">
+                                <div className="h-2 w-2 rounded-full bg-cyan-400 animate-bounce" />
+                                <div className="h-2 w-2 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: "0.1s" }} />
+                                <div className="h-2 w-2 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: "0.2s" }} />
+                              </div>
+                              <span className="text-xs font-medium text-cyan-300">Preparando a resposta...</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      </div>
+                    </div>
+
+                    <div className="border-t border-slate-700 px-3 py-3 sm:px-4">
+                      <div className="flex flex-col gap-2 sm:flex-row">
+                        <Input
+                          readOnly
+                          value=""
+                          placeholder={hasStartedDemo ? "Escolha uma pergunta ao lado" : "Digite seu nome para comecar"}
+                          className="h-9 flex-1 rounded-full border-slate-600 bg-slate-700 text-xs text-white placeholder:text-slate-400 sm:h-10 sm:text-sm"
+                        />
+                        <Button size="icon" disabled className="h-9 w-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 opacity-70 sm:h-10 sm:w-10">
+                          <Send className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Input Area */}
-                <div className="px-4 py-3 border-t border-slate-700">
+                <div className="absolute bottom-2 left-1/2 h-1 w-12 -translate-x-1/2 rounded-full bg-gray-600" />
+              </div>
+            </div>
+
+            <div className="mt-5 w-full max-w-[22rem] lg:hidden">
+              {!hasStartedDemo ? (
+                <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,hsl(224_24%_8%/0.78),hsl(228_28%_6%/0.72))] p-4 shadow-[0_18px_44px_-30px_hsl(220_65%_3%/0.95)] backdrop-blur-xl">
+                  <p className="mb-3 text-sm font-medium text-white">Como posso te chamar?</p>
                   <div className="flex gap-2">
                     <Input
-                      placeholder="Digite sua mensagem..."
-                      className="flex-1 bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 rounded-full"
+                      value={nameInput}
+                      onChange={(event) => setNameInput(event.target.value)}
+                      placeholder="Digite seu nome"
+                      className="h-10 rounded-full border-white/10 bg-white/5 text-white placeholder:text-slate-400"
                     />
-                    <Button size="icon" className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 rounded-full">
-                      <Send className="w-4 h-4" />
+                    <Button className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90" onClick={startDemoWithName} disabled={!nameInput.trim() || isTyping}>
+                      Comecar
                     </Button>
                   </div>
                 </div>
+              ) : (
+                <>
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200/85">
+                      {selectedTopic ? "Perguntas sobre esse assunto" : "Escolha o assunto"}
+                    </p>
+                    <span className="text-[11px] text-slate-500">
+                      {selectedTopic ? `${visibleQuestions.length} opcoes` : `${conversationTopics.length} temas`}
+                    </span>
                   </div>
-                </div>
-                
-                {/* Botão Home - Simulando iPhone */}
-                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gray-600 rounded-full"></div>
-              </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    {(selectedTopic ? visibleQuestions : conversationTopics).map((item) => {
+                      const isTopic = "title" in item;
+                      const isUsed = !isTopic && askedQuestionIds.includes(item.id);
+                      const isActive = !isTopic && activeQuestionId === item.id;
+
+                      return (
+                        <button
+                          key={`mobile-${item.id}`}
+                          type="button"
+                          disabled={isTyping || isUsed}
+                          onClick={() => (isTopic ? handleTopicSelection(item) : handleQuickQuestion(item))}
+                          className={cn(
+                            "min-h-[88px] w-full rounded-2xl border px-3 py-2 text-left text-xs leading-5 transition-all",
+                            isUsed
+                              ? "cursor-not-allowed border-white/10 bg-white/5 text-slate-500"
+                              : "border-cyan-500/30 bg-cyan-500/10 text-cyan-100 hover:border-cyan-400/60 hover:bg-cyan-500/16",
+                            isActive && "border-cyan-300 bg-cyan-500/18 text-white"
+                          )}
+                        >
+                          {renderOptionLabel(item, isUsed)}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {selectedTopic && (
+                    <Button variant="outline" className="mt-3 w-full border-white/15 bg-white/5 hover:bg-white/10" onClick={() => setSelectedTopicId(null)}>
+                      Trocar assunto
+                    </Button>
+                  )}
+
+                  {canShowCta && (
+                    <Button className="mt-4 w-full bg-primary text-primary-foreground hover:bg-primary/90" onClick={handleWhatsappClick}>
+                      Continuar no WhatsApp
+                    </Button>
+                  )}
+                </>
+              )}
             </div>
           </div>
 
-          {/* Exemplos de Agentes IA */}
-          <div className="order-1 lg:order-2 space-y-6 lg:space-y-8">
-            <div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Exemplos de Agentes IA</h3>
-              <div className="space-y-4 sm:space-y-6">
-                {/* Exemplo 1 - Atendimento E-commerce */}
-                <Card className="p-6 bg-card/50 backdrop-blur-sm border-border/50 hover:translate-x-2 transition-all duration-300 hover:shadow-lg group">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <MessageCircle className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-2 group-hover:text-green-500 transition-colors">
-                        Atendimento E-commerce
-                      </h4>
-                      <p className="text-muted-foreground text-sm leading-relaxed mb-3">
-                        "Olá! Vi que você está interessado no produto X. Posso ajudar com informações sobre tamanho, cor, disponibilidade e formas de pagamento!"
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="px-2 py-1 bg-green-500/20 text-green-600 text-xs rounded-full">WhatsApp</span>
-                        <span className="px-2 py-1 bg-blue-500/20 text-blue-600 text-xs rounded-full">Instagram</span>
-                        <span className="px-2 py-1 bg-purple-500/20 text-purple-600 text-xs rounded-full">Site</span>
-                      </div>
-                    </div>
+          <div className="order-2 hidden lg:block">
+            <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,hsl(224_24%_8%/0.78),hsl(228_28%_6%/0.72))] p-6 shadow-[0_18px_44px_-30px_hsl(220_65%_3%/0.95)] backdrop-blur-xl xl:p-8">
+              {!hasStartedDemo ? (
+                <>
+                  <p className="mb-3 text-sm font-medium text-white">Como posso te chamar?</p>
+                  <div className="flex gap-3">
+                    <Input
+                      value={nameInput}
+                      onChange={(event) => setNameInput(event.target.value)}
+                      placeholder="Digite seu nome"
+                      className="h-11 rounded-full border-white/10 bg-white/5 text-white placeholder:text-slate-400"
+                    />
+                    <Button className="rounded-full bg-primary px-6 text-primary-foreground hover:bg-primary/90" onClick={startDemoWithName} disabled={!nameInput.trim() || isTyping}>
+                      Comecar demonstracao
+                    </Button>
                   </div>
-                </Card>
+                </>
+              ) : (
+                <>
+                  <div className="mb-5 flex items-center justify-between gap-3">
+                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/85">
+                      {selectedTopic ? `Perguntas sobre ${selectedTopic.title.toLowerCase()}` : "Escolha o assunto principal"}
+                    </p>
+                    <Button variant="outline" className="border-white/15 bg-white/5 hover:bg-white/10" onClick={resetDemo}>
+                      <RotateCcw className="mr-2 h-4 w-4" />
+                      Reiniciar
+                    </Button>
+                  </div>
 
-                {/* Exemplo 2 - Suporte Técnico */}
-                <Card className="p-6 bg-card/50 backdrop-blur-sm border-border/50 hover:translate-x-2 transition-all duration-300 hover:shadow-lg group">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Bot className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-2 group-hover:text-blue-500 transition-colors">
-                        Suporte Técnico
-                      </h4>
-                      <p className="text-muted-foreground text-sm leading-relaxed mb-3">
-                        "Identifiquei o problema! Vou te guiar passo a passo para resolver. Primeiro, verifique se o cabo está conectado corretamente..."
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="px-2 py-1 bg-blue-500/20 text-blue-600 text-xs rounded-full">Diagnóstico</span>
-                        <span className="px-2 py-1 bg-orange-500/20 text-orange-600 text-xs rounded-full">Tutorial</span>
-                        <span className="px-2 py-1 bg-red-500/20 text-red-600 text-xs rounded-full">Urgente</span>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
+                  <div className="grid gap-3">
+                    {(selectedTopic ? visibleQuestions : conversationTopics).map((item) => {
+                      const isTopic = "title" in item;
+                      const isUsed = !isTopic && askedQuestionIds.includes(item.id);
+                      const isActive = !isTopic && activeQuestionId === item.id;
 
-                {/* Exemplo 3 - Agendamento */}
-                <Card className="p-6 bg-card/50 backdrop-blur-sm border-border/50 hover:translate-x-2 transition-all duration-300 hover:shadow-lg group">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Zap className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-2 group-hover:text-purple-500 transition-colors">
-                        Agendamento Inteligente
-                      </h4>
-                      <p className="text-muted-foreground text-sm leading-relaxed mb-3">
-                        "Perfeito! Tenho disponibilidade amanhã às 14h ou quinta às 10h. Qual prefere? Posso enviar o link da reunião automaticamente!"
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="px-2 py-1 bg-purple-500/20 text-purple-600 text-xs rounded-full">Calendário</span>
-                        <span className="px-2 py-1 bg-pink-500/20 text-pink-600 text-xs rounded-full">Lembretes</span>
-                        <span className="px-2 py-1 bg-indigo-500/20 text-indigo-600 text-xs rounded-full">Integração</span>
-                      </div>
-                    </div>
+                      return (
+                        <button
+                          key={`desktop-${item.id}`}
+                          type="button"
+                          disabled={isTyping || isUsed}
+                          onClick={() => (isTopic ? handleTopicSelection(item) : handleQuickQuestion(item))}
+                          className={cn(
+                            "rounded-[22px] border px-4 py-4 text-left transition-all",
+                            isUsed
+                              ? "cursor-not-allowed border-white/10 bg-white/5 text-slate-500"
+                              : "border-cyan-500/25 bg-cyan-500/8 text-slate-100 hover:border-cyan-400/60 hover:bg-cyan-500/14",
+                            isActive && "border-cyan-300 bg-cyan-500/16 text-white"
+                          )}
+                        >
+                          <div className="text-sm font-medium leading-6">
+                            {renderOptionLabel(item, isUsed)}
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
-                </Card>
-              </div>
+
+                  {selectedTopic && (
+                    <div className="mt-4">
+                      <Button variant="outline" className="border-white/15 bg-white/5 hover:bg-white/10" onClick={() => setSelectedTopicId(null)}>
+                        Trocar assunto
+                      </Button>
+                    </div>
+                  )}
+
+                  {canShowCta && (
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      <Button className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={handleWhatsappClick}>
+                        Continuar no WhatsApp
+                      </Button>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
-
           </div>
         </div>
       </div>
