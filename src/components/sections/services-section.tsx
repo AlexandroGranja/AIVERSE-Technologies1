@@ -422,12 +422,12 @@ export const ServicesSection: React.FC = () => {
           <div className="service-marquee-shell overflow-x-hidden overflow-y-visible py-2 sm:py-4">
             <div className="service-marquee-track items-stretch px-2 py-2 sm:px-5">
               {marqueeServices.map((service, index) => {
-                const Icon = service.icon;
+            const Icon = service.icon;
 
-                return (
-                  <Card
+            return (
+              <Card
                     key={`${service.title}-${index}`}
-                    className={cn(
+                className={cn(
                       "service-marquee-card group relative overflow-hidden rounded-[22px] !border-0 border-transparent ring-0 bg-[linear-gradient(180deg,hsl(224_24%_8%/0.86),hsl(228_28%_6%/0.82))] shadow-[0_18px_44px_-30px_hsl(220_65%_3%/0.95)] backdrop-blur-xl",
                       "hover:-translate-y-2"
                     )}
@@ -443,25 +443,25 @@ export const ServicesSection: React.FC = () => {
                       <div className="flex items-center gap-3">
                         <div
                           className="rounded-xl p-2.5 shadow-lg transition-transform duration-300 group-hover:scale-110"
-                          style={{ background: service.gradient }}
-                        >
+                      style={{ background: service.gradient }}
+                    >
                           <Icon className="h-5 w-5 text-white sm:h-6 sm:w-6" />
-                        </div>
+                    </div>
 
-                        <div>
+                    <div>
                           <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-primary/70 sm:text-[11px] sm:tracking-[0.26em]">
                             Solucao Premium
                           </div>
                           <CardTitle className="text-lg font-bold leading-tight transition-colors group-hover:text-primary sm:text-[1.18rem]">
-                            {service.title}
-                          </CardTitle>
-                        </div>
-                      </div>
+                        {service.title}
+                      </CardTitle>
+                    </div>
+                  </div>
 
                       <CardDescription className="min-h-[3.8rem] text-xs leading-5 sm:min-h-[4.2rem] sm:text-sm sm:leading-6">
-                        {service.description}
-                      </CardDescription>
-                    </CardHeader>
+                    {service.description}
+                  </CardDescription>
+                </CardHeader>
 
                     <CardContent className="relative z-10 px-4 pb-4 pt-0 sm:px-5 sm:pb-5">
                       <div className="flex flex-wrap gap-1.5 sm:gap-2">
@@ -471,16 +471,16 @@ export const ServicesSection: React.FC = () => {
                             className="rounded-full bg-white/5 px-2.5 py-1 text-[10px] text-muted-foreground sm:px-3 sm:text-xs"
                           >
                             {feature}
-                          </span>
+                    </span>
                         ))}
                       </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
+          </div>
+            </div>
 
       </div>
     </section>
@@ -550,15 +550,15 @@ export const ProjectsSection: React.FC = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-14 md:mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Projetos que <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">entregam</span> resultado real
-          </h2>
+            </h2>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Uma vitrine de soluções para você entender, de forma simples, o que cada projeto faz,
             como pode ajudar no dia a dia e quais ganhos pode gerar para o seu negócio.
-          </p>
-        </div>
+            </p>
+          </div>
 
         <ScrollReveal variant="scale-in" durationMs={1080}>
           <div className="projects-timeline mx-auto max-w-6xl">
@@ -580,16 +580,16 @@ export const ProjectsSection: React.FC = () => {
                     isLeft ? "project-timeline-item-left" : "project-timeline-item-right"
                   )}
                 >
-                  <Card
+              <Card
                     style={{
                       ["--project-glow" as string]: project.gradient,
                     } as React.CSSProperties}
                     className="project-timeline-card project-card-fx group relative overflow-visible !border-0 !shadow-none !bg-transparent rounded-[24px] transition-all duration-500"
                   >
                     <div className="relative overflow-hidden rounded-t-[24px] bg-transparent">
-                      <img
-                        src={project.image}
-                        alt={project.title}
+                    <img
+                      src={project.image}
+                      alt={project.title}
                         className="block h-auto w-full object-contain"
                       />
                     </div>
@@ -602,17 +602,17 @@ export const ProjectsSection: React.FC = () => {
 
                         <CardHeader className="pb-2">
                           <Badge variant="secondary" className="mb-2 w-fit border-0 bg-white/10 text-xs text-slate-200">
-                            {project.category}
-                          </Badge>
+                    {project.category}
+                  </Badge>
 
                           <CardTitle className="text-xl font-bold transition-colors group-hover:text-primary">
-                            {project.title}
-                          </CardTitle>
+                    {project.title}
+                  </CardTitle>
 
                           <CardDescription className="mt-2 text-sm">
-                            {project.shortDescription}
-                          </CardDescription>
-                        </CardHeader>
+                    {project.shortDescription}
+                  </CardDescription>
+                </CardHeader>
 
                         <CardContent className="pb-5 pt-0">
                           <Accordion type="single" collapsible defaultValue={`${project.id}-overview`} className="project-showcase-accordion">
@@ -664,12 +664,12 @@ export const ProjectsSection: React.FC = () => {
                                 Ver referencia
                                 <Github className="ml-2 h-4 w-4" />
                               </Button>
-                            )}
-                          </div>
-                        </CardContent>
+                    )}
+                  </div>
+                </CardContent>
                       </div>
                     </div>
-                  </Card>
+              </Card>
                 </article>
               );
             })}

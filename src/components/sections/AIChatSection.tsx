@@ -315,8 +315,8 @@ const AIChatSection: React.FC = () => {
   const enqueueBotReply = (text: string, options?: { delayMs?: number; onComplete?: () => void }) => {
     const delayMs = options?.delayMs ?? 620;
 
-    setIsTyping(true);
-
+          setIsTyping(true);
+          
     responseTimeoutRef.current = window.setTimeout(() => {
       const messageId = `bot-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
       const timestamp = new Date();
@@ -342,7 +342,7 @@ const AIChatSection: React.FC = () => {
     clearPendingTimers();
 
     setMessages([initialBotMessage()]);
-    setIsTyping(false);
+            setIsTyping(false);
     setAskedQuestionIds([]);
     setActiveQuestionId(null);
     setNameInput("");
@@ -441,7 +441,7 @@ const AIChatSection: React.FC = () => {
             backgroundSize: "100px 100px",
           }}
         />
-      </div>
+          </div>
       <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-10 bg-[linear-gradient(180deg,hsl(228_45%_2%)_0%,hsl(228_45%_2%/0.98)_38%,hsl(228_45%_2%/0.88)_70%,transparent_100%)]" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
@@ -449,7 +449,7 @@ const AIChatSection: React.FC = () => {
           <h2 className="mb-4 px-4 text-3xl font-bold leading-tight sm:mb-6 sm:text-4xl md:text-5xl">
             Veja como funciona um <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">atendimento com um de nossos agentes</span>
           </h2>
-
+          
           <p className="mx-auto max-w-3xl px-4 text-base leading-7 text-muted-foreground sm:text-xl">
             Esta demonstracao mostra, de forma simples e realista, como um agente pode iniciar a conversa, responder as duvidas mais comuns e conduzir o cliente para o proximo passo.
           </p>
@@ -462,7 +462,7 @@ const AIChatSection: React.FC = () => {
             >
               <div
                 className="relative mx-auto h-[520px] w-[272px] max-w-full overflow-hidden rounded-[2.5rem] border-2 border-gray-700 bg-gradient-to-b from-gray-900 to-black shadow-3xl sm:h-[620px] sm:w-72 md:h-[560px] md:w-64 lg:h-[540px] lg:w-64 xl:h-[580px] xl:w-[272px]"
-                style={{
+              style={{
                   boxShadow: "0 35px 60px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), -8px 8px 20px rgba(0, 0, 0, 0.2)",
                 }}
               >
@@ -470,31 +470,31 @@ const AIChatSection: React.FC = () => {
                   <div className="flex h-full flex-col bg-gradient-to-b from-slate-900 to-slate-800">
                     <div className="absolute left-1/2 top-0 z-10 flex h-6 w-32 -translate-x-1/2 items-center justify-center rounded-b-2xl bg-black">
                       <div className="h-2 w-2 rounded-full bg-gray-600" />
-                    </div>
-
+                </div>
+                
                     <div className="flex items-center justify-between px-5 py-3 pt-8 text-xs text-white sm:px-6 sm:text-sm">
-                      <span className="font-medium">{formatTime(currentTime)}</span>
-                      <div className="flex items-center gap-1">
+                  <span className="font-medium">{formatTime(currentTime)}</span>
+                  <div className="flex items-center gap-1">
                         <Signal className="h-4 w-4" />
                         <Wifi className="h-4 w-4" />
                         <Battery className="h-4 w-4" />
-                      </div>
-                    </div>
+                  </div>
+                </div>
 
                     <div className="border-b border-slate-700 px-3 py-3 sm:px-4">
-                      <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-600">
                           <span className="text-sm font-bold text-white">AI</span>
-                        </div>
-                        <div>
+                    </div>
+                    <div>
                           <h3 className="font-semibold text-white">AIVERSE Assistant</h3>
-                          <div className="flex items-center gap-2 text-xs text-slate-400">
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
                             <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
                             <span>{isTyping ? "Respondendo agora" : "Pronto para atender"}</span>
-                          </div>
-                        </div>
                       </div>
                     </div>
+                  </div>
+                </div>
 
                     <div
                       ref={chatContainerRef}
@@ -518,11 +518,11 @@ const AIChatSection: React.FC = () => {
                             "flex animate-in fade-in-0 slide-in-from-bottom-2 duration-300",
                             message.isBot ? "justify-start" : "justify-end"
                           )}
-                        >
-                          <div
-                            className={cn(
+                    >
+                      <div
+                        className={cn(
                               "max-w-[82%] rounded-2xl p-3 shadow-sm",
-                              message.isBot
+                          message.isBot
                                 ? "rounded-bl-md bg-gradient-to-r from-slate-700 to-slate-600 text-white"
                                 : "rounded-br-md bg-gradient-to-r from-cyan-500 to-blue-600 text-white"
                             )}
@@ -530,16 +530,16 @@ const AIChatSection: React.FC = () => {
                             <p className="whitespace-pre-line leading-relaxed">{message.displayText ?? message.text}</p>
                             <span className="mt-1 block text-[10px] opacity-70 sm:text-xs">
                               {formatTime(message.timestamp)}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-
-                      {isTyping && (
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {isTyping && (
                         <div className="flex justify-start">
                           <div className="rounded-2xl rounded-bl-md bg-gradient-to-r from-slate-700 to-slate-600 p-4">
                             <div className="flex items-center gap-2">
-                              <div className="flex space-x-1">
+                          <div className="flex space-x-1">
                                 <div className="h-2 w-2 rounded-full bg-cyan-400 animate-bounce" />
                                 <div className="h-2 w-2 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: "0.1s" }} />
                                 <div className="h-2 w-2 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: "0.2s" }} />
@@ -550,7 +550,7 @@ const AIChatSection: React.FC = () => {
                         </div>
                       )}
                       </div>
-                    </div>
+                        </div>
 
                     <div className="border-t border-slate-700 px-3 py-3 sm:px-4">
                       <div className="flex flex-col gap-2 sm:flex-row">
@@ -623,8 +623,8 @@ const AIChatSection: React.FC = () => {
                         </button>
                       );
                     })}
-                  </div>
-
+                </div>
+                
                   {selectedTopic && (
                     <Button variant="outline" className="mt-3 w-full border-white/15 bg-white/5 hover:bg-white/10" onClick={() => setSelectedTopicId(null)}>
                       Trocar assunto
@@ -656,7 +656,7 @@ const AIChatSection: React.FC = () => {
                     <Button className="rounded-full bg-primary px-6 text-primary-foreground hover:bg-primary/90" onClick={startDemoWithName} disabled={!nameInput.trim() || isTyping}>
                       Comecar demonstracao
                     </Button>
-                  </div>
+                    </div>
                 </>
               ) : (
                 <>
@@ -692,7 +692,7 @@ const AIChatSection: React.FC = () => {
                         >
                           <div className="text-sm font-medium leading-6">
                             {renderOptionLabel(item, isUsed)}
-                          </div>
+                    </div>
                         </button>
                       );
                     })}

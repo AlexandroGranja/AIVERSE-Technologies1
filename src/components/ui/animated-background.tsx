@@ -172,9 +172,9 @@ function createPlanetTexture() {
 
 function createStarfield(texture: THREE.Texture | null) {
   const group = new THREE.Group();
-  const positions = new Float32Array(320 * 3);
-  for (let index = 0; index < 320; index += 1) {
-    const radius = 4.2 + Math.random() * 3.4;
+  const positions = new Float32Array(620 * 3);
+  for (let index = 0; index < 620; index += 1) {
+    const radius = 4.6 + Math.random() * 5.6;
     const theta = Math.random() * Math.PI * 2;
     const phi = Math.acos(2 * Math.random() - 1);
     positions[index * 3] = radius * Math.sin(phi) * Math.cos(theta);
@@ -187,10 +187,10 @@ function createStarfield(texture: THREE.Texture | null) {
 
   const material = new THREE.PointsMaterial({
     map: texture ?? undefined,
-    size: 0.05,
+    size: 0.038,
     transparent: true,
-    opacity: 0.72,
-    color: new THREE.Color("#b8ebff"),
+    opacity: 0.82,
+    color: new THREE.Color("#d8f4ff"),
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
@@ -198,9 +198,9 @@ function createStarfield(texture: THREE.Texture | null) {
   group.add(new THREE.Points(geometry, material));
 
   const sparkleGeometry = new THREE.BufferGeometry();
-  const sparklePositions = new Float32Array(80 * 3);
-  for (let index = 0; index < 80; index += 1) {
-    const radius = 3.9 + Math.random() * 2.8;
+  const sparklePositions = new Float32Array(180 * 3);
+  for (let index = 0; index < 180; index += 1) {
+    const radius = 4.2 + Math.random() * 4.8;
     const theta = Math.random() * Math.PI * 2;
     const phi = Math.acos(2 * Math.random() - 1);
     sparklePositions[index * 3] = radius * Math.sin(phi) * Math.cos(theta);
@@ -213,15 +213,41 @@ function createStarfield(texture: THREE.Texture | null) {
     sparkleGeometry,
     new THREE.PointsMaterial({
       map: texture ?? undefined,
-      size: 0.11,
+      size: 0.095,
       transparent: true,
-      opacity: 0.95,
+      opacity: 0.9,
       color: new THREE.Color("#eefcff"),
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     })
   );
   group.add(sparkles);
+
+  const distantGeometry = new THREE.BufferGeometry();
+  const distantPositions = new Float32Array(960 * 3);
+  for (let index = 0; index < 960; index += 1) {
+    const radius = 7.5 + Math.random() * 7.5;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    distantPositions[index * 3] = radius * Math.sin(phi) * Math.cos(theta);
+    distantPositions[index * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+    distantPositions[index * 3 + 2] = radius * Math.cos(phi);
+  }
+  distantGeometry.setAttribute("position", new THREE.BufferAttribute(distantPositions, 3));
+
+  const distantStars = new THREE.Points(
+    distantGeometry,
+    new THREE.PointsMaterial({
+      size: 0.026,
+      transparent: true,
+      opacity: 0.78,
+      color: new THREE.Color("#c6ebff"),
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    })
+  );
+  group.add(distantStars);
+
   return group;
 }
 
@@ -449,12 +475,16 @@ export const AnimatedBackground: React.FC = () => {
 
       const progress = prefersReducedMotion ? 0 : easeOutCubic(scrollProgress);
       const isMobileViewport = window.innerWidth < 768;
-      const startScale = isMobileViewport ? 0.98 : 1.42;
-      const scaleRange = isMobileViewport ? 0.42 : 0.78;
-      const x = -0.42 + progress * 1.18;
-      const y = (isMobileViewport ? 2.72 : 2.95) - progress * 5.7;
-      const scale = startScale - progress * scaleRange;
-      const opacity = 0.96 - progress * 0.34;
+      const startScale = isMobileViewport ? 0.32 : 0.41;
+      const endScale = isMobileViewport ? 1.22 : 1.86;
+      const startX = isMobileViewport ? -1.26 : -4.26;
+      const endX = isMobileViewport ? 1.1 : 1.08;
+      const startY = isMobileViewport ? 1.84 : 2.1;
+      const endY = isMobileViewport ? 0.42 : 0.68;
+      const x = startX + (endX - startX) * progress;
+      const y = startY + (endY - startY) * progress;
+      const scale = startScale + (endScale - startScale) * progress;
+      const opacity = 0.82 + progress * 0.12;
       const hiddenFactor = 1 - progress;
 
       planetGroup.position.set(x, y, 0);
@@ -513,7 +543,7 @@ export const AnimatedBackground: React.FC = () => {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(circle at 18% 12%, rgba(154,224,255,0.17), transparent 38%), radial-gradient(circle at 52% 8%, rgba(116,205,255,0.12), transparent 43%), linear-gradient(180deg, rgba(15,39,61,0.22) 0%, transparent 46%)",
+            "radial-gradient(circle at 20% 10%, rgba(108,188,255,0.08), transparent 20%), radial-gradient(circle at 70% 14%, rgba(72,162,255,0.05), transparent 24%), radial-gradient(circle at 50% 52%, rgba(16,34,52,0.16), transparent 62%), linear-gradient(180deg, rgba(3,8,16,0.06) 0%, rgba(2,5,12,0.18) 100%)",
         }}
       />
     </div>
