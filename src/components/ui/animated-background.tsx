@@ -449,10 +449,10 @@ export const AnimatedBackground: React.FC = () => {
 
       const progress = prefersReducedMotion ? 0 : easeOutCubic(scrollProgress);
       const isMobileViewport = window.innerWidth < 768;
-      const startScale = isMobileViewport ? 1.18 : 1.42;
-      const scaleRange = isMobileViewport ? 0.54 : 0.78;
+      const startScale = isMobileViewport ? 0.98 : 1.42;
+      const scaleRange = isMobileViewport ? 0.42 : 0.78;
       const x = -0.42 + progress * 1.18;
-      const y = 2.95 - progress * 5.7;
+      const y = (isMobileViewport ? 2.72 : 2.95) - progress * 5.7;
       const scale = startScale - progress * scaleRange;
       const opacity = 0.96 - progress * 0.34;
       const hiddenFactor = 1 - progress;

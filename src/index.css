@@ -487,7 +487,7 @@ All colors MUST be HSL.
 
   .project-timeline-dot {
     position: absolute;
-    top: -13.5rem;
+    top: -12.9rem;
     width: 1.2rem;
     height: 1.2rem;
     border-radius: 999px;
@@ -536,7 +536,7 @@ All colors MUST be HSL.
 
   .project-timeline-pointer {
     position: absolute;
-    top: -13.58rem;
+    top: -12.98rem;
     width: 0;
     height: 0;
     z-index: 3;
@@ -752,12 +752,12 @@ All colors MUST be HSL.
     .project-timeline-item-right .project-timeline-dot {
       left: calc(-2.4rem + 0.26rem);
       right: auto;
-      top: -8.15rem;
+      top: -7.2rem;
     }
 
     .project-timeline-item-left .project-timeline-pointer,
     .project-timeline-item-right .project-timeline-pointer {
-      top: -8.23rem;
+      top: -7.28rem;
       left: -11px;
       right: auto;
       border-left: 0;

@@ -1,314 +1,107 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { 
-  Mail, 
-  Phone, 
-  MessageCircle, 
-  Send, 
-  MapPin, 
-  Clock,
-  Sparkles,
-  CheckCircle
-} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Mail, Phone, MessageCircle, MapPin, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
-import { ScrollReveal } from "@/components/ui/scroll-reveal";
-
-interface FormData {
-  name: string;
-  email: string;
-  phone: string;
-  service: string;
-  message: string;
-}
 
 export const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: ""
-  });
-  
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-
-  const handleInputChange = (field: keyof FormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
-
-  const message = `Olá! Gostaria de solicitar um orçamento.%0A
-- Nome: ${formData.name}%0A
-- Email: ${formData.email}%0A
-- Telefone: ${formData.phone}%0A
-- Serviço: ${formData.service}%0A
-- Mensagem: ${formData.message}`;
-
   const whatsappNumber = "5521996062455";
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
-
-  window.open(whatsappUrl, "_blank");
-
-  toast({
-    title: "Redirecionando para o WhatsApp...",
-    description: "Você será atendido em instantes 🚀",
-  });
-
-  setFormData({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: ""
-  });
-
-  setIsSubmitting(false);
-};
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Olá! Quero falar com a AIVERSE Technologies sobre um projeto.")}`;
+  const emailAddress = "technologiesaiverse@gmail.com";
+  const emailUrl = `mailto:${emailAddress}`;
 
   const contactInfo = [
     {
       icon: Mail,
       title: "Email",
-      content: "technologiesaiverse@gmail.com",
-      description: "Resposta em até 2 horas"
+      content: emailAddress,
+      description: "Ideal para propostas e contatos comerciais",
+      actionLabel: "Enviar e-mail",
+      actionUrl: emailUrl,
     },
     {
       icon: MessageCircle,
       title: "WhatsApp",
       content: "(21) 99606-2455",
-      description: "Atendimento imediato"
+      description: "Canal mais rapido para iniciar a conversa",
+      actionLabel: "Chamar no WhatsApp",
+      actionUrl: whatsappUrl,
     },
     {
       icon: Clock,
-      title: "Horário",
+      title: "Horario de atendimento",
       content: "Seg - Sex: 9h às 18h",
-      description: "Finais de semana sob demanda"
+      description: "Retorno rapido em horario comercial",
     },
     {
       icon: MapPin,
-      title: "Localização",
-      content: "Rio De Janeiro, RJ",
-      description: "Atendimento remoto (Brasil) e presencial (RJ)"
+      title: "Atendimento",
+      content: "Online para todo o Brasil",
+      description: "Base no Rio de Janeiro, RJ",
     }
   ];
 
   return (
-    <section className="py-20 px-4 relative" id="contato">
-      {/* Background elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-20 w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-48 h-48 bg-accent/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+    <section className="relative -mt-2 overflow-hidden px-4 py-16 sm:py-20" id="contato">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(222_34%_5%/0.92)_0%,hsl(224_38%_4%/0.97)_18%,hsl(226_42%_3%/0.99)_52%,hsl(228_45%_2%/1)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center_top,hsl(var(--primary)/0.05),transparent_30%)] opacity-60" />
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 20% 50%, hsl(var(--primary)) 1px, transparent 1px),
+                             radial-gradient(circle at 80% 50%, hsl(var(--accent)) 1px, transparent 1px)`,
+            backgroundSize: "100px 100px",
+          }}
+        />
       </div>
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-10 bg-[linear-gradient(180deg,hsl(228_45%_2%)_0%,hsl(228_45%_2%/0.98)_38%,hsl(228_45%_2%/0.88)_70%,transparent_100%)]" />
 
-      <div className="max-w-7xl mx-auto relative z-20">
-        {/* Section header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
-            <Sparkles className="w-4 h-4" />
-            Entre em Contato
-          </div>
-          
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="mb-14 text-center sm:mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Vamos <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">transformar</span> sua ideia em realidade
+            Fale com a <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">AIVERSE</span>
           </h2>
-          
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Nossa equipe está pronta para discutir seu projeto e criar soluções personalizadas 
-            que atendam exatamente às suas necessidades.
+
+          <p className="mx-auto max-w-3xl text-lg text-muted-foreground md:text-xl">
+            Se quiser tirar uma duvida, pedir um orçamento ou conversar sobre o seu projeto, estes sao os canais mais diretos para falar com a gente.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Contact form */}
-          <div className="lg:col-span-2">
-            <ScrollReveal variant="fade-up" durationMs={1000}>
-              <Card className="premium-panel">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Solicite seu orçamento</CardTitle>
-                  <CardDescription>
-                    Preencha o formulário e nossa equipe entrará em contato em breve
-                  </CardDescription>
-                </CardHeader>
-                
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Nome completo *</Label>
-                      <Input
-                        id="name"
-                        type="text"
-                        placeholder="Seu nome"
-                        value={formData.name}
-                        onChange={(e) => handleInputChange("name", e.target.value)}
-                        required
-                        className="bg-background/50"
-                      />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="seu@email.com"
-                        value={formData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
-                        required
-                        className="bg-background/50"
-                      />
-                    </div>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {contactInfo.map((info) => {
+            const Icon = info.icon;
+
+            return (
+              <Card
+                key={info.title}
+                className={cn(
+                  "border-white/10 bg-[linear-gradient(180deg,hsl(224_24%_8%/0.86),hsl(228_28%_6%/0.82))] backdrop-blur-xl",
+                  "transition-all duration-300 hover:border-primary/40 hover:-translate-y-1 hover:shadow-[0_18px_44px_-30px_hsl(220_65%_3%/0.95)]"
+                )}
+              >
+                <CardContent className="p-6">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    <Icon className="h-5 w-5" />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Telefone</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="(55) 99999-9999"
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange("phone", e.target.value)}
-                        className="bg-background/50"
-                      />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="service">Serviço de interesse</Label>
-                      <select
-                        id="service"
-                        value={formData.service}
-                        onChange={(e) => handleInputChange("service", e.target.value)}
-                        className="w-full px-3 py-2 bg-background/50 border border-input rounded-md text-sm"
-                      >
-                        <option value="">Selecione um serviço</option>
-                        <option value="site">Página Web Completa</option>
-                        <option value="chatbot">Agente de Atendimento IA</option>
-                        <option value="automacao">Automação de Processos</option>
-                        <option value="cardapio">Cardápio Online</option>
-                        <option value="outros">Outros</option>
-                      </select>
-                    </div>
-                  </div>
+                  <h3 className="mb-2 text-lg font-semibold">{info.title}</h3>
+                  <p className="mb-2 text-foreground font-medium">{info.content}</p>
+                  <p className="text-sm leading-6 text-muted-foreground">{info.description}</p>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Mensagem *</Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Conte-nos sobre seu projeto e suas necessidades..."
-                      value={formData.message}
-                      onChange={(e) => handleInputChange("message", e.target.value)}
-                      required
-                      rows={4}
-                      className="bg-background/50 resize-none"
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    size="lg"
-                    disabled={isSubmitting}
-                    className={cn(
-                      "w-full bg-primary hover:bg-primary/90 text-primary-foreground",
-                      "shadow-[var(--shadow-neural)] hover:shadow-[var(--shadow-glow)]",
-                      "transition-all duration-300"
-                    )}
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin mr-2" />
-                        Enviando...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="mr-2 w-5 h-5" />
-                        Enviar Mensagem
-                      </>
-                    )}
-                  </Button>
-                  </form>
+                  {"actionUrl" in info && info.actionUrl && (
+                    <Button
+                      variant="outline"
+                      className="mt-5 w-full border-white/15 bg-white/5 hover:bg-white/10"
+                      onClick={() => window.open(info.actionUrl, "_blank")}
+                    >
+                      {info.actionLabel}
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
-            </ScrollReveal>
-          </div>
-
-          {/* Contact info */}
-          <div className="space-y-6">
-            <ScrollReveal variant="scale-in" staggerChildren staggerStepMs={100} childDistance={26} durationMs={960}>
-              <div className="space-y-6">
-                {contactInfo.map((info, index) => {
-                  const Icon = info.icon;
-                  
-                  return (
-                    <Card
-                      key={index}
-                      data-reveal-item
-                      style={{ ["--item-index" as string]: index } as React.CSSProperties}
-                      className={cn(
-                        "premium-card hover:border-primary/50 transition-all duration-300",
-                        "hover:shadow-[var(--shadow-card)] hover:-translate-y-2"
-                      )}
-                    >
-                      <CardContent className="p-6">
-                        <div className="flex items-start gap-4">
-                          <div className="p-3 bg-primary/10 rounded-lg">
-                            <Icon className="w-6 h-6 text-primary" />
-                          </div>
-                          
-                          <div className="flex-1">
-                            <h3 className="font-semibold mb-1">{info.title}</h3>
-                            <p className="text-foreground font-medium mb-1">{info.content}</p>
-                            <p className="text-sm text-muted-foreground">{info.description}</p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-
-                <Card
-                  data-reveal-item
-                  style={{ ["--item-index" as string]: contactInfo.length } as React.CSSProperties}
-                  className="premium-card border-primary/20"
-                >
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold mb-4 flex items-center gap-2">
-                      <CheckCircle className="w-5 h-5 text-primary" />
-                      Por que escolher a AIVERSE?
-                    </h3>
-                    
-                    <ul className="space-y-3 text-sm">
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                        Consultoria gratuita inicial
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                        Suporte técnico 24/7
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                        Garantia de satisfação
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                        Tecnologias mais avançadas
-                      </li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              </div>
-            </ScrollReveal>
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>
