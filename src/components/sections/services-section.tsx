@@ -389,14 +389,6 @@ const services = [
 const marqueeServices = [...services, ...services];
 
 export const ServicesSection: React.FC = () => {
-  const [isSignHovered, setIsSignHovered] = React.useState(false);
-  const [isSignPinnedPause, setIsSignPinnedPause] = React.useState(false);
-  const isSignPaused = isSignHovered || isSignPinnedPause;
-
-  const toggleSignPause = () => {
-    setIsSignPinnedPause((current) => !current);
-  };
-
   return (
     <section className="relative overflow-hidden px-4 pb-4 pt-16 sm:pb-6 sm:pt-20 md:pb-8 md:pt-24">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(222_34%_5%/0.92)_0%,hsl(224_38%_4%/0.97)_18%,hsl(226_42%_3%/0.99)_52%,hsl(228_45%_2%/1)_100%)]" />
@@ -413,44 +405,13 @@ export const ServicesSection: React.FC = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section header */}
-        <div
-          className="service-title-signboard mx-auto mb-8 w-full max-w-7xl cursor-pointer py-3 md:mb-12 md:py-4"
-          role="button"
-          tabIndex={0}
-          aria-label="Pausar ou retomar o letreiro de serviços"
-          aria-pressed={isSignPinnedPause}
-          onMouseEnter={() => setIsSignHovered(true)}
-          onMouseLeave={() => setIsSignHovered(false)}
-          onClick={toggleSignPause}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              toggleSignPause();
-            }
-          }}
-        >
-          <h2 className="sr-only">Soluções que transformam negócios</h2>
-          <p className="sr-only">
+        <div className="mx-auto mb-8 w-full max-w-4xl py-3 text-center md:mb-12 md:py-4">
+          <h2 className="text-balance text-3xl font-extrabold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
+            Soluções que <span className="bg-[linear-gradient(90deg,hsl(var(--primary)),hsl(var(--accent)))] bg-clip-text text-transparent">transformam</span> negócios.
+          </h2>
+          <p className="mx-auto mt-4 max-w-3xl text-pretty text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7 md:text-lg">
             Oferecemos tecnologias avançadas de IA e desenvolvimento web para automatizar, otimizar e revolucionar a forma como sua empresa opera.
           </p>
-
-          <div className="service-sign-lane service-sign-lane-title" aria-hidden="true">
-            <div className="service-sign-track" style={{ animationPlayState: isSignPaused ? "paused" : "running" }}>
-              <div className="service-sign-chunk service-sign-chunk-title">
-                <span className="service-sign-title-word">Soluções que</span>
-                <span className="service-sign-title-highlight">transformam</span>
-                <span className="service-sign-title-word">negócios.</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="service-sign-lane service-sign-lane-subtitle mt-3 sm:mt-4" aria-hidden="true">
-            <div className="service-sign-track" style={{ animationPlayState: isSignPaused ? "paused" : "running" }}>
-              <p className="service-sign-subtitle-chunk">
-                Oferecemos tecnologias avançadas de IA e desenvolvimento web para automatizar, otimizar e revolucionar a forma como sua empresa opera.
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Services marquee */}
