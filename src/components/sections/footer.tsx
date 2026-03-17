@@ -37,7 +37,7 @@ export const Footer: React.FC = () => {
 
   const socialLinks = [
     { icon: Instagram, href: "https://www.instagram.com/aiversetech_oficial/", label: "Instagram" },
-    { icon: MessageCircle, href: "https://wa.me/5521969585179?text=Olá,%20vim%20pelo%20site!", label: "WhatsApp" },
+    { icon: MessageCircle, href: "https://wa.me/5521996062455?text=Olá,%20vim%20pelo%20site!", label: "WhatsApp" },
     { icon: Mail, href: "mailto:technologiesaiverse@gmail.com", label: "Email" }
   ];
 
@@ -85,7 +85,7 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">(21) 96958-5179</span>
+                <span className="text-muted-foreground">(21) 99606-2455</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
@@ -143,7 +143,7 @@ export const Footer: React.FC = () => {
                   className="w-full"
                   asChild
                 >
-                  <a href="https://wa.me/5521969585179?text=Olá,%20tenho%20interesse%20nos%20seus%20serviços!">
+                  <a href="https://wa.me/5521996062455?text=Olá,%20tenho%20interesse%20nos%20seus%20serviços!">
                     Falar com Especialista
                   </a>
                 </Button>

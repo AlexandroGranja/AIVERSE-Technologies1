@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 interface FormData {
   name: string;
@@ -52,7 +53,7 @@ export const ContactSection: React.FC = () => {
 - Serviço: ${formData.service}%0A
 - Mensagem: ${formData.message}`;
 
-  const whatsappNumber = "5521969585179";
+  const whatsappNumber = "5521996062455";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 
   window.open(whatsappUrl, "_blank");
@@ -83,7 +84,7 @@ export const ContactSection: React.FC = () => {
     {
       icon: MessageCircle,
       title: "WhatsApp",
-      content: "(21) 96958-5179",
+      content: "(21) 99606-2455",
       description: "Atendimento imediato"
     },
     {
@@ -129,16 +130,17 @@ export const ContactSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact form */}
           <div className="lg:col-span-2">
-            <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-              <CardHeader>
-                <CardTitle className="text-2xl">Solicite seu orçamento</CardTitle>
-                <CardDescription>
-                  Preencha o formulário e nossa equipe entrará em contato em breve
-                </CardDescription>
-              </CardHeader>
-              
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+            <ScrollReveal variant="fade-up" durationMs={1000}>
+              <Card className="premium-panel">
+                <CardHeader>
+                  <CardTitle className="text-2xl">Solicite seu orçamento</CardTitle>
+                  <CardDescription>
+                    Preencha o formulário e nossa equipe entrará em contato em breve
+                  </CardDescription>
+                </CardHeader>
+                
+                <CardContent>
+                  <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Nome completo *</Label>
@@ -233,70 +235,79 @@ export const ContactSection: React.FC = () => {
                       </>
                     )}
                   </Button>
-                </form>
-              </CardContent>
-            </Card>
+                  </form>
+                </CardContent>
+              </Card>
+            </ScrollReveal>
           </div>
 
           {/* Contact info */}
           <div className="space-y-6">
-            {contactInfo.map((info, index) => {
-              const Icon = info.icon;
-              
-              return (
-                <Card 
-                  key={index}
-                  className={cn(
-                    "bg-card/30 backdrop-blur-sm border-border/50",
-                    "hover:border-primary/50 transition-all duration-300",
-                    "hover:shadow-[var(--shadow-card)]"
-                  )}
+            <ScrollReveal variant="scale-in" staggerChildren staggerStepMs={100} childDistance={26} durationMs={960}>
+              <div className="space-y-6">
+                {contactInfo.map((info, index) => {
+                  const Icon = info.icon;
+                  
+                  return (
+                    <Card
+                      key={index}
+                      data-reveal-item
+                      style={{ ["--item-index" as string]: index } as React.CSSProperties}
+                      className={cn(
+                        "premium-card hover:border-primary/50 transition-all duration-300",
+                        "hover:shadow-[var(--shadow-card)] hover:-translate-y-2"
+                      )}
+                    >
+                      <CardContent className="p-6">
+                        <div className="flex items-start gap-4">
+                          <div className="p-3 bg-primary/10 rounded-lg">
+                            <Icon className="w-6 h-6 text-primary" />
+                          </div>
+                          
+                          <div className="flex-1">
+                            <h3 className="font-semibold mb-1">{info.title}</h3>
+                            <p className="text-foreground font-medium mb-1">{info.content}</p>
+                            <p className="text-sm text-muted-foreground">{info.description}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+
+                <Card
+                  data-reveal-item
+                  style={{ ["--item-index" as string]: contactInfo.length } as React.CSSProperties}
+                  className="premium-card border-primary/20"
                 >
                   <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="p-3 bg-primary/10 rounded-lg">
-                        <Icon className="w-6 h-6 text-primary" />
-                      </div>
-                      
-                      <div className="flex-1">
-                        <h3 className="font-semibold mb-1">{info.title}</h3>
-                        <p className="text-foreground font-medium mb-1">{info.content}</p>
-                        <p className="text-sm text-muted-foreground">{info.description}</p>
-                      </div>
-                    </div>
+                    <h3 className="font-semibold mb-4 flex items-center gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary" />
+                      Por que escolher a AIVERSE?
+                    </h3>
+                    
+                    <ul className="space-y-3 text-sm">
+                      <li className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                        Consultoria gratuita inicial
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                        Suporte técnico 24/7
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                        Garantia de satisfação
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                        Tecnologias mais avançadas
+                      </li>
+                    </ul>
                   </CardContent>
                 </Card>
-              );
-            })}
-
-            {/* Trust indicators */}
-            <Card className="bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4 flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  Por que escolher a AIVERSE?
-                </h3>
-                
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                    Consultoria gratuita inicial
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                    Suporte técnico 24/7
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                    Garantia de satisfação
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                    Tecnologias mais avançadas
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>

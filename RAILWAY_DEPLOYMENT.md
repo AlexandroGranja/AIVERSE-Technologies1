@@ -54,7 +54,7 @@ Este guia te ajudará a fazer o deploy do projeto AIVERSE Technologies na Railwa
    | `PORT` | `3000` | Porta do servidor |
    | `NODE_ENV` | `production` | Ambiente de produção |
    | `VITE_APP_TITLE` | `AIVERSE Technologies` | Título da aplicação |
-   | `VITE_WHATSAPP_NUMBER` | `5521969585179` | Número do WhatsApp |
+   | `VITE_WHATSAPP_NUMBER` | `5521996062455` | Número do WhatsApp |
 
 4. **Clique em "Add" para cada variável**
 
@@ -95,7 +95,7 @@ railway init
 railway variables set PORT=3000
 railway variables set NODE_ENV=production
 railway variables set VITE_APP_TITLE="AIVERSE Technologies"
-railway variables set VITE_WHATSAPP_NUMBER=5521969585179
+railway variables set VITE_WHATSAPP_NUMBER=5521996062455
 ```
 
 ### Passo 5: Deploy

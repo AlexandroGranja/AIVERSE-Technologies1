@@ -36,7 +36,7 @@ const fixedResponses = {
   
   portfolio: "Temos um portfólio diversificado com casos de sucesso:\n\n• E-commerces com alta conversão\n• Landing pages otimizadas\n• Sistemas de automação complexos\n• Chatbots inteligentes em operação\n• Cardápios digitais funcionando\n\nPosso compartilhar exemplos específicos do seu segmento. Em qual área sua empresa atua?",
   
-  contact: "Entre em contato conosco através dos canais oficiais:\n\nWhatsApp/Telefone: (21) 96958-5179\nE-mail: contato@aiverse.tech\nInstagram: @aiversetech_oficial\n\nHorário de Atendimento:\nSegunda a Sexta: 9h às 18h\nSábado: 9h às 13h\n\nNossa equipe está pronta para atender você!",
+  contact: "Entre em contato conosco através dos canais oficiais:\n\nWhatsApp/Telefone: (21) 99606-2455\nE-mail: contato@aiverse.tech\nInstagram: @aiversetech_oficial\n\nHorário de Atendimento:\nSegunda a Sexta: 9h às 18h\nSábado: 9h às 13h\n\nNossa equipe está pronta para atender você!",
   
   fallback: "Desculpe, não compreendi sua solicitação. Posso te ajudar com informações sobre nossos serviços:\n\n• Páginas Web Completas\n• Agentes de Atendimento IA (Chatbots)\n• Automações de Processos\n• Cardápios Online\n• Orçamentos e Portfolio\n\nSobre qual serviço gostaria de saber mais?"
 };

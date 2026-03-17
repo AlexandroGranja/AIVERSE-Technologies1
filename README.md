@@ -64,7 +64,7 @@ Edite o arquivo `.env` com suas configurações:
 PORT=3000
 NODE_ENV=production
 VITE_APP_TITLE=AIVERSE Technologies
-VITE_WHATSAPP_NUMBER=5521969585179
+VITE_WHATSAPP_NUMBER=5521996062455
 ```
 
 ### 4. Execute em desenvolvimento
@@ -216,11 +216,11 @@ npm run preview          # Preview da build
 | `PORT` | Porta do servidor | `3000` |
 | `NODE_ENV` | Ambiente de execução | `production` |
 | `VITE_APP_TITLE` | Título da aplicação | `AIVERSE Technologies` |
-| `VITE_WHATSAPP_NUMBER` | Número do WhatsApp | `5521969585179` |
+| `VITE_WHATSAPP_NUMBER` | Número do WhatsApp | `5521996062455` |
 
 ## 📞 Contato
 
-- **WhatsApp**: [5521969585179](https://wa.me/5521969585179)
+- **WhatsApp**: [5521996062455](https://wa.me/5521996062455)
 - **Email**: technologiesaiverse@gmail.com
 - **Instagram**: [@aiversetech_oficial](https://www.instagram.com/aiversetech_oficial/)
 

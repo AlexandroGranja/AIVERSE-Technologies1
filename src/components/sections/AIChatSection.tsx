@@ -135,7 +135,7 @@ const AIChatSection: React.FC = () => {
       },
       {
         id: '9',
-        text: 'Entre em contato conosco através dos canais oficiais:\n\nWhatsApp/Telefone: (21) 96958-5179\nE-mail: contato@aiverse.tech\nInstagram: @aiversetech_oficial\n\nHorário de Atendimento:\nSegunda a Sexta: 9h às 18h\nSábado: 9h às 13h\n\nNossa equipe está pronta para atender você!',
+        text: 'Entre em contato conosco através dos canais oficiais:\n\nWhatsApp/Telefone: (21) 99606-2455\nE-mail: contato@aiverse.tech\nInstagram: @aiversetech_oficial\n\nHorário de Atendimento:\nSegunda a Sexta: 9h às 18h\nSábado: 9h às 13h\n\nNossa equipe está pronta para atender você!',
         isBot: true,
         timestamp: new Date(now.getTime() - 30 * 1000), // 30 segundos atrás
       },

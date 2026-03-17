@@ -15,7 +15,7 @@ const Navigation: React.FC = () => {
       setIsScrolled(scrollY > 20);
 
       // Detectar seção ativa baseada no scroll
-      const sections = ['inicio', 'servicos', 'feedbacks', 'chat-ia', 'contato'];
+      const sections = ['inicio', 'servicos', 'projects', 'chat-ia', 'contato'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -37,13 +37,13 @@ const Navigation: React.FC = () => {
   const navItems = [
     { label: "Início", href: "#inicio", id: "inicio" },
     { label: "Serviços", href: "#servicos", id: "servicos" },
-    { label: "Feedbacks", href: "#feedbacks", id: "feedbacks" },
+    { label: "Projetos", href: "#projects", id: "projects" },
     { label: "Chat IA", href: "#chat-ia", id: "chat-ia" },
     { label: "Contato", href: "#contato", id: "contato" }
   ];
 
   const handleWhatsappClick = () => {
-    const whatsappNumber = "5521969585179";
+    const whatsappNumber = "5521996062455";
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de solicitar um orçamento.`;
     window.open(whatsappUrl, "_blank");
   };
@@ -59,23 +59,14 @@ const Navigation: React.FC = () => {
     <nav className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out group",
       isScrolled 
-        ? "opacity-10 hover:opacity-100 focus-within:opacity-100 bg-transparent border-b border-primary/10" 
+        ? "opacity-10 hover:opacity-100 focus-within:opacity-100 bg-background/20 backdrop-blur-xl shadow-[0_18px_45px_-34px_hsl(var(--primary)/0.22)]" 
         : "opacity-100 bg-transparent"
     )}>
-      
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo com efeitos aprimorados */}
           <div className="flex items-center group">
             <div className="relative">
-              {/* Efeito de glow sutil */}
-              <div className={cn(
-                "absolute -inset-2 rounded-full transition-all duration-500",
-                "bg-gradient-to-r from-primary/20 to-cyan-400/15",
-                "blur-lg scale-105",
-                isScrolled ? "opacity-40" : "opacity-0 group-hover:opacity-30"
-              )} />
-              
               <img 
                 src={aiverseLogo} 
                 alt="AIVERSE Technologies" 

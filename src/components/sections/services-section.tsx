@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -12,12 +12,8 @@ import {
   ArrowRight,
   Sparkles,
   Code,
-  Zap,
   CheckCircle,
-  Users,
   BarChart3,
-  Clock,
-  Shield,
   Workflow,
   MessageSquare,
   Calendar,
@@ -25,149 +21,170 @@ import {
   Target,
   Github,
   ExternalLink,
-  Search,
   Eye
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
-// Imagem do projeto Morais Adesivos
-const moraisAdesivosImage = "/Moraes.png";
-
-// Imagem do projeto Burger House
-const burgerHouseImage = "/burger-house.png";
-
-// Imagem do projeto AI Automation Bot
-const aiAutomationBotImage = "/Gerador-de-img.png";
-
-// Imagem do projeto WhatsApp Assistant
-const whatsappAssistantImage = "/agente-de-WhatsApp.png";
+const fortaoPremiosImage = "/fortao-premios.png";
+const burgerHouseImage = "/burger-house-cardapio.png";
+const moraesAdesivosImage = "/moraes-adesivos.png";
+const prosperRoteirosImage = "/prosper-roteiros.png";
+const processadorXmlImage = "/processador-xml.png";
 
 // Array de projetos
 const projects = [
   {
+    id: "fortao-premios",
+    title: "Fortão Prêmios",
+    category: "Plataforma Web & Painel Administrativo",
+    description: "Plataforma B2B de ações promocionais e sorteios em produção, com experiência pública para compra, painel administrativo completo e arquitetura preparada para alta concorrência.",
+    shortDescription: "Plataforma promocional com painel, segurança e operação em produção",
+    image: fortaoPremiosImage,
+    liveUrl: "https://xn--fortoprmios-c8a8g.com.br/",
+    technologies: ["Next.js", "React", "Supabase", "Redis", "Tailwind CSS"],
+    features: [
+      "Área pública para campanhas e vendas",
+      "Painel administrativo com gestão completa",
+      "Autenticação segura com JWT e bcrypt",
+      "Dashboard com métricas operacionais",
+      "Cache e otimizações para alta concorrência",
+      "Deploy em produção com foco em estabilidade"
+    ],
+    projectDetails: {
+      challenge: "Criar uma plataforma robusta para campanhas promocionais com operação real, controle administrativo e fluxo de compra confiável.",
+      solution: "Estruturamos uma aplicação full-stack com área pública, painel administrativo, autenticação segura, cache de apoio e recursos para sustentar uso contínuo em produção.",
+      results: [
+        "Operação centralizada em um único painel",
+        "Experiência pública responsiva para o cliente final",
+        "Base técnica pronta para crescimento e integrações",
+        "Projeto em produção com foco em performance"
+      ]
+    },
+    gradient: "linear-gradient(135deg, #f59e0b, #ef4444)",
+    status: "live"
+  },
+  {
     id: "burger-house",
     title: "Burger House",
     category: "Cardápio Online & Delivery",
-    description: "Landing page completa para hamburguerias com cardápio digital, sistema de pedidos, integração com WhatsApp/Telegram e automação de notificações via n8n para aceitação e entrega de pedidos, com design responsivo.",
-    shortDescription: "Cardápio digital interativo com pedidos online e automação n8n",
+    description: "Sistema de cardápio online com interface moderna, fluxo de pedidos e painel administrativo para operação do restaurante.",
+    shortDescription: "Cardápio digital com pedidos, gestão e experiência mobile",
     image: burgerHouseImage,
-    liveUrl: "https://burger-house.up.railway.app",
+    liveUrl: "https://cardapio.up.railway.app/",
     githubUrl: "https://github.com/AlexandroGranja/Projeto05-Burger-House",
-    adminUrl: "https://burger-house.up.railway.app/adm-pagina.html",
-    technologies: ["React", "Flask", "JavaScript", "Tailwind CSS", "n8n"],
+    technologies: ["React", "Supabase", "Python", "Flask", "Tailwind CSS"],
     features: [
-      "Cardápio digital interativo",
-      "Carrinho dinâmico de pedidos",
-      "Integração com WhatsApp e Telegram",
-      "Painel de administração de pedidos",
-      "Automação de notificações de pedido (aceitação e entrega) via n8n",
-      "Design responsivo para celular e desktop"
+      "Cardápio dinâmico com categorias e produtos",
+      "Carrinho e fluxo de checkout",
+      "Painel administrativo para gestão",
+      "Configurações visuais personalizáveis",
+      "Estrutura preparada para operação mobile",
+      "Integração com serviços do negócio"
     ],
     projectDetails: {
-      challenge: "Criar uma solução digital moderna para hamburguerias, permitindo pedidos online de forma prática e intuitiva.",
-      solution: "Desenvolvimento de uma landing page responsiva com cardápio digital, carrinho de compras, integração com WhatsApp/Telegram para envio de pedidos e automação de notificações de status de pedido (aceitação e entrega) via n8n.",
+      challenge: "Levar o atendimento da hamburgueria para o digital sem perder agilidade na operação e clareza para o cliente.",
+      solution: "Desenvolvemos um cardápio online com navegação intuitiva, pedido estruturado e painel de gerenciamento para acompanhar a rotina do negócio.",
       results: [
-        "Redução de 60% no tempo de atendimento",
-        "Aumento de 45% no ticket médio",
-        "Clientes fazendo pedidos direto do celular",
-        "Design otimizado para mobile first"
+        "Fluxo de pedido mais organizado",
+        "Experiência pensada para celular",
+        "Operação com painel centralizado",
+        "Base pronta para expansão do delivery digital"
       ]
     },
     gradient: "linear-gradient(135deg, #f97316, #ef4444)",
     status: "live"
   },
   {
-    id: "morais-adesivos",
-    title: "Morais Adesivos",
-    category: "E-commerce & Catálogo Digital",
-    description: "Site completo para empresa de adesivos personalizados com catálogo digital, galeria de produtos e sistema de orçamentos online.",
-    shortDescription: "Plataforma digital para adesivos personalizados",
-    image: moraisAdesivosImage,
-    liveUrl: "https://www.moraesadesivos.com.br",
+    id: "moraes-adesivos",
+    title: "Moraes Adesivos",
+    category: "Site Institucional & Captação de Leads",
+    description: "Site comercial criado para apresentar produtos, reforçar autoridade da marca e facilitar o contato comercial com foco em orçamento e conversão.",
+    shortDescription: "Presença digital profissional para captar pedidos e fortalecer a marca",
+    image: moraesAdesivosImage,
+    liveUrl: "https://moraesadesivos.com.br/",
     githubUrl: "https://github.com/AlexandroGranja/MoraisAdesivos",
-    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    technologies: ["HTML", "CSS", "JavaScript", "SEO", "WhatsApp"],
     features: [
-      "Catálogo digital interativo",
-      "Sistema de orçamentos online",
-      "Galeria de produtos personalizados",
-      "Design responsivo e moderno",
-      "SEO otimizado",
-      "Integração com WhatsApp"
+      "Landing page com posicionamento comercial claro",
+      "Seções de serviços e apresentação da empresa",
+      "CTA direto para orçamento no WhatsApp",
+      "Layout responsivo e visual profissional",
+      "Estrutura focada em conversão",
+      "Base otimizada para presença local"
     ],
     projectDetails: {
-      challenge: "Criar uma presença digital moderna para empresa de adesivos, permitindo que clientes visualizem produtos e solicitem orçamentos de forma prática.",
-      solution: "Desenvolvimento de site responsivo com catálogo digital, galeria de produtos e sistema de orçamentos integrado ao WhatsApp.",
+      challenge: "Transformar a presença digital da empresa em um canal mais confiável para apresentar o negócio e gerar novos contatos.",
+      solution: "Criamos uma landing page objetiva, com identidade visual alinhada ao serviço prestado e pontos de contato estratégicos para facilitar o orçamento.",
       results: [
-        "Aumento de 200% nas consultas online",
-        "Interface moderna e profissional",
-        "Tempo de carregamento otimizado",
-        "Experiência móvel aprimorada"
+        "Comunicação mais profissional da marca",
+        "Canal digital pronto para geração de leads",
+        "Apresentação clara de serviços e diferenciais",
+        "Experiência consistente em desktop e mobile"
       ]
     },
     gradient: "linear-gradient(135deg, #3b82f6, #9333ea)",
     status: "live"
   },
   {
-    id: "ai-automation-bot",
-    title: "Bot Designer WhatsApp",
-    category: "Automação de Processos & IA",
-    description: "Agente inteligente gerador de imagens no WhatsApp que cria promoções, logos, designs e carrosséis automaticamente. O bot identifica áudio, imagem e mensagem de texto para gerar conteúdo visual personalizado.",
-    shortDescription: "Bot de IA que gera imagens e designs via WhatsApp",
-    image: aiAutomationBotImage,
-    liveUrl: "https://wa.me/5521969585179?text=Olá! Tenho interesse no projeto Bot Designer WhatsApp - Gerador de Imagens e Designs",
-    githubUrl: "#",
-    technologies: ["Python", "OpenAI API", "WhatsApp API", "PIL/Pillow", "Flask", "n8n"],
+    id: "prosper-roteiros",
+    title: "Prosper Roteiros",
+    category: "Sistema Interno & Otimização Operacional",
+    description: "Ferramenta operacional para gerar roteiros otimizados de vendedores, agrupando visitas e organizando a execução em campo com apoio visual e critérios geográficos.",
+    shortDescription: "Sistema interno para roteirização inteligente e ganho operacional",
+    image: prosperRoteirosImage,
+    githubUrl: "https://github.com/AlexandroGranja/Roteiro-Prosper",
+    technologies: ["React", "Python", "Flask", "Leaflet", "CSV/Excel"],
     features: [
-      "Geração automática de imagens promocionais",
-      "Criação de logos personalizados",
-      "Design de carrosséis para redes sociais",
-      "Reconhecimento de áudio e texto",
-      "Integração completa com WhatsApp",
-      "Processamento de imagens via IA"
+      "Agrupamento inteligente de clientes por rota",
+      "Visualização geográfica no mapa",
+      "Filtros por vendedor e período",
+      "Dashboard com métricas operacionais",
+      "Importação e exportação de arquivos",
+      "Fluxo pensado para uso interno da equipe"
     ],
     projectDetails: {
-      challenge: "Automatizar a criação de conteúdo visual para empresas, permitindo que clientes gerem promoções, logos e designs através de comandos simples no WhatsApp.",
-      solution: "Desenvolvimento de um bot inteligente que processa comandos de texto, áudio e imagens via WhatsApp e utiliza IA para gerar conteúdo visual personalizado automaticamente.",
+      challenge: "Organizar melhor o trabalho de campo da equipe comercial, reduzindo deslocamentos desnecessários e melhorando a leitura das rotas.",
+      solution: "Desenhamos um sistema interno com lógica de agrupamento, leitura de dados, visualização em mapa e métricas para apoiar a tomada de decisão diária.",
       results: [
-        "Redução de 80% no tempo de criação de artes",
-        "Automação completa do processo criativo",
-        "Interface intuitiva via WhatsApp",
-        "Geração de conteúdo 24/7"
+        "Rotinas de visitação mais bem distribuídas",
+        "Visão operacional mais clara para gestores",
+        "Processo menos manual para montar roteiros",
+        "Ferramenta alinhada ao contexto real da equipe"
       ]
     },
-    gradient: "linear-gradient(135deg, #8b5cf6, #06b6d4)",
-    status: "development"
+    gradient: "linear-gradient(135deg, #0ea5e9, #2563eb)",
+    status: "repository"
   },
   {
-    id: "whatsapp-assistant",
-    title: "Assistente WhatsApp IA",
-    category: "Automação de Processos & IA",
-    description: "Assistente inteligente para WhatsApp que entende áudio, imagem e texto. Capaz de fazer agendamentos, responder perguntas e automatizar atendimento 24/7 com IA avançada.",
-    shortDescription: "Assistente IA completo para WhatsApp com agendamentos",
-    image: whatsappAssistantImage,
-    liveUrl: "https://wa.me/5521969585179?text=Olá! Tenho interesse no projeto Assistente WhatsApp IA - Automação de Atendimento",
-    githubUrl: "#",
-    technologies: ["Python", "OpenAI API", "WhatsApp API", "Speech Recognition", "Flask", "n8n"],
+    id: "processador-xml",
+    title: "Processador de XML",
+    category: "Ferramenta Operacional & Automação",
+    description: "Aplicação criada para automatizar a triagem de XMLs com base em planilhas, eliminando conferência manual e acelerando uma tarefa repetitiva do dia a dia.",
+    shortDescription: "Ferramenta prática para cruzar planilhas e XMLs em poucos passos",
+    image: processadorXmlImage,
+    githubUrl: "https://github.com/AlexandroGranja/site-converter-xml",
+    technologies: ["Python", "Flask", "OpenPyXL", "XML", "JavaScript"],
     features: [
-      "Reconhecimento de áudio e conversão para texto",
-      "Processamento de imagens e documentos",
-      "Sistema de agendamentos automático",
-      "Respostas inteligentes baseadas em IA",
-      "Integração completa com WhatsApp",
-      "Atendimento 24/7 automatizado"
+      "Upload de planilha e arquivo ZIP",
+      "Leitura automática de números de NF",
+      "Seleção dos XMLs correspondentes",
+      "Geração de novo ZIP com resultado filtrado",
+      "Interface simples com feedback visual",
+      "Redução de trabalho operacional repetitivo"
     ],
     projectDetails: {
-      challenge: "Criar um assistente inteligente que possa atender clientes via WhatsApp de forma automatizada, entendendo diferentes tipos de mídia e realizando agendamentos.",
-      solution: "Desenvolvimento de um assistente IA que processa áudio, imagens e texto via WhatsApp, utilizando reconhecimento de fala e processamento de linguagem natural para automatizar atendimentos e agendamentos.",
+      challenge: "Eliminar um processo manual de conferência entre planilhas e arquivos XML que consumia tempo e aumentava risco de erro.",
+      solution: "Criamos uma ferramenta web objetiva: o usuário envia os arquivos, o sistema faz o cruzamento dos dados e devolve apenas os XMLs relevantes em um novo pacote.",
       results: [
-        "Redução de 90% no tempo de atendimento",
-        "Atendimento 24/7 sem intervenção humana",
-        "Agendamentos automáticos e organizados",
-        "Satisfação do cliente aumentada em 85%"
+        "Processo operacional mais rápido e padronizado",
+        "Menos conferência manual arquivo por arquivo",
+        "Uso simples para a rotina administrativa",
+        "Ferramenta reutilizável para diferentes demandas"
       ]
     },
-    gradient: "linear-gradient(135deg, #25D366, #128C7E)",
-    status: "development"
+    gradient: "linear-gradient(135deg, #14b8a6, #0f766e)",
+    status: "repository"
   }
 ];
 
@@ -175,48 +192,48 @@ const services = [
   {
     icon: Globe,
     title: "Páginas Web Completas",
-    description: "Desenvolvimento de sites modernos, responsivos e otimizados para conversão. Do landing page ao e-commerce completo.",
+    description: "Criamos sites institucionais, landing pages e plataformas web sob medida com foco em apresentação clara, conversão e operação real.",
     features: [
-      "Design responsivo e moderno",
-      "SEO otimizado",
-      "Integração com sistemas",
-      "Performance otimizada"
+      "Sites comerciais e institucionais sob medida",
+      "Landing pages com foco em conversão",
+      "Integração com WhatsApp e formulários",
+      "Estrutura responsiva e otimizada"
     ],
-    longDescription: "Nossa expertise em desenvolvimento web abrange desde landing pages de alta conversão até e-commerces robustos e personalizados.",
+    longDescription: "Transformamos necessidades de negócio em experiências web bem resolvidas, desde páginas de apresentação até plataformas com lógica operacional e painel administrativo.",
     howItWorks: {
       process: [
         {
           step: "1. Análise e Planejamento",
-          description: "Entendemos seu negócio, público-alvo e objetivos para criar a estratégia ideal.",
+          description: "Entendemos o contexto do negócio, o público e o objetivo principal da página ou sistema.",
           icon: Target
         },
         {
           step: "2. Design e Prototipagem",
-          description: "Criamos wireframes e protótipos interativos para validar a experiência do usuário.",
+          description: "Definimos a estrutura da interface e o caminho ideal para o usuário navegar e converter.",
           icon: Code
         },
         {
           step: "3. Desenvolvimento",
-          description: "Codificamos usando tecnologias modernas como React, Next.js e TypeScript.",
+          description: "Implementamos a solução com tecnologias modernas e integrações adequadas para o projeto.",
           icon: Workflow
         },
         {
           step: "4. Testes e Otimização",
-          description: "Realizamos testes de performance, SEO e responsividade em todos os dispositivos.",
+          description: "Revisamos responsividade, performance e clareza da experiência antes da publicação.",
           icon: CheckCircle
         }
       ],
-      technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "WordPress"],
+      technologies: ["React", "Next.js", "Tailwind CSS", "JavaScript", "TypeScript", "Supabase"],
       benefits: [
-        "Aumento de até 300% na conversão de visitantes",
-        "Carregamento 5x mais rápido que concorrentes",
-        "SEO otimizado para ranquear no Google",
-        "Design responsivo para todos os dispositivos"
+        "Presença digital mais profissional",
+        "Estrutura clara para captação de leads",
+        "Experiência consistente em mobile e desktop",
+        "Base pronta para crescer com o negócio"
       ],
       examples: [
-        "E-commerce com + de 1000 produtos",
-        "Landing page que gerou R$ 2M em vendas",
-        "Site institucional com 50+ páginas"
+        "Moraes Adesivos: site comercial com foco em orçamento",
+        "Fortão Prêmios: plataforma pública com painel",
+        "Burger House: cardápio online com operação digital"
       ]
     },
     color: "from-blue-500 to-cyan-500",
@@ -225,48 +242,48 @@ const services = [
   {
     icon: Bot,
     title: "Agentes de Atendimento IA",
-    description: "Chatbots inteligentes que revolucionam o atendimento ao cliente com respostas naturais e precisas 24/7.",
+    description: "Desenvolvemos agentes para WhatsApp e web que qualificam leads, respondem dúvidas e automatizam etapas do atendimento com mais agilidade.",
     features: [
-      "Processamento de linguagem natural",
-      "Integração WhatsApp/Site",
-      "Aprendizado contínuo",
-      "Relatórios detalhados"
+      "Atendimento automatizado em múltiplos canais",
+      "Qualificação inicial de clientes e demandas",
+      "Integração com fluxos e ferramentas do negócio",
+      "Escalonamento para equipe humana quando necessário"
     ],
-    longDescription: "Desenvolvemos chatbots e agentes de atendimento baseados em inteligência artificial que transformam a interação com seus clientes.",
+    longDescription: "Projetamos agentes que não apenas respondem mensagens, mas organizam o funil de entrada, filtram solicitações e deixam o atendimento mais rápido e previsível.",
     howItWorks: {
       process: [
         {
           step: "1. Análise do Atendimento",
-          description: "Mapeamos suas principais demandas, perguntas frequentes e fluxos de atendimento.",
+          description: "Mapeamos dúvidas recorrentes, objeções e os momentos em que a equipe mais perde tempo.",
           icon: BarChart3
         },
         {
           step: "2. Treinamento da IA",
-          description: "Alimentamos a IA com informações específicas do seu negócio e produtos/serviços.",
+          description: "Estruturamos a base de respostas, contexto do negócio e regras de atendimento.",
           icon: Bot
         },
         {
           step: "3. Integração e Testes",
-          description: "Integramos nos seus canais (WhatsApp, site) e realizamos testes extensivos.",
+          description: "Conectamos o agente ao WhatsApp, site ou ferramentas internas e validamos os fluxos.",
           icon: MessageSquare
         },
         {
           step: "4. Monitoramento e Evolução",
-          description: "Acompanhamos performance e otimizamos continuamente as respostas.",
+          description: "Ajustamos respostas, encaminhamentos e automações conforme o uso real.",
           icon: TrendingUp
         }
       ],
-      technologies: ["OpenAI GPT", "WhatsApp Business API", "Webhook", "Python", "Natural Language Processing"],
+      technologies: ["OpenAI API", "WhatsApp API", "Python", "n8n", "Webhooks"],
       benefits: [
-        "Redução de 80% no tempo de resposta",
-        "Atendimento 24h sem custos adicionais",
-        "Satisfação do cliente 95% superior",
-        "Economia de até R$ 15.000/mês em pessoal"
+        "Primeiro atendimento mais rápido",
+        "Menos sobrecarga em tarefas repetitivas",
+        "Padronização da comunicação comercial",
+        "Maior disponibilidade fora do horário comercial"
       ],
       examples: [
-        "Chatbot que atende 500+ pessoas/dia",
-        "IA que resolve 85% das dúvidas automaticamente",
-        "Sistema que agenda consultas sozinho"
+        "Captação de leads e triagem automática no WhatsApp",
+        "Respostas rápidas para orçamento e dúvidas frequentes",
+        "Encaminhamento inteligente para o time comercial"
       ]
     },
     color: "from-purple-500 to-pink-500",
@@ -275,48 +292,48 @@ const services = [
   {
     icon: Cog,
     title: "Automações de Processos",
-    description: "Automatizamos tarefas repetitivas e otimizamos fluxos de trabalho para máxima eficiência empresarial.",
+    description: "Criamos automações e ferramentas internas para reduzir tarefas manuais, acelerar processos e organizar operações do dia a dia.",
     features: [
-      "Automação de workflows",
-      "Integração entre sistemas",
-      "Relatórios automáticos",
-      "Redução de custos"
+      "Ferramentas operacionais sob medida",
+      "Integração entre planilhas, sistemas e APIs",
+      "Automação de tarefas repetitivas",
+      "Mais controle sobre a operação"
     ],
-    longDescription: "Nossas soluções de automação de processos são projetadas para eliminar tarefas repetitivas e otimizar seus fluxos de trabalho.",
+    longDescription: "Desenvolvemos soluções que resolvem gargalos reais da operação, seja com dashboards, automações, filtros inteligentes ou aplicações internas específicas.",
     howItWorks: {
       process: [
         {
           step: "1. Mapeamento de Processos",
-          description: "Identificamos todas as tarefas manuais e repetitivas do seu negócio.",
+          description: "Identificamos etapas manuais, pontos de erro e tarefas que consomem tempo da equipe.",
           icon: Workflow
         },
         {
           step: "2. Desenho da Automação",
-          description: "Criamos fluxos automatizados conectando diferentes sistemas e ferramentas.",
+          description: "Desenhamos a melhor lógica para automatizar ou transformar a rotina em uma ferramenta mais eficiente.",
           icon: Cog
         },
         {
           step: "3. Implementação",
-          description: "Desenvolvemos e implantamos as automações usando ferramentas modernas.",
+          description: "Construímos a solução conectando dados, regras de negócio e interface quando necessário.",
           icon: Code
         },
         {
           step: "4. Monitoramento",
-          description: "Acompanhamos a performance e otimizamos continuamente os processos.",
+          description: "Validamos o uso real e refinamos a solução conforme a operação evolui.",
           icon: BarChart3
         }
       ],
-      technologies: ["Zapier", "Make.com", "Python", "APIs REST", "Google Workspace", "Microsoft 365"],
+      technologies: ["Python", "Flask", "n8n", "APIs REST", "Excel/CSV", "Leaflet"],
       benefits: [
-        "Economia de 40+ horas/semana da equipe",
-        "Redução de 90% dos erros manuais",
-        "ROI positivo em até 3 meses",
-        "Relatórios automáticos em tempo real"
+        "Menos retrabalho operacional",
+        "Mais velocidade na execução interna",
+        "Redução de erros em processos repetitivos",
+        "Ferramentas alinhadas ao fluxo real da equipe"
       ],
       examples: [
-        "Automação de envio de 1000+ e-mails/day",
-        "Sincronização automática entre 5 sistemas",
-        "Geração automática de relatórios semanais"
+        "Prosper Roteiros: organização de visitas e rotas",
+        "Processador de XML: triagem automática de arquivos",
+        "Painéis internos com métricas e gestão operacional"
       ]
     },
     color: "from-green-500 to-emerald-500",
@@ -325,48 +342,48 @@ const services = [
   {
     icon: Smartphone,
     title: "Cardápios Online",
-    description: "Soluções completas para restaurantes com cardápios digitais, pedidos online e gestão inteligente.",
+    description: "Montamos cardápios digitais com identidade visual, pedidos estruturados e gestão simplificada para restaurantes e lanchonetes.",
     features: [
-      "Cardápio digital interativo",
-      "Sistema de pedidos",
-      "Gestão de estoque",
-      "Integração delivery"
+      "Cardápio digital organizado por categorias",
+      "Fluxo de pedido pensado para conversão",
+      "Painel para gestão do conteúdo",
+      "Experiência mobile para clientes"
     ],
-    longDescription: "Oferecemos soluções completas para o setor de alimentação, com cardápios digitais interativos que permitem aos seus clientes fazerem pedidos online.",
+    longDescription: "Criamos experiências digitais para alimentação que ajudam o cliente a pedir com facilidade e o negócio a operar com mais clareza e autonomia.",
     howItWorks: {
       process: [
         {
           step: "1. Cadastro do Cardápio",
-          description: "Organizamos todos os seus pratos, preços e fotos em categorias intuitivas.",
+          description: "Estruturamos produtos, categorias, preços e imagens de forma intuitiva para o cliente.",
           icon: Smartphone
         },
         {
           step: "2. Personalização Visual",
-          description: "Criamos um design único que reflete a identidade visual do seu restaurante.",
+          description: "Aplicamos a identidade visual da marca para que o cardápio pareça parte do negócio, não uma solução genérica.",
           icon: Code
         },
         {
           step: "3. Sistema de Pedidos",
-          description: "Implementamos carrinho de compras, formas de pagamento e confirmação automática.",
+          description: "Configuramos o fluxo de pedido para tornar a experiência simples e prática no celular.",
           icon: CheckCircle
         },
         {
           step: "4. Gestão e Analytics",
-          description: "Dashboard completo para gerenciar pedidos, estoque e acompanhar vendas.",
+          description: "Entregamos uma base administrável para atualizar cardápio, acompanhar operação e evoluir o canal digital.",
           icon: BarChart3
         }
       ],
-      technologies: ["QR Code", "PWA", "Stripe/PagSeguro", "WhatsApp API", "Firebase", "Analytics"],
+      technologies: ["React", "Supabase", "Python", "Flask", "Tailwind CSS", "WhatsApp"],
       benefits: [
-        "Aumento de 45% no ticket médio",
-        "Redução de 60% no tempo do pedido",
-        "Zero custo com impressão de cardápios",
-        "Integração total com delivery"
+        "Atendimento mais organizado no digital",
+        "Maior praticidade para pedir pelo celular",
+        "Atualização rápida de produtos e preços",
+        "Melhor apresentação do cardápio da marca"
       ],
       examples: [
-        "Restaurante com 200+ pedidos/dia via QR",
-        "Lanchonete que eliminou filas de espera",
-        "Bar que aumentou vendas em 150%"
+        "Burger House: cardápio com pedidos e painel",
+        "Menus digitais personalizados para delivery",
+        "Estruturas prontas para operação mobile-first"
       ]
     },
     color: "from-orange-500 to-red-500",
@@ -374,8 +391,25 @@ const services = [
   }
 ];
 
+const marqueeServices = [...services, ...services];
+
+const statusConfig: Record<string, { label: string; className: string; dotClassName: string }> = {
+  live: {
+    label: "Ao vivo",
+    className: "bg-green-500/10 text-green-600 border-green-500/20",
+    dotClassName: "bg-green-500",
+  },
+  repository: {
+    label: "Case técnico",
+    className: "bg-blue-500/10 text-blue-600 border-blue-500/20",
+    dotClassName: "bg-blue-500",
+  },
+};
+
 // Modal para projetos
 const ProjectModal: React.FC<{ project: any }> = ({ project }) => {
+  const status = statusConfig[project.status] ?? statusConfig.repository;
+
   return (
     <>
       <DialogHeader className="pb-6">
@@ -482,14 +516,18 @@ const ProjectModal: React.FC<{ project: any }> = ({ project }) => {
           <div className="text-center space-y-4">
             <h4 className="text-lg font-semibold">Ver Projeto</h4>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button onClick={() => window.open(project.liveUrl, "_blank")}>
-                <ExternalLink className="mr-2 w-4 h-4" />
-                Site ao Vivo
-              </Button>
-              <Button variant="outline" onClick={() => window.open(project.githubUrl, "_blank")}>
-                <Github className="mr-2 w-4 h-4" />
-                Código no GitHub
-              </Button>
+              {project.liveUrl && (
+                <Button onClick={() => window.open(project.liveUrl, "_blank")}>
+                  <ExternalLink className="mr-2 w-4 h-4" />
+                  Site ao Vivo
+                </Button>
+              )}
+              {project.githubUrl && (
+                <Button variant="outline" onClick={() => window.open(project.githubUrl, "_blank")}>
+                  <Github className="mr-2 w-4 h-4" />
+                  Código no GitHub
+                </Button>
+              )}
               {project.adminUrl && (
                 <Button variant="outline" onClick={() => window.open(project.adminUrl, "_blank")}>
                   <Eye className="mr-2 w-4 h-4" />
@@ -633,12 +671,13 @@ const ServiceModal: React.FC<{ service: any }> = ({ service }) => {
 
 export const ServicesSection: React.FC = () => {
   const [selectedService, setSelectedService] = React.useState<any>(null);
-  const [selectedProject, setSelectedProject] = React.useState<any>(null);
   const [isServiceModalOpen, setIsServiceModalOpen] = React.useState(false);
-  const [isProjectModalOpen, setIsProjectModalOpen] = React.useState(false);
 
   return (
-    <section className="py-20 px-4 relative">
+    <section className="relative overflow-hidden px-4 py-24 md:py-28">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(222_34%_5%/0.92)_0%,hsl(224_38%_4%/0.97)_18%,hsl(226_42%_3%/0.99)_52%,hsl(228_45%_2%/1)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center_top,hsl(var(--primary)/0.05),transparent_30%)] opacity-60" />
+
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -651,11 +690,6 @@ export const ServicesSection: React.FC = () => {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
-            <Sparkles className="w-4 h-4" />
-            Nossos Serviços
-          </div>
-
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Soluções que <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">transformam</span> negócios
           </h2>
@@ -666,142 +700,205 @@ export const ServicesSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Services grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {services.map((service, index) => {
-            const Icon = service.icon;
+        {/* Services marquee */}
+        <ScrollReveal variant="fade-up" yOffset={26} durationMs={1100}>
+          <div className="relative mb-24 overflow-x-hidden overflow-y-visible rounded-[32px] bg-[linear-gradient(180deg,hsl(224_34%_5%/0.88),hsl(228_40%_3%/0.94))] px-0 py-8 shadow-[var(--shadow-depth)] backdrop-blur-xl">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 bg-gradient-to-r from-background via-background/90 to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 bg-gradient-to-l from-background via-background/90 to-transparent" />
 
-            return (
-              <Card
-                key={index}
-                className={cn(
-                  "group relative overflow-hidden bg-card/50 backdrop-blur-sm",
-                  "border-border/50 hover:border-primary/50",
-                  "transition-all duration-500 hover:shadow-2xl",
-                  "hover:scale-[1.02]"
-                )}
-              >
-                {/* Gradient overlay on hover */}
-                <div className={cn(
-                  "absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500",
-                  `bg-gradient-to-br ${service.color}`
-                )} />
+            <div className="service-marquee-shell overflow-x-hidden overflow-y-visible py-4">
+              <div className="service-marquee-track items-stretch px-5 py-2">
+                {marqueeServices.map((service, index) => {
+                  const Icon = service.icon;
 
-                <CardHeader className="relative z-10">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div
-                      className="p-3 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300"
-                      style={{ background: service.gradient }}
+                  return (
+                    <Card
+                      key={`${service.title}-${index}`}
+                      className={cn(
+                        "service-marquee-card group relative overflow-hidden rounded-[28px] !border-0 border-transparent ring-0 bg-[linear-gradient(180deg,hsl(224_24%_8%/0.86),hsl(228_28%_6%/0.82))] shadow-[0_22px_60px_-34px_hsl(220_65%_3%/0.95)] backdrop-blur-xl",
+                        "hover:-translate-y-2"
+                      )}
                     >
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
-                        {service.title}
-                      </CardTitle>
-                    </div>
-                  </div>
+                      <div
+                        className={cn(
+                          "absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-20",
+                          `bg-gradient-to-br ${service.color}`
+                        )}
+                      />
 
-                  <CardDescription className="text-base leading-relaxed">
-                    {service.description}
-                  </CardDescription>
-                </CardHeader>
+                      <CardHeader className="relative z-10 space-y-4 pb-4">
+                        <div className="flex items-center gap-4">
+                          <div
+                            className="rounded-2xl p-3 shadow-lg transition-transform duration-300 group-hover:scale-110"
+                            style={{ background: service.gradient }}
+                          >
+                            <Icon className="h-6 w-6 text-white" />
+                          </div>
 
-                <CardContent className="relative z-10">
-                  <ul className="space-y-3 mb-6">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
-                        <span className="text-sm text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                          <div>
+                            <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.26em] text-primary/70">
+                              Solucao Premium
+                            </div>
+                            <CardTitle className="text-xl font-bold leading-tight transition-colors group-hover:text-primary">
+                              {service.title}
+                            </CardTitle>
+                          </div>
+                        </div>
 
-                  <Button
-                    variant="outline"
-                    className="w-full group/btn border-primary/30 hover:bg-primary/10 hover:border-primary/50"
-                    onClick={() => {
-                      setSelectedService(service);
-                      setIsServiceModalOpen(true);
-                    }}
-                  >
-                    <span className="flex items-center">
-                      Ver Detalhes Completos
-                      <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </span>
-                  </Button>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+                        <CardDescription className="min-h-[4.5rem] text-sm leading-6">
+                          {service.description}
+                        </CardDescription>
+                      </CardHeader>
 
-        {/* Seção de Projetos */}
-        <div id="projects" className="py-20">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
-              <Sparkles className="w-4 h-4" />
-              Meus Projetos
+                      <CardContent className="relative z-10">
+                        <div className="mb-6 flex flex-wrap gap-2">
+                          {service.features.slice(0, 3).map((feature, featureIndex) => (
+                            <span
+                              key={featureIndex}
+                              className="rounded-full bg-white/5 px-3 py-1 text-xs text-muted-foreground"
+                            >
+                              {feature}
+                            </span>
+                          ))}
+                        </div>
+
+                        <Button
+                          variant="outline"
+                          className="w-full border-primary/30 bg-background/30 hover:border-primary/60 hover:bg-primary/10"
+                          onClick={() => {
+                            setSelectedService(service);
+                            setIsServiceModalOpen(true);
+                          }}
+                        >
+                          <span className="flex items-center">
+                            Ver Detalhes Completos
+                            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                          </span>
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
             </div>
+          </div>
+        </ScrollReveal>
 
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Projetos que <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">transformam</span> ideias em realidade
-            </h2>
-
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Confira alguns dos projetos que desenvolvi, desde sites corporativos até
-              plataformas e-commerce completas.
+        {/* CTA Section */}
+        <ScrollReveal variant="fade-up" yOffset={24} delayMs={140}>
+          <div className="mt-20 text-center">
+            <p className="text-lg text-muted-foreground mb-6">
+              Quer ver seu projeto aqui? Vamos criar algo incrível juntos!
             </p>
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              onClick={() => {
+                const whatsappNumber = "5521996062455";
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de desenvolver um projeto personalizado.`;
+                window.open(whatsappUrl, "_blank");
+              }}
+            >
+              <MessageSquare className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
+              Iniciar Projeto
+            </Button>
+          </div>
+        </ScrollReveal>
+
+
+      </div>
+
+      {/* Modais */}
+      <Dialog open={isServiceModalOpen} onOpenChange={setIsServiceModalOpen}>
+        <DialogContent className="sm:max-w-[900px] w-[90vw] max-h-[85vh] overflow-y-auto">
+          {selectedService && <ServiceModal service={selectedService} />}
+        </DialogContent>
+      </Dialog>
+
+    </section>
+  );
+};
+
+export const ProjectsSection: React.FC = () => {
+  const [selectedProject, setSelectedProject] = React.useState<any>(null);
+  const [isProjectModalOpen, setIsProjectModalOpen] = React.useState(false);
+
+  return (
+    <section className="py-20 px-4 relative">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+            <Sparkles className="w-4 h-4" />
+            Meus Projetos
           </div>
 
-          {/* Grid de Projetos */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
-            {projects.map((project, index) => (
-              <Card
-                key={index}
-                className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:scale-[1.02] flex flex-col h-full"
-              >
-                {/* Project Image */}
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Projetos que <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">transformam</span> ideias em realidade
+          </h2>
+
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Cases reais do meu portfólio, com foco em plataformas web, sites comerciais,
+            ferramentas operacionais e soluções digitais que resolvem problemas do negócio.
+          </p>
+        </div>
+
+        <ScrollReveal variant="scale-in" staggerChildren staggerStepMs={95} childDistance={58} durationMs={1080}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+            {projects.map((project, index) => {
+              const status = statusConfig[project.status] ?? statusConfig.repository;
+
+              return (
+                <Card
+                  key={project.id}
+                  data-reveal-item
+                  style={{ ["--item-index" as string]: index } as React.CSSProperties}
+                  className="premium-card group relative overflow-hidden hover:border-primary/60 transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 flex flex-col h-full"
+                >
                 <div className="relative overflow-hidden bg-gradient-to-br from-gray-900/50 to-gray-800/30 aspect-[16/10] rounded-t-lg">
                   <div className="absolute inset-0 flex justify-center items-center p-6">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="max-w-full max-h-full object-contain drop-shadow-2xl"
+                      className="max-w-full max-h-full object-contain drop-shadow-2xl transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/35 via-transparent to-primary/5 opacity-80" />
 
                   <div className="absolute top-4 left-4 z-10">
-                    <Badge variant="secondary" className="bg-green-500/10 text-green-600 border-green-500/20 backdrop-blur-sm">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
-                      Live
+                    <Badge variant="secondary" className={cn("backdrop-blur-sm", status.className)}>
+                      <div className={cn("w-2 h-2 rounded-full mr-2 animate-pulse", status.dotClassName)} />
+                      {status.label}
                     </Badge>
                   </div>
 
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                     <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        variant="secondary"
-                        className="h-8 w-8 p-0 backdrop-blur-sm"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(project.liveUrl, "_blank");
-                        }}
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="secondary"
-                        className="h-8 w-8 p-0 backdrop-blur-sm"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(project.githubUrl, "_blank");
-                        }}
-                      >
-                        <Github className="w-4 h-4" />
-                      </Button>
+                      {project.liveUrl && (
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          className="h-8 w-8 p-0 backdrop-blur-sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(project.liveUrl, "_blank");
+                          }}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </Button>
+                      )}
+                      {project.githubUrl && (
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          className="h-8 w-8 p-0 backdrop-blur-sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(project.githubUrl, "_blank");
+                          }}
+                        >
+                          <Github className="w-4 h-4" />
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -834,61 +931,33 @@ export const ServicesSection: React.FC = () => {
                     )}
                   </div>
 
-                <Button 
-                  variant="outline" 
-                  className="w-full group/btn border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedProject(project);
-                    setIsProjectModalOpen(true);
-                  }}
-                >
-                  <span className="flex items-center">
-                    Ver Detalhes
-                    <Eye className="ml-2 w-4 h-4 group-hover/btn:scale-110 transition-transform" />
-                  </span>
-                </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full group/btn border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedProject(project);
+                      setIsProjectModalOpen(true);
+                    }}
+                  >
+                    <span className="flex items-center">
+                      Ver Detalhes
+                      <Eye className="ml-2 w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+                    </span>
+                  </Button>
                 </CardContent>
               </Card>
-            ))}
+              );
+            })}
           </div>
-        </div>
-
-        {/* CTA Section */}
-        <div className="text-center mt-16">
-          <p className="text-lg text-muted-foreground mb-6">
-            Quer ver seu projeto aqui? Vamos criar algo incrível juntos!
-          </p>
-          <Button
-            size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group shadow-lg hover:shadow-xl transition-all duration-300"
-            onClick={() => {
-              const whatsappNumber = "5521969585179";
-              const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de desenvolver um projeto personalizado.`;
-              window.open(whatsappUrl, "_blank");
-            }}
-          >
-            <MessageSquare className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
-            Iniciar Projeto
-          </Button>
-        </div>
-
-
+        </ScrollReveal>
       </div>
-
-      {/* Modais */}
-      <Dialog open={isServiceModalOpen} onOpenChange={setIsServiceModalOpen}>
-        <DialogContent className="sm:max-w-[900px] w-[90vw] max-h-[85vh] overflow-y-auto">
-          {selectedService && <ServiceModal service={selectedService} />}
-        </DialogContent>
-      </Dialog>
 
       <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
         <DialogContent className="sm:max-w-[900px] w-[90vw] max-h-[85vh] overflow-y-auto">
           {selectedProject && <ProjectModal project={selectedProject} />}
         </DialogContent>
       </Dialog>
-
     </section>
   );
 };

@@ -1,98 +1,62 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Zap } from "lucide-react";
-import { cn } from "@/lib/utils";
-import aiverseLogo from "@/assets/aiverse-logo.png";
+import { Bot, Globe, MenuSquare, Settings } from "lucide-react";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
+
+const services = [
+  { icon: Globe, title: "Paginas Web", desc: "Sites completos e institucionais" },
+  { icon: Bot, title: "Agentes IA", desc: "Atendimento inteligente e vendas" },
+  { icon: Settings, title: "Automacoes", desc: "Processos mais rapidos e integrados" },
+  { icon: MenuSquare, title: "Cardapios Online", desc: "Experiencia digital para restaurantes" },
+];
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center">
-      <div className="text-center max-w-6xl mx-auto px-4">
-        {/* Logo */}
-        <div className="mb-8 animate-fade-in-up">
-          <img 
-            src={aiverseLogo} 
-            alt="AIVERSE Technologies" 
-            className="h-0 w-auto mx-auto mb-6 animate-float"
-          />
-        </div>
-
+    <section className="relative min-h-screen flex items-center justify-center py-12">
+      <div className="relative overflow-hidden text-center max-w-6xl mx-auto px-4 py-14 md:px-10 md:py-20">
         {/* Main headline */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up">
-          <span className="bg-gradient-to-r from-[hsl(var(--neural-blue))] to-[hsl(var(--neural-cyan))] bg-clip-text text-transparent">
-            AIVERSE
-          </span>
-          <br />
-          <span className="text-foreground">Technologies</span>
-        </h1>
+        <ScrollReveal variant="fade-up" yOffset={36} delayMs={60} durationMs={1100}>
+          <h1 className="hero-title relative z-10 mb-6 text-balance leading-[0.9]">
+            <span className="hero-title-primary">
+              AIVERSE
+            </span>
+            <br />
+            <span className="hero-title-secondary">Technologies</span>
+          </h1>
+        </ScrollReveal>
 
         {/* Subtitle */}
-        <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          Revolucionamos seu negócio com <span className="text-accent font-semibold">Inteligência Artificial</span> e 
-          <span className="text-accent font-semibold"> desenvolvimento web avançado</span>
-        </p>
+        <ScrollReveal variant="fade-up" yOffset={30} delayMs={120} durationMs={1000}>
+          <p className="relative z-10 mb-10 max-w-3xl mx-auto text-lg leading-relaxed text-slate-300 md:text-[1.6rem]">
+            Revolucionamos seu negocio com <span className="font-semibold text-primary">Inteligencia Artificial</span> e
+            <span className="font-semibold text-accent"> desenvolvimento web avancado</span>
+          </p>
+        </ScrollReveal>
 
         {/* Services highlight */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 max-w-4xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-          {[
-            { icon: "🌐", title: "Páginas Web", desc: "Sites completos" },
-            { icon: "🤖", title: "Agentes IA", desc: "Atendimento inteligente" },
-            { icon: "⚙️", title: "Automações", desc: "Processos otimizados" },
-            { icon: "📱", title: "Cardápios Online", desc: "Soluções gastronômicas" }
-          ].map((service, index) => (
-            <div key={index} className="bg-card/30 backdrop-blur-sm rounded-lg p-4 border border-border/30 hover:border-primary/50 transition-all duration-300">
-              <div className="text-2xl mb-2">{service.icon}</div>
-              <h3 className="font-semibold text-sm mb-1">{service.title}</h3>
-              <p className="text-xs text-muted-foreground">{service.desc}</p>
-            </div>
-          ))}
-        </div>
+        <ScrollReveal variant="scale-in" delayMs={220} durationMs={1000} staggerChildren staggerStepMs={85} childDistance={42}>
+          <div className="relative z-10 mb-10 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4 xl:gap-5 mx-auto items-stretch">
+            {services.map((service, index) => {
+              const Icon = service.icon;
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-          <Button
-            size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group shadow-[var(--shadow-neural)] hover:shadow-[var(--shadow-glow)] transition-all duration-300"
-            onClick={() => {
-              const whatsappNumber = "5521969585179";
-              const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de solicitar um orçamento.`;
-              window.open(whatsappUrl, "_blank");
-            }}
-          >
-            Solicitar Orçamento
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Button>
-          
-          <Button 
-  size="lg" 
-  variant="outline"
-  className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-4 text-lg group"
-  onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
->
-  <Sparkles className="mr-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
-  Ver Projetos
-</Button>
-
-        </div>
-
-        {/* Trust indicators */}
-        <div className="mt-12 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
-          <p className="text-sm text-muted-foreground mb-4">Confiança de empresas em todo Brasil</p>
-          <div className="flex justify-center items-center gap-8 opacity-60">
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-primary" />
-              <span className="text-sm">+100 Projetos</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-primary" />
-              <span className="text-sm">98% Satisfação</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-primary" />
-              <span className="text-sm">Suporte 24/7</span>
-            </div>
+              return (
+                <div
+                  key={index}
+                  data-reveal-item
+                  style={{ ["--item-index" as string]: index } as React.CSSProperties}
+                  className="premium-card flex h-full min-h-[176px] flex-col rounded-[26px] p-5 text-left transition-all duration-500 hover:-translate-y-3 hover:border-primary/50"
+                >
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-primary shadow-[0_10px_30px_-18px_hsl(var(--primary)/0.7)]">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div className="flex flex-1 flex-col justify-between gap-3">
+                    <h3 className="text-base font-semibold tracking-[-0.02em] text-slate-50">{service.title}</h3>
+                    <p className="text-sm leading-6 text-slate-400">{service.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
