@@ -3,10 +3,10 @@ import { Bot, Globe, MenuSquare, Settings } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const services = [
-  { icon: Globe, title: "Paginas Web", desc: "Sites completos e institucionais" },
-  { icon: Bot, title: "Agentes IA", desc: "Atendimento inteligente e vendas" },
-  { icon: Settings, title: "Automacoes", desc: "Processos mais rapidos e integrados" },
-  { icon: MenuSquare, title: "Cardapios Online", desc: "Experiencia digital para restaurantes" },
+  { icon: Globe, title: "Páginas Web", desc: "Sites rápidos, modernos e otimizados para converter visitantes em clientes." },
+  { icon: Bot, title: "Agentes IA", desc: "Chatbots e agentes de IA que atendem, qualificam e vendem 24h por você." },
+  { icon: Settings, title: "Automações", desc: "Automatize tarefas e economize tempo com processos inteligentes e integrados." },
+  { icon: MenuSquare, title: "Cardápios Online", desc: "Cardápios digitais que aumentam pedidos e melhoram a experiência do cliente." },
 ];
 
 export const HeroSection: React.FC = () => {
@@ -27,8 +27,8 @@ export const HeroSection: React.FC = () => {
         {/* Subtitle */}
         <ScrollReveal variant="fade-up" yOffset={30} delayMs={120} durationMs={1000}>
           <p className="relative z-10 mb-10 max-w-3xl mx-auto text-lg leading-relaxed text-slate-300 md:text-[1.6rem]">
-            Revolucionamos seu negocio com <span className="font-semibold text-primary">Inteligencia Artificial</span> e
-            <span className="font-semibold text-accent"> desenvolvimento web avancado</span>
+          Transforme seu negócio com <span className="font-semibold text-primary">Inteligência Artificial</span> e
+            <span className="font-semibold text-accent"> Sites de alta performance.</span>
           </p>
         </ScrollReveal>
 

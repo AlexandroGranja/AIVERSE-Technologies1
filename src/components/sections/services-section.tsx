@@ -450,7 +450,7 @@ export const ServicesSection: React.FC = () => {
 
                     <div>
                           <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-primary/70 sm:text-[11px] sm:tracking-[0.26em]">
-                            Solucao Premium
+                            Solução Premium
                           </div>
                           <CardTitle className="text-lg font-bold leading-tight transition-colors group-hover:text-primary sm:text-[1.18rem]">
                         {service.title}
@@ -655,13 +655,13 @@ export const ProjectsSection: React.FC = () => {
                           <div className="mt-4 flex flex-wrap gap-2">
                             {project.liveUrl && (
                               <Button size="sm" className="bg-primary/90 text-primary-foreground hover:bg-primary" onClick={() => window.open(project.liveUrl, "_blank")}>
-                                Ver exemplo
+                                Ver projeto
                                 <ExternalLink className="ml-2 h-4 w-4" />
                               </Button>
                             )}
                             {!project.liveUrl && project.githubUrl && (
                               <Button size="sm" variant="outline" className="border-primary/35 hover:border-primary/55 hover:bg-primary/10" onClick={() => window.open(project.githubUrl, "_blank")}>
-                                Ver referencia
+                                Ver referência
                                 <Github className="ml-2 h-4 w-4" />
                               </Button>
                     )}

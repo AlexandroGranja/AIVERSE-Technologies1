@@ -27,7 +27,7 @@ interface ConversationTopic {
 
 const initialBotMessage = (): ChatMessage => ({
   id: "intro-name",
-  text: "Oi. Antes de comecarmos, como posso te chamar?",
+  text: "Oi. Antes de começarmos, como posso te chamar?",
   isBot: true,
   timestamp: new Date(),
 });
@@ -37,13 +37,13 @@ const conversationTopics: ConversationTopic[] = [
     id: "support-agent",
     title: "Agente de atendimento",
     intro: (name) =>
-      `${name}, esse tipo de agente ajuda a responder duvidas iniciais, orientar o visitante e encaminhar para sua equipe no momento certo.`,
+      `${name}, esse tipo de agente ajuda a responder dúvidas iniciais, orientar o visitante e encaminhar para sua equipe no momento certo.`,
     questions: [
       {
         id: "support-hours",
-        question: "Ele consegue atender fora do horario comercial?",
+        question: "Ele consegue atender fora do horário comercial?",
         answer: (name) =>
-          `Sim, ${name}. O agente pode ficar ativo fora do horario comercial para responder perguntas comuns e manter o atendimento em andamento.`,
+          `Sim, ${name}. O agente pode ficar ativo fora do horário comercial para responder perguntas comuns e manter o atendimento em andamento.`,
       },
       {
         id: "support-whatsapp",
@@ -53,9 +53,9 @@ const conversationTopics: ConversationTopic[] = [
       },
       {
         id: "support-faq",
-        question: "Ele tira duvidas antes de falar com um atendente?",
+        question: "Ele tira dúvidas antes de falar com um atendente?",
         answer: (name) =>
-          `Sim. Ele consegue responder perguntas frequentes, explicar servicos e evitar que o visitante saia do site sem entender o proximo passo.`,
+          `Sim. Ele consegue responder perguntas frequentes, explicar serviços e evitar que o visitante saia do site sem entender o próximo passo.`,
       },
       {
         id: "support-site",
@@ -67,33 +67,33 @@ const conversationTopics: ConversationTopic[] = [
   },
   {
     id: "automation",
-    title: "Automacoes",
+    title: "Automações",
     intro: (name) =>
-      `${name}, as automacoes ajudam a reduzir tarefas repetitivas e deixam o processo mais rapido no dia a dia do negocio.`,
+      `${name}, as automações ajudam a reduzir tarefas repetitivas e deixam o processo mais rápido no dia a dia do negócio.`,
     questions: [
       {
         id: "automation-routine",
-        question: "Que tipo de tarefa da rotina da para automatizar?",
+        question: "Que tipo de tarefa da rotina dá para automatizar?",
         answer: (name) =>
-          `Depende do seu processo, ${name}, mas normalmente automatizamos atendimento inicial, envio de informacoes, organizacao de contatos e etapas operacionais repetitivas.`,
+          `Depende do seu processo, ${name}, mas normalmente automatizamos atendimento inicial, envio de informações, organização de contatos e etapas operacionais repetitivas.`,
       },
       {
         id: "automation-time",
         question: "Isso ajuda mesmo a ganhar tempo?",
         answer: (name) =>
-          `Ajuda sim. A ideia e tirar da equipe aquilo que e manual e repetitivo para sobrar mais tempo para atender, vender e organizar melhor o negocio.`,
+          `Ajuda sim. A ideia é tirar da equipe aquilo que é manual e repetitivo para sobrar mais tempo para atender, vender e organizar melhor o negócio.`,
       },
       {
         id: "automation-integration",
-        question: "Da para conectar com o que eu ja uso hoje?",
+        question: "Dá para conectar com o que eu já uso hoje?",
         answer: (name) =>
-          `Em muitos casos, sim, ${name}. Primeiro entendemos seu fluxo atual e depois avaliamos a forma mais simples de integrar sem complicar a operacao.`,
+          `Em muitos casos, sim, ${name}. Primeiro entendemos seu fluxo atual e depois avaliamos a forma mais simples de integrar sem complicar a operação.`,
       },
       {
         id: "automation-start",
         question: "Qual seria o primeiro passo para automatizar?",
         answer: (name) =>
-          `O primeiro passo e mapear o que mais toma tempo hoje. A partir disso, definimos o que vale automatizar primeiro para gerar resultado mais rapido.`,
+          `O primeiro passo é mapear o que mais toma tempo hoje. A partir disso, definimos o que vale automatizar primeiro para gerar resultado mais rápido.`,
       },
     ],
   },
@@ -101,31 +101,31 @@ const conversationTopics: ConversationTopic[] = [
     id: "web-project",
     title: "Site ou landing page",
     intro: (name) =>
-      `${name}, se o foco for apresentar melhor seu negocio e gerar mais contatos, um site bem pensado pode ser o melhor caminho.`,
+      `${name}, se o foco for apresentar melhor seu negócio e gerar mais contatos, um site bem pensado pode ser o melhor caminho.`,
     questions: [
       {
         id: "web-goal",
         question: "Como eu sei se preciso de um site ou de uma landing page?",
         answer: (name) =>
-          `Isso depende do seu objetivo, ${name}. Se for apresentar o negocio de forma mais completa, um site costuma fazer sentido. Se for focar em uma oferta especifica, uma landing page pode funcionar melhor.`,
+          `Isso depende do seu objetivo, ${name}. Se for apresentar o negócio de forma mais completa, um site costuma fazer sentido. Se for focar em uma oferta específica, uma landing page pode funcionar melhor.`,
       },
       {
         id: "web-leads",
         question: "Isso ajuda mesmo a gerar mais contatos?",
         answer: (name) =>
-          `Ajuda, porque a pagina passa a conduzir melhor a atencao do visitante, mostrar o que voce faz com clareza e facilitar a tomada de contato.`,
+          `Ajuda, porque a página passa a conduzir melhor a atenção do visitante, mostrar o que você faz com clareza e facilitar a tomada de contato.`,
       },
       {
         id: "web-professional",
-        question: "Meu negocio fica com uma imagem mais profissional?",
+        question: "Meu negócio fica com uma imagem mais profissional?",
         answer: (name) =>
-          `Sim, ${name}. Um projeto bem apresentado aumenta a confianca de quem visita e melhora a forma como sua marca e percebida.`,
+          `Sim, ${name}. Um projeto bem apresentado aumenta a confiança de quem visita e melhora a forma como sua marca é percebida.`,
       },
       {
         id: "web-next-step",
-        question: "Se eu quiser fazer isso, como comeco?",
+        question: "Se eu quiser fazer isso, como começo?",
         answer: (name) =>
-          `Voce comeca explicando seu objetivo e o momento do negocio. A partir disso, fica mais facil definir a melhor estrutura para sua pagina.`,
+          `Você começa explicando seu objetivo e o momento do negócio. A partir disso, fica mais fácil definir a melhor estrutura para sua página.`,
       },
     ],
   },
@@ -133,23 +133,23 @@ const conversationTopics: ConversationTopic[] = [
     id: "custom-solution",
     title: "Projeto sob medida",
     intro: (name) =>
-      `${name}, quando a necessidade e mais especifica, vale desenhar uma solucao sob medida para o seu processo ou modelo de negocio.`,
+      `${name}, quando a necessidade é mais específica, vale desenhar uma solução sob medida para o seu processo ou modelo de negócio.`,
     questions: [
       {
         id: "custom-fit",
-        question: "Como voces entendem o que faz sentido para o meu caso?",
+        question: "Como vocês entendem o que faz sentido para o meu caso?",
         answer: (name) =>
-          `Primeiro entendemos seu objetivo, ${name}, sua rotina e o que voce quer resolver. So depois pensamos na solucao mais adequada.`,
+          `Primeiro entendemos seu objetivo, ${name}, sua rotina e o que você quer resolver. Só depois pensamos na solução mais adequada.`,
       },
       {
         id: "custom-size",
         question: "Precisa ser um projeto grande para valer a pena?",
         answer: (name) =>
-          `Nao. Muitas vezes um ajuste bem pensado ou uma solucao mais enxuta ja resolve uma dor importante e traz resultado rapido.`,
+          `Não. Muitas vezes um ajuste bem pensado ou uma solução mais enxuta já resolve uma dor importante e traz resultado rápido.`,
       },
       {
         id: "custom-process",
-        question: "Voces ajudam a organizar a ideia antes de desenvolver?",
+        question: "Vocês ajudam a organizar a ideia antes de desenvolver?",
         answer: (name) =>
           `Sim. Essa etapa faz parte do processo, porque ajuda a transformar uma necessidade solta em algo mais claro e viavel.`,
       },
@@ -157,7 +157,7 @@ const conversationTopics: ConversationTopic[] = [
         id: "custom-budget",
         question: "Da para conversar antes de fechar qualquer coisa?",
         answer: (name) =>
-          `Claro, ${name}. A conversa inicial existe justamente para entender seu caso e avaliar com calma o melhor caminho antes de qualquer decisao.`,
+          `Claro, ${name}. A conversa inicial existe justamente para entender seu caso e avaliar com calma o melhor caminho antes de qualquer decisão.`,
       },
     ],
   },
@@ -362,7 +362,7 @@ const AIChatSection: React.FC = () => {
     setMessages([initialBotMessage()]);
     appendUserMessage("user-name", cleanedName);
     enqueueBotReply(
-      `Prazer, ${cleanedName}. Vou te mostrar como esse atendimento pode funcionar no seu site. Primeiro, escolha o assunto que voce quer explorar.`,
+      `Prazer, ${cleanedName}. Vou te mostrar como esse atendimento pode funcionar no seu site. Primeiro, escolha o assunto que você quer explorar.`,
       { delayMs: 520 }
     );
   };
@@ -395,7 +395,7 @@ const AIChatSection: React.FC = () => {
         if (shouldShowWhatsappPrompt) {
           setHasShownWhatsappPrompt(true);
           enqueueBotReply(
-            `Se fizer sentido para voce, ${leadName.trim()}, eu tambem posso te direcionar para o WhatsApp para continuar essa conversa com a equipe.`,
+            `Se fizer sentido para você, ${leadName.trim()}, eu também posso te direcionar para o WhatsApp para continuar essa conversa com a equipe.`,
             {
               delayMs: 720,
               onComplete: () => {
@@ -451,7 +451,7 @@ const AIChatSection: React.FC = () => {
           </h2>
           
           <p className="mx-auto max-w-3xl px-4 text-base leading-7 text-muted-foreground sm:text-xl">
-            Esta demonstracao mostra, de forma simples e realista, como um agente pode iniciar a conversa, responder as duvidas mais comuns e conduzir o cliente para o proximo passo.
+            Esta demonstração mostra, de forma simples e realista, como um agente pode iniciar a conversa, responder as duvidas mais comuns e conduzir o cliente para o proximo passo.
           </p>
         </div>
 
@@ -557,7 +557,7 @@ const AIChatSection: React.FC = () => {
                         <Input
                           readOnly
                           value=""
-                          placeholder={hasStartedDemo ? "Escolha uma pergunta ao lado" : "Digite seu nome para comecar"}
+                          placeholder={hasStartedDemo ? "Escolha uma pergunta ao lado" : "Digite seu nome para começar"}
                           className="h-9 flex-1 rounded-full border-slate-600 bg-slate-700 text-xs text-white placeholder:text-slate-400 sm:h-10 sm:text-sm"
                         />
                         <Button size="icon" disabled className="h-9 w-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 opacity-70 sm:h-10 sm:w-10">
@@ -595,7 +595,7 @@ const AIChatSection: React.FC = () => {
                       {selectedTopic ? "Perguntas sobre esse assunto" : "Escolha o assunto"}
                     </p>
                     <span className="text-[11px] text-slate-500">
-                      {selectedTopic ? `${visibleQuestions.length} opcoes` : `${conversationTopics.length} temas`}
+                      {selectedTopic ? `${visibleQuestions.length} opções` : `${conversationTopics.length} temas`}
                     </span>
                   </div>
 
@@ -654,7 +654,7 @@ const AIChatSection: React.FC = () => {
                       className="h-11 rounded-full border-white/10 bg-white/5 text-white placeholder:text-slate-400"
                     />
                     <Button className="rounded-full bg-primary px-6 text-primary-foreground hover:bg-primary/90" onClick={startDemoWithName} disabled={!nameInput.trim() || isTyping}>
-                      Comecar demonstracao
+                      Começar demonstração
                     </Button>
                     </div>
                 </>

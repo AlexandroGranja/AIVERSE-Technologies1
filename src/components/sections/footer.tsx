@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
   const socialLinks = [
     { icon: Instagram, href: "https://www.instagram.com/aiversetech_oficial/", label: "Instagram" },
     { icon: MessageCircle, href: "https://wa.me/5521996062455?text=Olá,%20vim%20pelo%20site!", label: "WhatsApp" },
-    { icon: Mail, href: "mailto:technologiesaiverse@gmail.com", label: "Email" }
+    { icon: Mail, href: "mailto:technologiesaiverse@gmail.com", label: "E-mail" }
   ];
 
   return (
@@ -37,7 +37,7 @@ export const Footer: React.FC = () => {
               rel="noopener noreferrer"
               className="text-primary transition-colors hover:text-primary/80 hover:underline"
             >
-              Alexandro
+              Alexandro Granja
             </a>
             .
           </p>
