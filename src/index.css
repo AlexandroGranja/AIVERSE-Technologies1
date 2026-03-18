@@ -147,10 +147,9 @@ All colors MUST be HSL.
     letter-spacing: -0.05em;
   }
 
-  /* Garantir que containers não excedam a largura da tela */
-  .container, .max-w-7xl, .max-w-6xl, .max-w-5xl {
+  /* Evita overflow horizontal sem cortar elementos interativos */
+  .container {
     max-width: 100vw;
-    overflow-x: hidden;
   }
 
   /* Neural Network Animation */
