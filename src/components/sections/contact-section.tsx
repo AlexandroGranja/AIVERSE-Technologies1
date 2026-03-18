@@ -13,7 +13,7 @@ export const ContactSection: React.FC = () => {
   const contactInfo = [
     {
       icon: Mail,
-      title: "Email",
+      title: "E-mail",
       content: emailAddress,
       description: "Ideal para propostas e contatos comerciais",
       actionLabel: "Enviar e-mail",
