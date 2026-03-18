@@ -64,7 +64,7 @@ export const ContactSection: React.FC = () => {
           </h2>
 
           <p className="mx-auto max-w-3xl text-lg text-muted-foreground md:text-xl">
-            Se quiser tirar uma duvida, pedir um orçamento ou conversar sobre o seu projeto, estes sao os canais mais diretos para falar com a gente.
+          Se quiser tirar uma dúvida, pedir um orçamento ou conversar sobre o seu projeto, esses são os canais mais diretos para falar com a gente.
           </p>
         </div>
 
