@@ -37,6 +37,7 @@ const projects = [
     shortDescription: "Plataforma promocional com painel, segurança e operação em produção",
     image: fortaoPremiosImage,
     liveUrl: "https://xn--fortoprmios-c8a8g.com.br/",
+    githubUrl: "https://github.com/AlexandroGranja/fortao-premios",
     technologies: ["Next.js", "React", "Supabase", "Redis", "Tailwind CSS"],
     features: [
       "Área pública para campanhas e vendas",
@@ -659,12 +660,12 @@ export const ProjectsSection: React.FC = () => {
                                 <ExternalLink className="ml-2 h-4 w-4" />
                               </Button>
                             )}
-                            {!project.liveUrl && project.githubUrl && (
+                            {project.githubUrl && (
                               <Button size="sm" variant="outline" className="border-primary/35 hover:border-primary/55 hover:bg-primary/10" onClick={() => window.open(project.githubUrl, "_blank")}>
-                                Ver referência
+                                Ver no GitHub
                                 <Github className="ml-2 h-4 w-4" />
                               </Button>
-                    )}
+                            )}
                   </div>
                 </CardContent>
                       </div>
